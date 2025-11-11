@@ -7,6 +7,8 @@ defmodule FirstPhoenixApiWeb.Router do
 
   scope "/api", FirstPhoenixApiWeb do
     pipe_through :api
+
+    resources "/users", UserController, only: [:index, :show, :create, :update, :delete] # これを追加
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
