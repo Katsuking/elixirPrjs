@@ -17,7 +17,7 @@ defmodule FirstStepWeb.Router do
   scope "/", FirstStepWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", HomeController, :hello
   end
 
   # Other scopes may use custom stacks.
