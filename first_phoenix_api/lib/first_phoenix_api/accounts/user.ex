@@ -14,5 +14,6 @@ defmodule FirstPhoenixApi.Accounts.User do
     user
     |> cast(attrs, [:name, :email])
     |> validate_required([:name, :email])
+    |>  validate_length(:name, min: 3)
   end
 end
