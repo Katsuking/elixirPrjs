@@ -5,10 +5,11 @@ defmodule HelloWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", HelloWeb do
+  scope "/", HelloWeb do
     pipe_through :api
 
-    get "/ping", PingController, :index # routingの追加
+    get "/ping", Ping.PingController, :index # routingの追加
+    get "/ping/:id", Ping.PingController, :show # url param を取得
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
