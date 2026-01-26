@@ -1,7 +1,7 @@
 .PHONY: dev
 
 DB := 'postgres'
-PHOENIX_API := 'first_phoenix_api'
+PHOENIX_API := 'aaaaa'
 
 # 開発サーバー立ち上げ
 dev:

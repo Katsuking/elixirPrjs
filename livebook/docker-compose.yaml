@@ -1,0 +1,17 @@
+services:
+  livebook:
+    image: ghcr.io/livebook-dev/livebook:0.18.3
+    container_name: livebook_dev
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+      - "8086:8086"
+    volumes:
+      - livebook_data:/data
+    environment:
+      - LIVEBOOK_PASSWORD=securesecret
+      - LIVEBOOK_HOME=/data
+    restart: unless-stopped
+
+volumes:
+  livebook_data:
