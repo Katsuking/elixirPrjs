@@ -7,6 +7,8 @@ defmodule HelloWeb.Router do
 
   scope "/api", HelloWeb do
     pipe_through :api
+
+    get "/ping", PingController, :index # routingの追加
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
