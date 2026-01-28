@@ -10,6 +10,8 @@ defmodule HelloWeb.Router do
 
     get "/ping", Ping.PingController, :index # routingの追加
     get "/ping/:id", Ping.PingController, :show # url param を取得
+
+    get "/sample", Sample.SampleController, :index
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

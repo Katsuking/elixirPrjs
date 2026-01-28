@@ -56,3 +56,32 @@ mix phx.new first_phoenix_api --no-html --no-assets --no-live
 auth とかも組み込みであるみたい
 
 [phoenix](https://phoenixframework.org/)
+
+### migrate file
+
+```sh
+mix ecto.gen.migration create_posts
+```
+
+これがマイグレーションファイルにあたる
+
+```elixir
+defmodule Hello.Repo.Migrations.CreatePosts do
+  use Ecto.Migration
+
+  def change do
+    create table(:posts) do
+      add :title, :string
+      add :body, :text
+
+      timestamps() # inserted_at と updated_at が自動追加されます
+    end
+  end
+end
+```
+
+以下、migrateコマンド
+
+```sh
+mix ecto.migrate
+```
