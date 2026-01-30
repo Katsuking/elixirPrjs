@@ -12,6 +12,8 @@ defmodule HelloWeb.Router do
     get "/ping/:id", Ping.PingController, :show # url param を取得
 
     get "/sample", Sample.SampleController, :index
+
+    resources "/notices", NoticeController, except: [:new, :edit] # [:new, :edit] はAPIには不要なので除外
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

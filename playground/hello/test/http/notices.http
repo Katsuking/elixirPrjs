@@ -1,0 +1,23 @@
+@BASE_URL = http://localhost:4000
+
+# Authorization: Bearer
+### notices
+
+{{
+  exports.tomorrow = Math.floor(new Date().setHours(36,0,0,0) / 1000);
+}}
+POST {{BASE_URL}}/notices
+Content-Type: application/json
+Accept: application/json
+{
+  "notice": {
+    "title": "elixir",
+    "content": "World",
+    "published_at": "2026-01-29T13:00:00Z"
+  }
+}
+
+### notices get
+
+GET {{BASE_URL}}/notices
+Accept: application/json

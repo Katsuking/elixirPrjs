@@ -85,3 +85,9 @@ end
 ```sh
 mix ecto.migrate
 ```
+
+### テーブル作成に あわせてファイル生成
+
+```sh
+mix phx.gen.json Announcements Notice notices title:string content:text published_at:utc_datetime
+```
