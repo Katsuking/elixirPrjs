@@ -18,6 +18,8 @@ defmodule HelloLiveviewWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    live "/counter", CounterLive
+    live "/counter2", CounterLive2
   end
 
   # Other scopes may use custom stacks.
