@@ -1,5 +1,6 @@
 defmodule HelloLiveviewWeb.CounterLive do
   use HelloLiveviewWeb, :live_view
+  import HelloLiveviewWeb.CoreComponents
 
   # 1. 初期状態の設定 (mount)
   @spec mount(any(), any(), map()) :: {:ok, map()}
@@ -17,9 +18,9 @@ defmodule HelloLiveviewWeb.CounterLive do
         増やす (+1)
       </.button>
 
-      <form phx-submit="add" phx-change="validate" class="mt-8">
+      <form phx-submit="add" phx-change="validate" class="mt-8" novalidate>
         <%!-- <input type="number" name="number_input" value={@val} /> --%>
-        <.input type="number" name="number_input" value={@val} label="加算する数字を入力" />
+        <.input type="number" name="number_input" value={@val} label="加算する数字を入力" errors={[]} />
         <button class="bg-green-500 text-white px-4 py-2 rounded ml-2">
         加算する
       </button>
