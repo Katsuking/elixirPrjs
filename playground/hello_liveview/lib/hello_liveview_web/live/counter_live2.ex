@@ -47,6 +47,9 @@ defmodule HelloLiveviewWeb.CounterLive2 do
           </li>
         <% end %>
       </div>
+      <%!-- 1. フラッシュメッセージを表示するエリアを追加 --%>
+    <p class="text-blue-600 font-bold"><%= Phoenix.Flash.get(@flash, :info) %></p>
+    <p class="text-red-600 font-bold"><%= Phoenix.Flash.get(@flash, :error) %></p>
     </div>
     """
   end
@@ -61,16 +64,25 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   end
 
   def handle_event("add",   %{"form_sample" => %{"number_input" => val}}, socket) do
-    # 重要：val は文字列なので String.to_integer で数値に変換する
+    Process.send_after(self(), :clear_flash, 3000) # 3秒後（3000ミリ秒後）に、自分自身(self())に :clear_flash というメッセージを送る予約
     case Integer.parse(val) do
       {input_num, _} ->
         {:noreply, socket
           |> update(:count, &(&1 + input_num))
+          |> put_flash(:info, "#{input_num} を足しました！") # たったこれだけでフラッシュメッセージを出せる
           |> update(:history, fn h -> [input_num | h] end)
           |> assign(form: create_form(%{number_input: 0}))
         }
         :error -> {:noreply, socket}
     end
   end
+
+  @doc """
+  Process.send_after(self(), :clear_flash, 3000) で3秒後に実行される処理
+  """
+  def handle_info(:clear_flash, socket) do
+    # ここで実際に「消去」の処理を指示している
+    {:noreply, clear_flash(socket)}
+end
 
 end
