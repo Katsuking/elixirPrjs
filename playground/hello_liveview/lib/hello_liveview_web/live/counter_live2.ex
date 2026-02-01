@@ -6,8 +6,20 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   def mount(_params, _session, socket) do
     # {:ok, assign(socket, [count: 0, val: 1])}
     # formの場合はまとめて、formで渡すのがphoenix流
-    form = to_form(%{"number_input" => 1})
+    form = create_form(%{"number_input" => 1})
     {:ok, assign(socket, count: 0, form: form, history: [])}
+  end
+
+  @form_schema %{number_input: :integer}
+
+  @doc """
+  formの入力値に対して、バリデーションを かける
+  """
+  defp create_form(params) do
+    {%{}, @form_schema}
+    |> Ecto.Changeset.cast(params, [:number_input])
+    |> Ecto.Changeset.validate_required([:number_input])
+    |> to_form(as: :form_sample)
   end
 
   # 2. 画面の表示 (render)
@@ -44,19 +56,21 @@ defmodule HelloLiveviewWeb.CounterLive2 do
     {:noreply, update(socket, :count, &(&1 + 1))}
   end
 
-  def handle_event("validate", %{"number_input" => val}, socket) do
-    {:noreply, assign(socket, form: to_form(%{"number_input" => val}))}
+  def handle_event("validate", %{"form_sample" => %{"number_input" => val}}, socket) do
+    {:noreply, assign(socket, form: create_form(%{number_input: val}))}
   end
 
-  def handle_event("add", %{"number_input" => val}, socket) do
+  def handle_event("add",   %{"form_sample" => %{"number_input" => val}}, socket) do
     # 重要：val は文字列なので String.to_integer で数値に変換する
-    input_num = String.to_integer(val)
-    {:noreply,
-      socket
-      |> update(:count, &(&1 + input_num)) # update(socket, :count, fn current_value -> current_value + input_num end)
-      |> update(:history, fn h -> [ input_num | h ] end)
-      |> assign(form: to_form(%{"number_input" => 0})) # 送信後は0に戻す例
-    }
+    case Integer.parse(val) do
+      {input_num, _} ->
+        {:noreply, socket
+          |> update(:count, &(&1 + input_num))
+          |> update(:history, fn h -> [input_num | h] end)
+          |> assign(form: create_form(%{number_input: 0}))
+        }
+        :error -> {:noreply, socket}
+    end
   end
 
 end
