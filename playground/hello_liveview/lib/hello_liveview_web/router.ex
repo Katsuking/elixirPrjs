@@ -20,6 +20,7 @@ defmodule HelloLiveviewWeb.Router do
     get "/", PageController, :home
     live "/counter", CounterLive
     live "/counter2", CounterLive2
+    live "/stats", StatsLive
   end
 
   # Other scopes may use custom stacks.

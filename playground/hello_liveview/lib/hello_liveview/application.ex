@@ -12,6 +12,7 @@ defmodule HelloLiveview.Application do
       HelloLiveview.Repo,
       {DNSCluster, query: Application.get_env(:hello_liveview, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: HelloLiveview.PubSub},
+      HelloLiveviewWeb.Presence,
       # Start a worker by calling: HelloLiveview.Worker.start_link(arg)
       # {HelloLiveview.Worker, arg},
       # Start to serve requests, typically the last entry
