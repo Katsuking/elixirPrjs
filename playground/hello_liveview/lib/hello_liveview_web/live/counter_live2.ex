@@ -4,6 +4,10 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   # 1. 初期状態の設定 (mount)
   @spec mount(any(), any(), map()) :: {:ok, map()}
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(HelloLiveview.PubSub, "counter_update")
+    end
+
     # {:ok, assign(socket, [count: 0, val: 1])}
     # formの場合はまとめて、formで渡すのがphoenix流
     form = create_form(%{"number_input" => 1})
@@ -67,6 +71,9 @@ defmodule HelloLiveviewWeb.CounterLive2 do
     Process.send_after(self(), :clear_flash, 3000) # 3秒後（3000ミリ秒後）に、自分自身(self())に :clear_flash というメッセージを送る予約
     case Integer.parse(val) do
       {input_num, _} ->
+        new_count = socket.assigns.count + input_num
+        Phoenix.PubSub.broadcast(HelloLiveview.PubSub, "counter_update", {:count_update, new_count, input_num})
+
         {:noreply, socket
           |> update(:count, &(&1 + input_num))
           |> put_flash(:info, "#{input_num} を足しました！") # たったこれだけでフラッシュメッセージを出せる
@@ -83,6 +90,12 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   def handle_info(:clear_flash, socket) do
     # ここで実際に「消去」の処理を指示している
     {:noreply, clear_flash(socket)}
-end
+  end
+
+  def handle_info({:count_update, new_count, input_num}, socket) do
+    {:noreply, socket
+      |> assign(count: new_count)
+    }
+  end
 
 end
