@@ -2,6 +2,8 @@ defmodule HelloLiveviewWeb.CounterLive do
   use HelloLiveviewWeb, :live_view
   import HelloLiveviewWeb.CoreComponents
 
+  alias HelloLiveviewWeb.Components.SampleComponent
+
   # 1. 初期状態の設定 (mount)
   @spec mount(any(), any(), map()) :: {:ok, map()}
   def mount(_params, _session, socket) do
@@ -25,6 +27,10 @@ defmodule HelloLiveviewWeb.CounterLive do
         加算する
       </button>
       </form>
+
+      <div>
+        <.live_component module={SampleComponent} id="test-sample" score={@count} />
+      </div>
     </div>
     """
   end
@@ -35,7 +41,11 @@ defmodule HelloLiveviewWeb.CounterLive do
   end
 
   def handle_event("validate", %{"number_input" => val}, socket) do
-    {:noreply, assign(socket, :val, String.to_integer(val))}
+    new_val = case Integer.parse(val) do
+      {num, _} -> num
+      :error ->+ 0
+    end
+    {:noreply, assign(socket, :val, new_val)}
   end
 
   def handle_event("add", _params, socket) do

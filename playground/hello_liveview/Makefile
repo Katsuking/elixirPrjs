@@ -8,6 +8,9 @@ docker:
 dev: docker
 	mix phx.server
 
+down:
+	docker compose -f ${COMPOSE_FILE} down
+
 migrate: docker
 	mix ecto.migrate
 
