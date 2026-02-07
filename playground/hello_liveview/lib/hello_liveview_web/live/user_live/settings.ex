@@ -24,7 +24,7 @@ defmodule HelloLiveviewWeb.UserLive.Settings do
           autocomplete="username"
           required
         />
-        <.button variant="primary" phx-disable-with="Changing...">Change Email</.button>
+        <.button variant="primary" phx-disable-with="更新中...">メールアドレスを変更する</.button>
       </.form>
 
       <div class="divider" />
@@ -59,7 +59,7 @@ defmodule HelloLiveviewWeb.UserLive.Settings do
           autocomplete="new-password"
         />
         <.button variant="primary" phx-disable-with="Saving...">
-          Save Password
+          パスワードを保存する
         </.button>
       </.form>
     </Layouts.app>
@@ -71,10 +71,11 @@ defmodule HelloLiveviewWeb.UserLive.Settings do
     socket =
       case Accounts.update_user_email(socket.assigns.current_scope.user, token) do
         {:ok, _user} ->
-          put_flash(socket, :info, "Email changed successfully.")
+          put_flash(socket, :info, "メールアドレスが正しく更新されました。")
 
         {:error, _} ->
           put_flash(socket, :error, "Email change link is invalid or it has expired.")
+          put_flash(socket, :error, "メールアドレス変更のためのリンクが正しくないか、失効しました。")
       end
 
     {:ok, push_navigate(socket, to: ~p"/users/settings")}
@@ -121,7 +122,7 @@ defmodule HelloLiveviewWeb.UserLive.Settings do
           &url(~p"/users/settings/confirm-email/#{&1}")
         )
 
-        info = "A link to confirm your email change has been sent to the new address."
+        info = "メールアドレス変更の確認メールを送信しました。ご確認下さい。"
         {:noreply, socket |> put_flash(:info, info)}
 
       changeset ->
