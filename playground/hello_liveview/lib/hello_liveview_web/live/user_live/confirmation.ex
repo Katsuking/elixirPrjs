@@ -25,13 +25,13 @@ defmodule HelloLiveviewWeb.UserLive.Confirmation do
           <.button
             name={@form[:remember_me].name}
             value="true"
-            phx-disable-with="Confirming..."
+            phx-disable-with="確認中..."
             class="btn btn-primary w-full"
           >
-            Confirm and stay logged in
+            ログインしたままにする
           </.button>
-          <.button phx-disable-with="Confirming..." class="btn btn-primary btn-soft w-full mt-2">
-            Confirm and log in only this time
+          <.button phx-disable-with="確認中..." class="btn btn-primary btn-soft w-full mt-2">
+            今回だけログイン
           </.button>
         </.form>
 
@@ -65,7 +65,7 @@ defmodule HelloLiveviewWeb.UserLive.Confirmation do
         </.form>
 
         <p :if={!@user.confirmed_at} class="alert alert-outline mt-8">
-          Tip: If you prefer passwords, you can enable them in the user settings.
+          ヒント: もしパスワードを利用したい場合は、設定で有効化できます。
         </p>
       </div>
     </Layouts.app>
@@ -82,7 +82,7 @@ defmodule HelloLiveviewWeb.UserLive.Confirmation do
     else
       {:ok,
        socket
-       |> put_flash(:error, "Magic link is invalid or it has expired.")
+       |> put_flash(:error, "リンクがただしくないか、期限が切れています")
        |> push_navigate(to: ~p"/users/log-in")}
     end
   end
