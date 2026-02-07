@@ -82,7 +82,7 @@ defmodule HelloLiveviewWeb.UserLive.Confirmation do
     else
       {:ok,
        socket
-       |> put_flash(:error, "リンクがただしくないか、期限が切れています")
+       |> put_flash(:error, "リンクが正しくないか、期限が切れています")
        |> push_navigate(to: ~p"/users/log-in")}
     end
   end

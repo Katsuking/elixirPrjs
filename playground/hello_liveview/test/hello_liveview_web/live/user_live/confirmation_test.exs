@@ -73,7 +73,7 @@ defmodule HelloLiveviewWeb.UserLive.ConfirmationTest do
         live(conn, ~p"/users/log-in/#{token}")
         |> follow_redirect(conn, ~p"/users/log-in")
 
-      assert html =~ "リンクがただしくないか、期限が切れています"
+      assert html =~ "リンクが正しくないか、期限が切れています"
     end
 
     test "logs confirmed user in without changing confirmed_at", %{
@@ -104,7 +104,7 @@ defmodule HelloLiveviewWeb.UserLive.ConfirmationTest do
         live(conn, ~p"/users/log-in/#{token}")
         |> follow_redirect(conn, ~p"/users/log-in")
 
-      assert html =~ "リンクがただしくないか、期限が切れています"
+      assert html =~ "リンクが正しくないか、期限が切れています"
     end
 
     test "raises error for invalid token", %{conn: conn} do
@@ -112,7 +112,7 @@ defmodule HelloLiveviewWeb.UserLive.ConfirmationTest do
         live(conn, ~p"/users/log-in/invalid-token")
         |> follow_redirect(conn, ~p"/users/log-in")
 
-      assert html =~ "リンクがただしくないか、期限が切れています"
+      assert html =~ "リンクが正しくないか、期限が切れています"
     end
   end
 end
