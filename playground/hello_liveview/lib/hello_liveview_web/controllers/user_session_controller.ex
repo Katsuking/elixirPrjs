@@ -56,12 +56,12 @@ defmodule HelloLiveviewWeb.UserSessionController do
 
     conn
     |> put_session(:user_return_to, ~p"/users/settings")
-    |> create(params, "Password updated successfully!")
+    |> create(params, "パスワードは正しく更新されました!!")
   end
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "Logged out successfully.")
+    |> put_flash(:info, "ログアウトしました。")
     |> UserAuth.log_out_user()
   end
 end

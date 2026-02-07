@@ -10,16 +10,16 @@ defmodule HelloLiveviewWeb.UserLive.Login do
       <div class="mx-auto max-w-sm space-y-4">
         <div class="text-center">
           <.header>
-            <p>Log in</p>
+            <p>ログイン</p>
             <:subtitle>
               <%= if @current_scope do %>
-                You need to reauthenticate to perform sensitive actions on your account.
+                再度認証していただく必要がございます
               <% else %>
-                Don't have an account? <.link
+                アカウントがない場合、<.link
                   navigate={~p"/users/register"}
-                  class="font-semibold text-brand hover:underline"
+                  class="font-semibold text-brand underline"
                   phx-no-format
-                >Sign up</.link> for an account now.
+                >アカウント登録</.link>
               <% end %>
             </:subtitle>
           </.header>

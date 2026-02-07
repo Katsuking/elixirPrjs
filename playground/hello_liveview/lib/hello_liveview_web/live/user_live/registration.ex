@@ -11,13 +11,13 @@ defmodule HelloLiveviewWeb.UserLive.Registration do
       <div class="mx-auto max-w-sm">
         <div class="text-center">
           <.header>
-            Register for an account
+            アカウント登録
             <:subtitle>
-              Already registered?
-              <.link navigate={~p"/users/log-in"} class="font-semibold text-brand hover:underline">
-                Log in
+              すでにアカウントを持っている場合は、
+              <.link navigate={~p"/users/log-in"} class="font-semibold text-brand underline">
+                こちら
               </.link>
-              to your account now.
+              からご自身のアカウントへ
             </:subtitle>
           </.header>
         </div>
@@ -32,8 +32,8 @@ defmodule HelloLiveviewWeb.UserLive.Registration do
             phx-mounted={JS.focus()}
           />
 
-          <.button phx-disable-with="Creating account..." class="btn btn-primary w-full">
-            Create an account
+          <.button phx-disable-with="アカウント作成中..." class="btn btn-primary w-full">
+            アカウントを作成する
           </.button>
         </.form>
       </div>
