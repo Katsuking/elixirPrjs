@@ -7,9 +7,22 @@
 # General application configuration
 import Config
 
+config :hello_liveview, :scopes,
+  user: [
+    default: true,
+    module: HelloLiveview.Accounts.Scope,
+    assign_key: :current_scope,
+    access_path: [:user, :id],
+    schema_key: :user_id,
+    schema_type: :binary_id,
+    schema_table: :users,
+    test_data_fixture: HelloLiveview.AccountsFixtures,
+    test_setup_helper: :register_and_log_in_user
+  ]
+
 config :hello_liveview,
   ecto_repos: [HelloLiveview.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime, binary_id: true]
 
 # Configure the endpoint
 config :hello_liveview, HelloLiveviewWeb.Endpoint,
