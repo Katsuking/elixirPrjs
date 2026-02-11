@@ -70,7 +70,11 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   def handle_event("add",   %{"form_sample" => %{"number_input" => val}}, socket) do
     Process.send_after(self(), :clear_flash, 3000) # 3秒後（3000ミリ秒後）に、自分自身(self())に :clear_flash というメッセージを送る予約
     case Integer.parse(val) do
-      {input_num, _} ->
+      {0, _} ->
+        {:noreply, socket
+          |> put_flash(:info, "0は追加できません")
+        }
+      {input_num, _} when input_num > 0 ->
         new_count = socket.assigns.count + input_num
         Phoenix.PubSub.broadcast(HelloLiveview.PubSub, "counter_update", {:count_update, new_count, input_num})
 
