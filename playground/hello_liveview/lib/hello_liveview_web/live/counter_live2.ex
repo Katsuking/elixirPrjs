@@ -96,7 +96,7 @@ defmodule HelloLiveviewWeb.CounterLive2 do
     {:noreply, clear_flash(socket)}
   end
 
-  def handle_info({:count_update, new_count, input_num}, socket) do
+  def handle_info({:count_update, new_count, _input_num}, socket) do
     {:noreply, socket
       |> assign(count: new_count)
     }
