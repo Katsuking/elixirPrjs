@@ -16,9 +16,7 @@ defmodule HelloLiveviewWeb.CounterLive2 do
 
   @form_schema %{number_input: :integer}
 
-  @doc """
-  formの入力値に対して、バリデーションを かける
-  """
+  # formの入力値に対して、バリデーションを かける
   defp create_form(params) do
     {%{}, @form_schema}
     |> Ecto.Changeset.cast(params, [:number_input])
