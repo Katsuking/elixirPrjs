@@ -14,4 +14,7 @@ down:
 migrate: docker
 	mix ecto.migrate
 
+migration: docker
+	mix ecto.gen.migration ${filename}
+
 
