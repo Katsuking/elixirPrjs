@@ -22,6 +22,8 @@ defmodule HelloLiveview.Accounts.UserProfile do
     |> cast(attrs, [:name, :class, :provider, :provider_id, :picture, :user_id, :avatar_image_id])
     |> validate_required([:name, :user_id])
     |> unique_constraint(:user_id)
+    |> unsafe_validate_unique(:name, HelloLiveview.Repo)
+    |> unique_constraint(:name, mesage: "このユーザー名はすでに使用されています")
   end
 
 end

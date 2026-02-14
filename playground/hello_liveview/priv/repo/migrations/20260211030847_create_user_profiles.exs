@@ -31,6 +31,7 @@ defmodule HelloLiveview.Repo.Migrations.CreateUserProfiles do
       timestamps(type: :utc_datetime)
     end
 
+    create unique_index(:user_profiles, [:name]) # 名前は一意にしたい
     create unique_index(:user_profiles, [:user_id])
     create unique_index(:user_profiles, [:provider, :provider_id]) # provider と provider_id の組み合わせで一意にするのが一般的
   end

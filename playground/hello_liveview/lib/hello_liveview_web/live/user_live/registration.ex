@@ -31,7 +31,8 @@ defmodule HelloLiveviewWeb.UserLive.Registration do
             required
             phx-mounted={JS.focus()}
           />
-
+          <.input field={@form[:name]} type="text" label="お名前" required />
+          <.input field={@form[:class]} type="select" label="区分" options={[学生: :STUDENT, フリー: :FREE]} />
           <.button phx-disable-with="アカウント作成中..." class="btn btn-primary w-full">
             アカウントを作成する
           </.button>
@@ -81,6 +82,7 @@ defmodule HelloLiveviewWeb.UserLive.Registration do
 
   def handle_event("validate", %{"user" => user_params}, socket) do
     changeset = Accounts.change_user_email(%User{}, user_params, validate_unique: false)
+    # Ecto.Changeset の :action属性に nilでなく、:validateにしてやることでエラー判定のスイッチをONにする
     {:noreply, assign_form(socket, Map.put(changeset, :action, :validate))}
   end
 
