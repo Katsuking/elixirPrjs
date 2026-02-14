@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Language: ja\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+## From Ecto.Changeset.cast/4
+msgid "can't be blank"
+msgstr "入力してください"
+
+## From Ecto.Changeset.unique_constraint/3
+msgid "has already been taken"
+msgstr "既に使用されています"
+
+## From Ecto.Changeset.put_change/3
+msgid "is invalid"
+msgstr "無効な形式です"
+
+## From Ecto.Changeset.validate_format/3
+msgid "has invalid format"
+msgstr "形式が正しくありません"
+
+## From Ecto.Changeset.validate_confirmation/3
+msgid "does not match confirmation"
+msgstr "確認用の入力と一致しません"
+
+## From Ecto.Changeset.validate_length/3
+msgid "should be %{count} character(s)"
+msgid_plural "should be %{count} character(s)"
+msgstr[0] "%{count}文字で入力してください"
+
+msgid "should be at least %{count} character(s)"
+msgid_plural "should be at least %{count} character(s)"
+msgstr[0] "%{count}文字以上で入力してください"
+
+msgid "should be at most %{count} character(s)"
+msgid_plural "should be at most %{count} character(s)"
+msgstr[0] "%{count}文字以内で入力してください"
+
+## From Ecto.Changeset.validate_number/3
+msgid "must be less than %{number}"
+msgstr "%{number}より小さい値にしてください"
+
+msgid "must be greater than %{number}"
+msgstr "%{number}より大きい値にしてください"
+
+msgid "must be equal to %{number}"
+msgstr "%{number}と等しい値にしてください"
