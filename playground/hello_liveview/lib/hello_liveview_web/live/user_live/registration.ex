@@ -55,8 +55,8 @@ defmodule HelloLiveviewWeb.UserLive.Registration do
 
   @impl true
   def handle_event("save", %{"user" => user_params}, socket) do
-    case Accounts.register_user(user_params) do
-      {:ok, user} ->
+    case Accounts.register_user_with_profile(user_params) do
+      {:ok, %{user: user}} ->
         {:ok, _} =
           Accounts.deliver_login_instructions(
             user,
@@ -71,7 +71,10 @@ defmodule HelloLiveviewWeb.UserLive.Registration do
          )
          |> push_navigate(to: ~p"/users/log-in")}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :user, %Ecto.Changeset{} = changeset, _changes_so_far} ->
+        {:noreply, assign_form(socket, changeset)}
+
+      {:error, :profile, %Ecto.Changeset{} = changeset, _changes_so_far} ->
         {:noreply, assign_form(socket, changeset)}
     end
   end

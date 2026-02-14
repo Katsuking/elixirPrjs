@@ -4,6 +4,7 @@ defmodule HelloLiveview.Accounts do
   """
 
   import Ecto.Query, warn: false
+  alias HelloLiveview.Accounts.UserProfile
   alias HelloLiveview.Repo
 
   alias HelloLiveview.Accounts.{User, UserToken, UserNotifier}
@@ -78,6 +79,20 @@ defmodule HelloLiveview.Accounts do
     %User{}
     |> User.email_changeset(attrs)
     |> Repo.insert()
+  end
+
+  def register_user_with_profile(attrs) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:user, User.email_changeset(%User{}, attrs))
+    # 作成されたUserのIDを使用して、UserProfileを作成
+    |> Ecto.Multi.insert(:profile, fn %{user: user} ->
+      UserProfile.changeset(%UserProfile{}, %{
+        user_id: user.id,
+        name: attrs["name"] || attrs[:name] || "名前未設定",
+        class: attrs["class"] || attrs[:class] || :STUDENT
+      })
+    end)
+    |> Repo.transact()
   end
 
   ## Settings

@@ -40,7 +40,7 @@ defmodule HelloLiveview.Accounts.User do
       )
       |> validate_length(:email, max: 160)
 
-    if Keyword.get(opts, :validate_unique, true) do
+    if Keyword.get(opts, :validate_unique, true) do # opts という箱の中から :validate_unique という設定を探し、なければ true とみなす
       changeset
       |> unsafe_validate_unique(:email, HelloLiveview.Repo)
       |> unique_constraint(:email)

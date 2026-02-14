@@ -23,7 +23,7 @@ defmodule HelloLiveview.Repo.Migrations.CreateUserProfiles do
       add :user_id, references(:users, type: :binary_id, on_delete: :delete_all), null: false
       add :avatar_image_id, references(:static_files, type: :binary_id, on_delete: :nilify_all)
       add :name, :string, null: false
-      add :class, :user_class, default: "STUDENT", null: false
+      add :class, :user_class, default: "FREE", null: false
       add :provider, :string
       add :provider_id, :string
       add :picture, :string
