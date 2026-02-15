@@ -6,17 +6,18 @@
   preserveAspectRatio="xMidYMid slice"
   xmlns="http://www.w3.org/2000/svg"
 >
-  <rect width="1080" height="1920" fill="#0F172A" />
-
   <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
     <pattern id="dotGrid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="1.5" fill="#60A5FA" fill-opacity="0.1" />
     </pattern>
   </defs>
-  <rect width="1080" height="1920" fill="url(#dotGrid)" />
+  <rect width="1080" height="1920" fill="url(#bgGradient)" />
 
-  <path d="M0 1920 V 1400 Q 540 1150, 1080 1500 V 1920 H 0 Z" fill="#1E3A8A" fill-opacity="0.5" />
-  <path d="M-50 1920 V 1600 Q 400 1350, 1130 1750 V 1920 H -50 Z" fill="#3B82F6" fill-opacity="0.2" />
+  <rect width="1080" height="1920" fill="url(#dotGrid)" />
 
   <g stroke="#60A5FA" stroke-opacity="0.12" stroke-width="2" fill="none">
     <circle cx="200" cy="600" r="40" stroke-width="3" /> <circle cx="900" cy="1100" r="25" /> <circle cx="100" cy="1500" r="15" />
