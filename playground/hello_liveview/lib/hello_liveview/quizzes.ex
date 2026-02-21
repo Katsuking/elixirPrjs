@@ -85,4 +85,20 @@ defmodule HelloLiveview.Quizzes do
     })
     |> Repo.update()
   end
+
+  @doc """
+  Returns recent quiz attempts for a user.
+  """
+  def list_recent_user_attempts(user_id, limit \\ 5) do
+    import Ecto.Query
+
+    from(a in QuizAttempt,
+      where: a.user_id == ^user_id,
+      where: not is_nil(a.completed_at),
+      order_by: [desc: a.completed_at],
+      limit: ^limit,
+      preload: [:quiz_set]
+    )
+    |> Repo.all()
+  end
 end

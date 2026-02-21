@@ -6,7 +6,18 @@ defmodule HelloLiveviewWeb.HomeLive do
   @impl true
   def mount(_params, _session, socket) do
     quiz_sets = Quizzes.list_quiz_sets()
-    {:ok, assign(socket, :quiz_sets, quiz_sets)}
+
+    recent_attempts =
+      if socket.assigns[:current_scope] && socket.assigns.current_scope.user do
+        Quizzes.list_recent_user_attempts(socket.assigns.current_scope.user.id)
+      else
+        []
+      end
+
+    {:ok,
+     socket
+     |> assign(:quiz_sets, quiz_sets)
+     |> assign(:recent_attempts, recent_attempts)}
   end
 
   @impl true
@@ -34,6 +45,28 @@ defmodule HelloLiveviewWeb.HomeLive do
           <% end %>
         </div>
       </div>
+
+      <%= if @recent_attempts != [] do %>
+        <div class="mt-8 bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-sm border border-zinc-100 dark:border-zinc-700">
+          <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">最近の成績</h2>
+
+          <div class="mt-6 space-y-4">
+            <%= for attempt <- @recent_attempts do %>
+              <div class="p-4 border border-zinc-200 dark:border-zinc-700 rounded-lg flex justify-between items-center bg-zinc-50 dark:bg-zinc-900/50">
+                <div>
+                  <h3 class="font-semibold text-zinc-900 dark:text-zinc-100"><%= attempt.quiz_set.title %></h3>
+                  <p class="text-sm text-zinc-500 dark:text-zinc-400">
+                    <%= Calendar.strftime(attempt.completed_at, "%Y/%m/%d %H:%M") %> に完了
+                  </p>
+                </div>
+                <div class="text-xl font-bold text-blue-600 dark:text-blue-400">
+                  スコア: <%= attempt.score %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
     """
   end
