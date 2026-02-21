@@ -24,6 +24,8 @@ defmodule HelloLiveviewWeb.Router do
     live "/counter", CounterLive
     live "/counter2", CounterLive2
     live "/stats", StatsLive
+    live "/quizzes", HomeLive, :index
+    live "/quizzes/:id", QuizLive.Show, :show
   end
 
   # Other scopes may use custom stacks.
