@@ -24,9 +24,8 @@ defmodule HelloLiveviewWeb.Router do
     live "/counter", CounterLive
     live "/counter2", CounterLive2
     live "/stats", StatsLive
-    live "/quizzes", HomeLive, :index
-    live "/quizzes/:id", QuizLive.Show, :show
   end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", HelloLiveviewWeb do
@@ -59,10 +58,15 @@ defmodule HelloLiveviewWeb.Router do
       on_mount: [{HelloLiveviewWeb.UserAuth, :require_authenticated}] do
       live "/users/settings", UserLive.Settings, :edit
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+      # Quiz routes require authentication
+      live "/quizzes", HomeLive, :index
+      live "/quizzes/:id", QuizLive.Show, :show
     end
 
     post "/users/update-password", UserSessionController, :update_password
   end
+
 
   scope "/", HelloLiveviewWeb do
     pipe_through [:browser]

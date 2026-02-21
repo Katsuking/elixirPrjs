@@ -6,10 +6,17 @@ defmodule HelloLiveviewWeb.QuizLive.Show do
   @impl true
   def mount(%{"id" => id}, _session, socket) do
     quiz_set = Quizzes.get_quiz_set_with_questions!(id)
+    current_user = socket.assigns.current_scope.user
+
+    {:ok, attempt} = Quizzes.create_quiz_attempt(%{
+      user_id: current_user.id,
+      quiz_set_id: quiz_set.id
+    })
 
     {:ok,
      socket
      |> assign(:quiz_set, quiz_set)
+     |> assign(:attempt, attempt)
      |> assign(:current_question_index, 0)
      |> assign(:selected_option_id, nil)
      |> assign(:show_explanation, false)}
@@ -22,6 +29,13 @@ defmodule HelloLiveviewWeb.QuizLive.Show do
 
   @impl true
   def handle_event("submit", _, socket) do
+    # Save the answer to DB
+    attempt = socket.assigns.attempt
+    current_question = Enum.at(socket.assigns.quiz_set.questions, socket.assigns.current_question_index)
+    selected_option_id = socket.assigns.selected_option_id
+
+    Quizzes.save_user_answer(attempt.id, current_question.id, selected_option_id)
+
     {:noreply, assign(socket, :show_explanation, true)}
   end
 
@@ -38,9 +52,13 @@ defmodule HelloLiveviewWeb.QuizLive.Show do
        |> assign(:show_explanation, false)}
     else
       # Quiz finished
+      {:ok, final_attempt} = Quizzes.complete_quiz_attempt(socket.assigns.attempt)
+
+      score_text = "#{final_attempt.score} / #{length(quiz_set.questions)}"
+
       {:noreply,
        socket
-       |> put_flash(:info, "クイズ完了！お疲れ様でした。")
+       |> put_flash(:info, "クイズ完了！お疲れ様でした。正解数: #{score_text}")
        |> redirect(to: ~p"/quizzes")}
     end
   end
