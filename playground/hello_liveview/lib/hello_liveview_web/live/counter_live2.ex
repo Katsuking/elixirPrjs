@@ -4,13 +4,16 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   # 1. 初期状態の設定 (mount)
   @spec mount(any(), any(), map()) :: {:ok, map()}
   def mount(_params, _session, socket) do
+    # クライアントとのWebSocket接続が確立したか確認
     if connected?(socket) do
+      # これにより、他のブラウザで値が更新された場合もリアルタイムで検知・反映できるようになります
       Phoenix.PubSub.subscribe(HelloLiveview.PubSub, "counter_update")
     end
 
     # {:ok, assign(socket, [count: 0, val: 1])}
     # formの場合はまとめて、formで渡すのがphoenix流
     form = create_form(%{"number_input" => 1})
+    # 状態（アサイン）の初期設定（カウント: 0, フォーム状態, 履歴: 空）
     {:ok, assign(socket, count: 0, form: form, history: [])}
   end
 
@@ -19,8 +22,10 @@ defmodule HelloLiveviewWeb.CounterLive2 do
   # formの入力値に対して、バリデーションを かける
   defp create_form(params) do
     {%{}, @form_schema}
+    # 入力されたパラメータをキャストし、必須入力チェックをかける
     |> Ecto.Changeset.cast(params, [:number_input])
     |> Ecto.Changeset.validate_required([:number_input])
+    # テンプレート（HTML）で扱えるフォームオブジェクトに変換する
     |> to_form(as: :form_sample)
   end
 
@@ -63,11 +68,13 @@ defmodule HelloLiveviewWeb.CounterLive2 do
 
   def handle_event("validate", %{"form_sample" => %{"number_input" => val}}, socket) do
     {:noreply, assign(socket, form: create_form(%{number_input: val}))}
+    # 入力された値でフォームを作り直し、エラーがあれば画面に即時反映します
   end
 
   def handle_event("add",   %{"form_sample" => %{"number_input" => val}}, socket) do
     Process.send_after(self(), :clear_flash, 3000) # 3秒後（3000ミリ秒後）に、自分自身(self())に :clear_flash というメッセージを送る予約
     case Integer.parse(val) do
+      # 0が入力された場合はエラーメッセージを出す
       {0, _} ->
         {:noreply, socket
           |> put_flash(:info, "0は追加できません")
@@ -77,7 +84,7 @@ defmodule HelloLiveviewWeb.CounterLive2 do
         Phoenix.PubSub.broadcast(HelloLiveview.PubSub, "counter_update", {:count_update, new_count, input_num})
 
         {:noreply, socket
-          |> update(:count, &(&1 + input_num))
+          |> update(:count, &(&1 + input_num)) # -> fn x -> x + input_num end これと同じ
           |> put_flash(:info, "#{input_num} を足しました！") # たったこれだけでフラッシュメッセージを出せる
           |> update(:history, fn h -> [input_num | h] end)
           |> assign(form: create_form(%{number_input: 0}))
