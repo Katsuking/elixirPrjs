@@ -62,9 +62,9 @@ defmodule DiaryWeb.DiaryLive do
 
   # Handle jumping to today's date
   def handle_event("go_to_today", _params, socket) do
-    today = Date.utc_today()
-    diary_items = Notebook.list_diary_items(today)
-    changeset = Notebook.change_diary_item(%DiaryItem{date: today})
+    date = Date.utc_today()
+    diary_items = Notebook.list_diary_items(date)
+    changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     {:noreply,
      socket
