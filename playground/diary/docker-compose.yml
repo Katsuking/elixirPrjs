@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    volumes:
+      - ./app:/app
+    ports:
+      - "4000:4000"
+    environment:
+      - MIX_ENV=dev
+    # 既存のDBコンテナが立ち上がっているため、depends_on は不要
+    # Start the Phoenix web server
+    command: mix phx.server
+    # Use the shared network to communicate with the DB container
+    networks:
+      - elixirprjs_default
+
+networks:
+  # Define external network created by the parent project
+  elixirprjs_default:
+    external: true
