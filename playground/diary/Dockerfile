@@ -1,6 +1,8 @@
-FROM elixir:1.20-alpine
+# Use Elixir 1.19 to match the Livebook runtime compatibility requirement (~> 1.19.0)
+FROM elixir:1.19-alpine
 
-# 必要なツール（ビルド用やPostgreSQLクライアントなど）のインストール
+
+# Install necessary build tools and git
 RUN apk add --no-cache build-base inotify-tools git
 
 WORKDIR /app

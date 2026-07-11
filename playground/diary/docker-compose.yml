@@ -1,18 +1,43 @@
 services:
   web:
     build: .
+    # Set host name with a domain suffix to satisfy Erlang FQDN requirement
+    hostname: web.local
     volumes:
       - ./app:/app
     ports:
       - "4000:4000"
     environment:
       - MIX_ENV=dev
-    # 既存のDBコンテナが立ち上がっているため、depends_on は不要
-    # Start the Phoenix web server
-    command: mix phx.server
-    # Use the shared network to communicate with the DB container
+    # The existing DB container is already up, so depends_on is not needed
+    # Start the Phoenix web server as a named Erlang node with FQDN
+    command: elixir --name diary@web.local --cookie my_secret_cookie -S mix phx.server
+    # Use the shared network to communicate with the DB container and Livebook
     networks:
-      - elixirprjs_default
+      elixirprjs_default:
+        # Add alias so other containers can resolve 'web.local' via Docker DNS
+        aliases:
+          - web.local
+
+  # Livebook service that attaches to the Phoenix node by default
+  livebook:
+    image: ghcr.io/livebook-dev/livebook:latest
+    # Set host name with a domain suffix for Livebook's own node
+    hostname: livebook.local
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - LIVEBOOK_PORT=8080
+      - LIVEBOOK_IP=0.0.0.0
+      - LIVEBOOK_COOKIE=my_secret_cookie
+      - LIVEBOOK_DEFAULT_RUNTIME=attached:diary@web.local:my_secret_cookie
+    # Connect Livebook to the same external network to resolve the 'web.local' hostname
+    networks:
+      elixirprjs_default:
+        # Add alias so other containers can resolve 'livebook.local' via Docker DNS
+        aliases:
+          - livebook.local
 
 networks:
   # Define external network created by the parent project
