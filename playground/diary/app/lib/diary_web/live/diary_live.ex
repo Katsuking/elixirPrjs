@@ -60,6 +60,21 @@ defmodule DiaryWeb.DiaryLive do
      |> stream(:diary_items, diary_items, reset: true)}
   end
 
+  # Handle jumping to today's date
+  def handle_event("go_to_today", _params, socket) do
+    today = Date.utc_today()
+    diary_items = Notebook.list_diary_items(today)
+    changeset = Notebook.change_diary_item(%DiaryItem{date: today})
+
+    {:noreply,
+     socket
+     |> assign(date: date)
+     |> assign(content_length: 0)
+     |> assign(form: to_form(changeset))
+     # Reset stream with new items
+     |> stream(:diary_items, diary_items, reset: true)}
+  end
+
   # Handle inline form validation to track characters count and errors
   def handle_event("validate", %{"diary_item" => %{"content" => content}}, socket) do
     changeset =
@@ -134,7 +149,7 @@ defmodule DiaryWeb.DiaryLive do
               </div>
 
               <!-- Date Navigator -->
-              <div class="mt-6 flex items-center justify-between gap-4">
+              <div class="mt-6 flex items-center justify-between gap-2">
                 <!-- Previous Day Button -->
                 <button
                   type="button"
@@ -156,6 +171,16 @@ defmodule DiaryWeb.DiaryLive do
                     class="w-full text-center font-bold text-slate-700 bg-white border border-slate-200 rounded-xl py-2 px-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-200 cursor-pointer"
                   />
                 </form>
+
+                <!-- Today Button -->
+                <button
+                  type="button"
+                  phx-click="go_to_today"
+                  id="today-date-btn"
+                  class="flex items-center justify-center py-2 px-4 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
+                >
+                  Today
+                </button>
 
                 <!-- Next Day Button -->
                 <button

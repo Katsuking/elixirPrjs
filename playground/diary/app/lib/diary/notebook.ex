@@ -80,9 +80,9 @@ defmodule Diary.Notebook do
     # Parse date if it's passed as a string
     parsed_date =
       case date do
-        %Date{} -> date
-        str when is_binary(str) -> Date.from_iso8601!(str)
-        _ -> nil
+        %Date{} -> date # 1. If 'date' is already a %Date{} struct, return it as is
+        str when is_binary(str) -> Date.from_iso8601!(str) # 2. If 'date' is a binary string (like "2024-12-25"), convert it to a %Date{} struct using Date.from_iso8601!/1.
+        _ -> nil # 3. For any other case, return nil
       end
 
     if parsed_date do
