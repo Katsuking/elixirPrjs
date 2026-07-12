@@ -23,6 +23,7 @@ defmodule DiaryWeb.DiaryLive do
 
     {:ok,
      socket
+     |> subscribe_to_date(date)
      |> assign(date: date)
      |> assign(content_length: 0)
      # Assign form derived from changeset
@@ -40,6 +41,7 @@ defmodule DiaryWeb.DiaryLive do
 
     {:noreply,
      socket
+     |> subscribe_to_date(date)
      |> assign(date: date)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
@@ -56,6 +58,7 @@ defmodule DiaryWeb.DiaryLive do
 
     {:noreply,
      socket
+     |> subscribe_to_date(date)
      |> assign(date: date)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
@@ -71,6 +74,7 @@ defmodule DiaryWeb.DiaryLive do
 
     {:noreply,
      socket
+     |> subscribe_to_date(today)
      |> assign(date: today)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
@@ -129,6 +133,33 @@ defmodule DiaryWeb.DiaryLive do
          socket
          |> put_flash(:error, "Failed to delete item.")}
     end
+  end
+
+  defp subscribe_to_date(socket, new_date) do
+    if connected?(socket) do
+      if old_date = socket.assigns[:date] do
+        Phoenix.PubSub.unsubscribe(Diary.PubSub, "diary:#{old_date}")
+      end
+      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{new_date}")
+    end
+    socket
+  end
+
+  @impl true
+  # Handle PubSub messages for item creation
+  def handle_info({:diary_item_created, diary_item}, socket) do
+    # Only insert if the item matches the currently viewed date
+    if diary_item.date == socket.assigns.date do
+      {:noreply, stream_insert(socket, :diary_items, diary_item)}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  @impl true
+  # Handle PubSub messages for item deletion
+  def handle_info({:diary_item_deleted, diary_item}, socket) do
+    {:noreply, stream_delete(socket, :diary_items, diary_item)}
   end
 
   @impl true

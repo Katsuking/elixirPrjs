@@ -49,6 +49,8 @@ defmodule Diary.Notebook do
       {:ok, {:error, changeset}} -> {:error, changeset}
       {:error, reason} -> {:error, reason}
     end
+    # Broadcast the change event to PubSub
+    |> broadcast_change(:diary_item_created)
   end
 
   @doc """
@@ -65,6 +67,8 @@ defmodule Diary.Notebook do
   """
   def delete_diary_item(%DiaryItem{} = diary_item) do
     Repo.delete(diary_item)
+    # Broadcast the deletion event to PubSub
+    |> broadcast_change(:diary_item_deleted)
   end
 
   @doc """
@@ -73,6 +77,13 @@ defmodule Diary.Notebook do
   def change_diary_item(%DiaryItem{} = diary_item, attrs \\ %{}) do
     DiaryItem.changeset(diary_item, attrs)
   end
+
+  # Helper inside Diary.Notebook to broadcast database changes
+  defp broadcast_change({:ok, item} = result, event) do
+    Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{item.date}", {event, item})
+    result
+  end
+  defp broadcast_change(error_or_other, _event), do: error_or_other
 
   # Helper function to get the maximum position of items for a specific date.
   # Returns 0 if no items exist.
