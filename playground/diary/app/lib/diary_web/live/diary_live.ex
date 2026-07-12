@@ -4,6 +4,9 @@ defmodule DiaryWeb.DiaryLive do
   """
   use DiaryWeb, :live_view
 
+  # Import the custom date picker component
+  import DiaryWeb.DatePickerComponent
+
   alias Diary.Notebook
   alias Diary.DiaryItem
 
@@ -148,51 +151,21 @@ defmodule DiaryWeb.DiaryLive do
                 </div>
               </div>
 
-              <!-- Date Navigator -->
-              <div class="mt-6 flex items-center justify-between gap-2">
-                <!-- Previous Day Button -->
-                <button
-                  type="button"
-                  phx-click="adjust_date"
-                  phx-value-days="-1"
-                  id="prev-date-btn"
-                  class="flex items-center justify-center p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
-                >
-                  <.icon name="hero-chevron-left" class="size-5" />
-                </button>
+              <%!-- Override the button contents using named slots --%>
+              <.date_navigator date={@date} on_change="change_date">
+                <:prev_button_content>
+                  <span class="text-xs">Prev</span>
+                </:prev_button_content>
 
-                <!-- Date Picker -->
-                <form phx-change="change_date" id="date-select-form" class="flex-grow">
-                  <input
-                    type="date"
-                    name="date"
-                    value={Date.to_iso8601(@date)}
-                    id="date-picker-input"
-                    class="w-full text-center font-bold text-slate-700 bg-white border border-slate-200 rounded-xl py-2 px-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-200 cursor-pointer"
-                  />
-                </form>
+                <:today_button_content>
+                  <span>today</span>
+                </:today_button_content>
 
-                <!-- Today Button -->
-                <button
-                  type="button"
-                  phx-click="go_to_today"
-                  id="today-date-btn"
-                  class="flex items-center justify-center py-2 px-4 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
-                >
-                  Today
-                </button>
+                <:next_button_content>
+                  <span class="text-xs">Next</span>
+                </:next_button_content>
+              </.date_navigator>
 
-                <!-- Next Day Button -->
-                <button
-                  type="button"
-                  phx-click="adjust_date"
-                  phx-value-days="1"
-                  id="next-date-btn"
-                  class="flex items-center justify-center p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
-                >
-                  <.icon name="hero-chevron-right" class="size-5" />
-                </button>
-              </div>
             </div>
 
             <!-- Diary Bullet Points List -->

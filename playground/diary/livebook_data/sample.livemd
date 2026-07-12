@@ -1,0 +1,22 @@
+<!-- livebook:{"autosave_interval_s":null} -->
+
+# try_phoenix
+
+```elixir
+# Define inputs and controls
+content_input = Kino.Input.text("Diary Content")
+date_input = Kino.Input.date("Date", default: Date.utc_today())
+
+# Buttons belong to the Kino.Control module
+submit_button = Kino.Control.button("Save Entry")
+
+# Render them in a grid layout
+Kino.Layout.grid([content_input, date_input, submit_button], columns: 1)
+
+```
+
+## Section
+
+```elixir
+### try phoenix
+```

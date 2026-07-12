@@ -27,6 +27,8 @@ services:
     ports:
       - "8080:8080"
       - "8081:8081"
+    volumes:
+      - ./livebook_data:/data
     environment:
       - LIVEBOOK_PORT=8080
       - LIVEBOOK_IP=0.0.0.0
