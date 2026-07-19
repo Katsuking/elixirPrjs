@@ -32,7 +32,7 @@ defmodule Diary.Notebook do
       # If position is not provided, find the max position for the date and add 1
       attrs =
         case attrs do
-          %{"date" => date, "position" => _} -> attrs
+          %{"date" => _date, "position" => _} -> attrs
           %{"date" => date} ->
             max_pos = get_max_position(date)
             Map.put(attrs, "position", max_pos + 1)
@@ -76,6 +76,35 @@ defmodule Diary.Notebook do
   """
   def change_diary_item(%DiaryItem{} = diary_item, attrs \\ %{}) do
     DiaryItem.changeset(diary_item, attrs)
+  end
+
+  @doc """
+  Gets the mood for a specific date.
+  """
+  def get_mood_by_date(date) do
+    Repo.get_by(Diary.Mood, date: date)
+  end
+
+  @doc """
+  Saves the mood for a specific date.
+  If the mood already exists, it is updated.
+  If the mood does not exist, it is created.
+  """
+  def save_mood(date, status) do
+    case get_mood_by_date(date) do # すでに存在するか
+      # まだmoodがなければ、新しくmoodを作成する
+      nil ->
+        %Diary.Mood{}
+        |> Diary.Mood.changeset(%{date: date, status: status})
+        |> Repo.insert()
+
+      # 既にmoodがあれば、そのmoodを更新する
+      mood ->
+        mood
+        |> Diary.Mood.changeset(%{status: status})
+        |> Repo.update()
+    end
+    |> broadcast_change(:mood_saved)
   end
 
   # Helper inside Diary.Notebook to broadcast database changes

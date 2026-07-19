@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff176"/>
+      <stop offset="0.5" stop-color="#ffc107"/>
+      <stop offset="1" stop-color="#ff8f00"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Star badge -->
+
+<path
+    d="
+    M128 15
+    L156 80
+    L226 86
+    L172 130
+    L190 200
+    L128 162
+    L66 200
+    L84 130
+    L30 86
+    L100 80
+    Z"
+    fill="url(#gold)"
+    stroke="#9a5b00"
+    stroke-width="8"
+    stroke-linejoin="round"/>
+
+  <!-- Inner star -->
+
+<path
+    d="
+    M128 55
+    L142 98
+    L188 98
+    L151 125
+    L165 170
+    L128 143
+    L91 170
+    L105 125
+    L68 98
+    L114 98
+    Z"
+    fill="#fff8dc"/>
+
+  <!-- Sparkles -->
+  <g fill="#ffffff">
+    <circle cx="55" cy="55" r="6"/>
+    <circle cx="205" cy="55" r="6"/>
+    <circle cx="220" cy="190" r="5"/>
+    <circle cx="40" cy="180" r="5"/>
+  </g>
+
+</svg>

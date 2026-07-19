@@ -20,3 +20,70 @@ Kino.Layout.grid([content_input, date_input, submit_button], columns: 1)
 ```elixir
 ### try phoenix
 ```
+
+構造体の定義はこんな感じ
+
+<!-- livebook:{"force_markdown":true} -->
+
+```elixir
+defmodule Diary.DiaryItem do
+  @moduledoc """
+  Schema definition for a single diary bullet point.
+  """
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "diary_items" do
+    # Content of the diary item, limited to 50 characters
+    field :content, :string
+    # The date this diary item belongs to
+    field :date, :date
+    # Display position for ordering items within the same day
+    field :position, :integer, default: 0
+
+    timestamps()
+  end
+
+  @doc """
+  Generates a changeset for validating and storing a diary item.
+  """
+  def changeset(diary_item, attrs \\ %{}) do
+    diary_item
+    |> cast(attrs, [:content, :date, :position])
+    |> validate_required([:content, :date])
+    # Ensure the content length does not exceed 50 characters
+    |> validate_length(:content, max: 50) # <- 50文字以上にならないように制限かけてるので注意!!
+  end
+end
+
+```
+
+以下で実際動かしてectoに慣れたい。
+
+```elixir
+alias Diary.DiaryItem
+alias Diary.Notebook
+
+# 最初は別に空の構造体を持っていてもいい
+base_item = %DiaryItem{date: ~D[2026-07-17]}
+
+# 実際にコンテンツの中身を変えてみる
+# valid_changeset = Notebook.change_diary_item(base_item, %{"content" => 1}) # 型が違うときの挙動確認
+valid_changeset = Notebook.change_diary_item(base_item, %{"content" => "Hello Livebook"})
+
+IO.inspect(valid_changeset.valid?, label: "Is valid?")
+IO.inspect(valid_changeset.changes, label: "Proposed changes")
+IO.inspect(valid_changeset.errors, label: "Validation errors")
+
+```
+
+```elixir
+# Create long content exceeding 50 characters limit
+long_content = String.duplicate("a", 51)
+# Create a changeset with invalid changes
+invalid_changeset = Notebook.change_diary_item(base_item, %{"content" => long_content})
+
+IO.inspect(invalid_changeset.valid?, label: "Is valid?")
+IO.inspect(invalid_changeset.changes, label: "Proposed changes")
+IO.inspect(invalid_changeset.errors, label: "Validation errors")
+```

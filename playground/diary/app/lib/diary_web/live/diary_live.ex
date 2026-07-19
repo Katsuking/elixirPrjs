@@ -4,8 +4,8 @@ defmodule DiaryWeb.DiaryLive do
   """
   use DiaryWeb, :live_view
 
-  # Import the custom date picker component
-  import DiaryWeb.DatePickerComponent
+  import DiaryWeb.Components.Diary.{MoodPickerComponent, MoodInfoComponent, SaveButtonComponent}
+  import DiaryWeb.DatePickerComponent # Import the custom date picker component
 
   alias Diary.Notebook
   alias Diary.DiaryItem
@@ -18,13 +18,16 @@ defmodule DiaryWeb.DiaryLive do
     # List items for today
     diary_items = Notebook.list_diary_items(date)
 
-    # Prepare an empty changeset for the form
+    mood = Notebook.get_mood_by_date(date)
+
+    # Prepare changeset for the new diary item
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     {:ok,
      socket
      |> subscribe_to_date(date)
      |> assign(date: date)
+     |> assign(mood: mood)
      |> assign(content_length: 0)
      # Assign form derived from changeset
      |> assign(form: to_form(changeset))
@@ -37,12 +40,16 @@ defmodule DiaryWeb.DiaryLive do
   def handle_event("change_date", %{"date" => date_str}, socket) do
     date = Date.from_iso8601!(date_str)
     diary_items = Notebook.list_diary_items(date)
+
+    mood = Notebook.get_mood_by_date(date)
+
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     {:noreply,
      socket
      |> subscribe_to_date(date)
      |> assign(date: date)
+     |> assign(mood: mood)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
      # Reset stream with new items
@@ -54,12 +61,16 @@ defmodule DiaryWeb.DiaryLive do
     days = String.to_integer(days_str)
     date = Date.add(socket.assigns.date, days)
     diary_items = Notebook.list_diary_items(date)
+
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
+
+    mood = Notebook.get_mood_by_date(date)
 
     {:noreply,
      socket
      |> subscribe_to_date(date)
      |> assign(date: date)
+     |> assign(mood: mood)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
      # Reset stream with new items
@@ -70,16 +81,50 @@ defmodule DiaryWeb.DiaryLive do
   def handle_event("go_to_today", _params, socket) do
     today = Date.utc_today()
     diary_items = Notebook.list_diary_items(today)
+
     changeset = Notebook.change_diary_item(%DiaryItem{date: today})
+
+    mood = Notebook.get_mood_by_date(today)
 
     {:noreply,
      socket
      |> subscribe_to_date(today)
      |> assign(date: today)
+     |> assign(mood: mood)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
      # Reset stream with new items
      |> stream(:diary_items, diary_items, reset: true)}
+  end
+
+  def handle_event("save_mood", %{"status" => status}, socket) do
+    case Notebook.save_mood(socket.assigns.date, status) do
+      {:ok, mood} ->
+        {:noreply,
+         socket
+         |> assign(mood: mood)
+         |> put_flash(:info, "Mood updated!")}
+
+      {:error, _changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to save mood.")}
+    end
+  end
+
+  def handle_event("set_mood", %{"status" => status}, socket) do
+    case Notebook.save_mood(socket.assigns.date, status) do
+      {:ok, mood} ->
+        {:noreply,
+         socket
+         |> assign(mood: mood)
+         |> put_flash(:info, "Mood updated to #{mood.status}!")}
+
+      {:error, _changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to save mood.")}
+    end
   end
 
   # Handle inline form validation to track characters count and errors
@@ -99,6 +144,7 @@ defmodule DiaryWeb.DiaryLive do
   def handle_event("save", %{"diary_item" => %{"content" => content}}, socket) do
     case Notebook.create_diary_item(%{"date" => socket.assigns.date, "content" => content}) do
       {:ok, diary_item} ->
+
         # Clear input on success
         changeset = Notebook.change_diary_item(%DiaryItem{date: socket.assigns.date})
 
@@ -160,6 +206,16 @@ defmodule DiaryWeb.DiaryLive do
   # Handle PubSub messages for item deletion
   def handle_info({:diary_item_deleted, diary_item}, socket) do
     {:noreply, stream_delete(socket, :diary_items, diary_item)}
+  end
+
+  @impl true
+  def handle_info({:mood_saved, mood}, socket) do
+    if mood.date == socket.assigns.date do
+      # 届いたメッセージ（mood）の日付が自分が今画面で見ている日付（socket.assigns.date）と一致しているか
+      {:noreply, assign(socket, mood: mood)}
+    else
+      {:noreply, socket}
+    end
   end
 
   @impl true
@@ -238,6 +294,20 @@ defmodule DiaryWeb.DiaryLive do
                   </div>
                 </div>
               </div>
+            </div>
+
+            <!-- -------------------------------------------------
+            Mood UI (glassmorphism style)
+            ------------------------------------------------- -->
+            <div class="bg-white/5 backdrop-blur-md rounded-2xl p-6 mt-8 shadow-xl border border-white/20">
+              <!-- Current mood display -->
+              <.mood_info mood={@mood} />
+              <!-- Mood picker (emoji / button) -->
+              <.mood_picker selected={@mood && @mood.status} on_set="set_mood" />
+              <!-- Save button. now named save_mood_button -->
+              <.save_mood_button
+                status_to_save={@mood && @mood.status || "good"}
+                on_set="set_mood" />
             </div>
 
             <!-- Add Entry Form Area -->
