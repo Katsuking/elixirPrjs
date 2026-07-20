@@ -1,0 +1,63 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/diary_web/components/core_components.ex:375
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr "Actions"
+
+#: lib/diary_web/components/layouts.ex:102
+#: lib/diary_web/components/layouts.ex:117
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr "Attempting to reconnect"
+
+#: lib/diary_web/components/diary/mood_picker_component.ex:32
+#, elixir-autogen, elixir-format
+msgid "Beast"
+msgstr "Beast"
+
+#: lib/diary_web/components/diary/mood_picker_component.ex:49
+#, elixir-autogen, elixir-format
+msgid "Disciplined"
+msgstr "Disciplined"
+
+#: lib/diary_web/components/diary/mood_picker_component.ex:16
+#, elixir-autogen, elixir-format
+msgid "Good"
+msgstr "Good"
+
+#: lib/diary_web/components/diary/mood_picker_component.ex:40
+#, elixir-autogen, elixir-format
+msgid "On fire"
+msgstr "On fire"
+
+#: lib/diary_web/components/layouts.ex:109
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr "Something went wrong!"
+
+#: lib/diary_web/components/diary/mood_picker_component.ex:24
+#, elixir-autogen, elixir-format
+msgid "Very good"
+msgstr "Very good!"
+
+#: lib/diary_web/components/layouts.ex:94
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr "We can't find the internet"
+
+#: lib/diary_web/components/core_components.ex:81
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr "close"

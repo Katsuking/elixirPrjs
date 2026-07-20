@@ -3,6 +3,7 @@ defmodule DiaryWeb.DiaryLive do
   LiveView for managing and displaying bullet diary items.
   """
   use DiaryWeb, :live_view
+  use Gettext, backend: DiaryWeb.Gettext
 
   import DiaryWeb.Components.Diary.{MoodPickerComponent, MoodInfoComponent, SaveButtonComponent}
   import DiaryWeb.DatePickerComponent # Import the custom date picker component
@@ -11,16 +12,15 @@ defmodule DiaryWeb.DiaryLive do
   alias Diary.DiaryItem
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    # Retrieve locale saved by the router plug (fallback to "en")
+    locale = session["locale"] || "en"
+    Gettext.put_locale(DiaryWeb.Gettext, locale)
+
     # Get today's date
     date = Date.utc_today()
-
-    # List items for today
     diary_items = Notebook.list_diary_items(date)
-
     mood = Notebook.get_mood_by_date(date)
-
-    # Prepare changeset for the new diary item
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     {:ok,
@@ -29,10 +29,16 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(date: date)
      |> assign(mood: mood)
      |> assign(content_length: 0)
-     # Assign form derived from changeset
      |> assign(form: to_form(changeset))
-     # Initialize the live stream of diary items
+     |> assign(:locale, locale)
      |> stream(:diary_items, diary_items)}
+  end
+
+  @impl true
+  def handle_params(_params, _uri, socket) do
+    # Locale already set in mount; just keep socket assign in sync
+    locale = Gettext.get_locale(DiaryWeb.Gettext)
+    {:noreply, assign(socket, :locale, locale)}
   end
 
   @impl true
