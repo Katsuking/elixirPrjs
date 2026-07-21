@@ -7,6 +7,10 @@
 # General application configuration
 import Config
 
+config :diary, DiaryWeb.Gettext,
+  default_locale: "en",
+  locales: ~w(en ja)
+
 config :diary,
   ecto_repos: [Diary.Repo],
   generators: [timestamp_type: :utc_datetime]
@@ -66,9 +70,6 @@ config :logger, :default_formatter,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :diary, DiaryWeb.Gettext,
-  default_locale: "en",
-  locales: ~w(en ja)
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
