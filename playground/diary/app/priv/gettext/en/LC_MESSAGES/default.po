@@ -8,29 +8,29 @@
 ### to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: ja\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/diary_web/components/core_components.ex:375
 #, elixir-autogen, elixir-format
 msgid "Actions"
-msgstr "Actions"
+msgstr ""
 
 #: lib/diary_web/components/layouts.ex:102
 #: lib/diary_web/components/layouts.ex:117
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
-msgstr "再接続を試みています。"
+msgstr ""
 
 #: lib/diary_web/components/diary/mood_picker_component.ex:32
 #, elixir-autogen, elixir-format
 msgid "Beast"
-msgstr "Beast mood"
+msgstr ""
 
 #: lib/diary_web/components/diary/mood_picker_component.ex:49
 #, elixir-autogen, elixir-format
 msgid "Disciplined"
-msgstr "Disciplined"
+msgstr ""
 
 #: lib/diary_web/live/diary_live.ex:117
 #: lib/diary_web/live/diary_live.ex:132
@@ -41,39 +41,39 @@ msgstr ""
 #: lib/diary_web/components/diary/mood_picker_component.ex:16
 #, elixir-autogen, elixir-format
 msgid "Good"
-msgstr "いい感じ"
+msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:
+#: lib/diary_web/live/diary_live.ex:127
 #, elixir-autogen, elixir-format
 msgid "Mood updated to %{status}!"
-msgstr "%{status} にステータスが変更されました。"
+msgstr ""
 
 #: lib/diary_web/live/diary_live.ex:112
 #, elixir-autogen, elixir-format
 msgid "Mood updated!"
-msgstr "moodを変更しました!"
+msgstr ""
 
 #: lib/diary_web/components/diary/mood_picker_component.ex:40
 #, elixir-autogen, elixir-format
 msgid "On fire"
-msgstr "On fire"
+msgstr ""
 
 #: lib/diary_web/components/layouts.ex:109
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
-msgstr "問題が発生しました。"
+msgstr ""
 
 #: lib/diary_web/components/diary/mood_picker_component.ex:24
 #, elixir-autogen, elixir-format
 msgid "Very good"
-msgstr "めっちゃええ感じ!"
+msgstr ""
 
 #: lib/diary_web/components/layouts.ex:94
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
-msgstr "インターネットに接続できません。"
+msgstr ""
 
 #: lib/diary_web/components/core_components.ex:81
 #, elixir-autogen, elixir-format
 msgid "close"
-msgstr "閉じる"
+msgstr ""

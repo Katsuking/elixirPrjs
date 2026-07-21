@@ -109,12 +109,12 @@ defmodule DiaryWeb.DiaryLive do
         {:noreply,
          socket
          |> assign(mood: mood)
-         |> put_flash(:info, "Mood updated!")}
+         |> put_flash(:info, gettext("Mood updated!"))}
 
       {:error, _changeset} ->
         {:noreply,
          socket
-         |> put_flash(:error, "Failed to save mood.")}
+         |> put_flash(:error, gettext("Failed to save mood."))}
     end
   end
 
@@ -124,12 +124,12 @@ defmodule DiaryWeb.DiaryLive do
         {:noreply,
          socket
          |> assign(mood: mood)
-         |> put_flash(:info, "Mood updated to #{mood.status}!")}
+         |> put_flash(:info, gettext("Mood updated to %{status}!", status: mood.status))}
 
       {:error, _changeset} ->
         {:noreply,
          socket
-         |> put_flash(:error, "Failed to save mood.")}
+         |> put_flash(:error, gettext("Failed to save mood."))}
     end
   end
 

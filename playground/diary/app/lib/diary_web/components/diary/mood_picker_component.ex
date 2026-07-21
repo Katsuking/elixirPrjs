@@ -34,8 +34,8 @@ defmodule DiaryWeb.Components.Diary.MoodPickerComponent do
       </button>
 
       <button phx-click={@on_set}
-              phx-value-status="on_fire"
-              class={"emoji-btn inline-flex items-center gap-2 " <> (if @selected == "on_fire", do: "border-2 border-amber-500 ", else: "") <> "text-black"}
+              phx-value-status="on fire"
+              class={"emoji-btn inline-flex items-center gap-2 " <> (if @selected == "on fire", do: "border-2 border-amber-500 ", else: "") <> "text-black"}
               aria-pressed={@selected == "on_fire"}>
         <%= gettext("On fire") %>
         <img src={~p"/images/on_fire.svg"} class="w-6 h-6" alt="on_fire"/>
