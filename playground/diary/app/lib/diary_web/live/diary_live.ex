@@ -159,7 +159,7 @@ defmodule DiaryWeb.DiaryLive do
          |> stream_insert(:diary_items, diary_item)
          |> assign(form: to_form(changeset))
          |> assign(content_length: 0)
-         |> put_flash(:info, "Successfully added!")}
+         |> put_flash(:info, gettext("Successfully added!"))}
 
       {:error, changeset} ->
         # Display validation errors
@@ -178,12 +178,12 @@ defmodule DiaryWeb.DiaryLive do
         {:noreply,
          socket
          |> stream_delete(:diary_items, deleted_item)
-         |> put_flash(:info, "Deleted!")}
+         |> put_flash(:info, gettext("Deleted!"))}
 
       {:error, _changeset} ->
         {:noreply,
          socket
-         |> put_flash(:error, "Failed to delete item.")}
+         |> put_flash(:error, gettext("Failed to delete item."))}
     end
   end
 

@@ -77,3 +77,18 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "close"
 msgstr ""
+
+#: lib/diary_web/live/diary_live.ex:162
+#, elixir-autogen, elixir-format
+msgid "Successfully added!"
+msgstr ""
+
+#: lib/diary_web/live/diary_live.ex:181
+#, elixir-autogen, elixir-format
+msgid "Deleted!"
+msgstr ""
+
+#: lib/diary_web/live/diary_live.ex:186
+#, elixir-autogen, elixir-format
+msgid "Failed to delete item."
+msgstr ""
