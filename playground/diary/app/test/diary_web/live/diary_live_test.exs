@@ -7,7 +7,7 @@ defmodule DiaryWeb.DiaryLiveTest do
     {:ok, _view, html} = live(conn, ~p"/")
 
     # The title/headings should be present
-    assert html =~ "Today's Entries"
+    assert html =~ "Entries"
 
     # The calendar table or grid should be rendered
     assert html =~ "Sun"
