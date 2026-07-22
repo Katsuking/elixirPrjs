@@ -5,6 +5,8 @@ defmodule Diary.Notebook do
   import Ecto.Query, warn: false
   alias Diary.Repo
   alias Diary.DiaryItem
+  alias Diary.WorkoutLog
+  alias Diary.WorkoutMaster
 
   @doc """
   Returns the list of diary items for a specific date, ordered by position and insertion time.
@@ -118,5 +120,122 @@ defmodule Diary.Notebook do
     else
       0
     end
+  end
+
+  @doc """
+  Returns all workout logs for a given date, indexed by exercise name.
+  """
+  def list_workout_logs(date) do
+    WorkoutLog
+    |> where(date: ^date)
+    |> Repo.all()
+    # Return as a map of %{exercise_name => log}
+    |> Map.new(fn log -> {log.exercise, log} end)
+  end
+
+  @doc """
+  Saves a workout log for a given date, exercise, and weight.
+  If weight is <= 0.0 or nil, deletes the log if it exists.
+  Otherwise, inserts or updates the log.
+  """
+  def save_workout_log(date, exercise, weight) do
+    existing = Repo.get_by(WorkoutLog, date: date, exercise: exercise)
+
+    cond do
+      is_nil(weight) or weight <= 0.0 ->
+        if existing do
+          Repo.delete!(existing)
+          Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
+        end
+        {:ok, nil}
+
+      true ->
+        result =
+          case existing do
+            nil ->
+              %WorkoutLog{}
+              |> WorkoutLog.changeset(%{date: date, exercise: exercise, weight: weight})
+              |> Repo.insert()
+
+            log ->
+              log
+              |> WorkoutLog.changeset(%{weight: weight})
+              |> Repo.update()
+          end
+
+        case result do
+          {:ok, log} ->
+            Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
+            {:ok, log}
+
+          {:error, changeset} ->
+            {:error, changeset}
+        end
+    end
+  end
+
+  @doc """
+  Returns all workout logs in a given date range.
+  """
+  def list_workout_logs_in_range(start_date, end_date) do
+    WorkoutLog
+    |> where([wl], wl.date >= ^start_date and wl.date <= ^end_date)
+    |> Repo.all()
+  end
+
+  @doc """
+  Aggregates workout weights into general and detailed muscle groups.
+  """
+  def aggregate_workout_weights(workout_logs) do
+    initial_state = %{general: %{}, detailed: %{}}
+
+    Enum.reduce(workout_logs, initial_state, fn log, acc ->
+      exercise = log.exercise
+      weight = log.weight
+      ratios = WorkoutMaster.exercise_ratios(exercise)
+
+      Enum.reduce(ratios, acc, fn ratio_item, acc_inner ->
+        general_group = ratio_item.general
+        detailed_part = ratio_item.detailed
+        distributed_weight = weight * ratio_item.ratio
+
+        # 1. Update general totals
+        new_general = Map.update(acc_inner.general, general_group, distributed_weight, &(&1 + distributed_weight))
+
+        # 2. Update detailed totals
+        new_detailed =
+          Map.update(acc_inner.detailed, general_group, %{detailed_part => distributed_weight}, fn detailed_map ->
+            Map.update(detailed_map, detailed_part, distributed_weight, &(&1 + distributed_weight))
+          end)
+
+        %{general: new_general, detailed: new_detailed}
+      end)
+    end)
+  end
+
+  @doc """
+  Fetches and aggregates weekly, monthly, and yearly workout logs relative to a given date.
+  """
+  def get_workout_stats(date) do
+    # Weekly range (beginning to end of week)
+    weekly_start = Date.beginning_of_week(date)
+    weekly_end = Date.end_of_week(date)
+    weekly_logs = list_workout_logs_in_range(weekly_start, weekly_end)
+
+    # Monthly range
+    monthly_start = Date.beginning_of_month(date)
+    monthly_end = Date.end_of_month(date)
+    monthly_logs = list_workout_logs_in_range(monthly_start, monthly_end)
+
+    # Yearly range
+    yearly_start = Date.new!(date.year, 1, 1)
+    yearly_end = Date.new!(date.year, 12, 31)
+    yearly_logs = list_workout_logs_in_range(yearly_start, yearly_end)
+
+    %{
+      weekly: aggregate_workout_weights(weekly_logs),
+      monthly: aggregate_workout_weights(monthly_logs),
+      yearly: aggregate_workout_weights(yearly_logs)
+    }
   end
 end

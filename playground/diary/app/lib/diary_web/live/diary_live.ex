@@ -77,7 +77,7 @@ defmodule DiaryWeb.DiaryLive do
   # Handle selecting a specific date from the calendar grid
   def handle_event("select_date", %{"date" => date_str}, socket) do
     date = Date.from_iso8601!(date_str)
-    {:noreply, select_date_helper(socket, date)}
+    {:noreply, push_navigate(socket, to: ~p"/workout/#{Date.to_iso8601(date)}")}
   end
 
   # Handle navigating to the previous month in the calendar
@@ -209,7 +209,7 @@ defmodule DiaryWeb.DiaryLive do
           <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-300">
 
             <!-- Card Header with App Title and Navigation -->
-            <div class="p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+            <div class="p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white space-y-4">
 
               <%!-- Override the button contents using named slots --%>
               <.date_navigator date={@date} on_change="change_date">
@@ -225,6 +225,15 @@ defmodule DiaryWeb.DiaryLive do
                   <span class="text-xs">Next</span>
                 </:next_button_content>
               </.date_navigator>
+
+              <div class="flex justify-center">
+                <.link
+                  navigate={~p"/workout/#{Date.to_iso8601(@date)}"}
+                  class="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm"
+                >
+                  💪 {gettext("Log Workouts")}
+                </.link>
+              </div>
 
             </div>
 

@@ -35,19 +35,17 @@ defmodule DiaryWeb.DiaryLiveTest do
     assert prev_html =~ format_month_year(prev_month_date)
   end
 
-  # Test selecting a date from the calendar
-  test "selecting a date updates active date and diary items", %{conn: conn} do
+  # Test selecting a date from the calendar redirects to the workout page
+  test "selecting a date redirects to the workout page", %{conn: conn} do
     {:ok, view, _html} = live(conn, ~p"/")
 
     # Select a specific date (yesterday)
     yesterday = Date.add(Date.utc_today(), -1)
     yesterday_str = Date.to_iso8601(yesterday)
 
-    # Click the calendar day button
-    html = view |> element("button[phx-value-date='#{yesterday_str}']") |> render_click()
-
-    # The active date display or path should be updated
-    assert html =~ yesterday_str
+    # Click the calendar day button and assert that it redirects
+    assert {:error, {:live_redirect, %{to: "/workout/" <> ^yesterday_str}}} =
+             view |> element("button[phx-value-date='#{yesterday_str}']") |> render_click()
   end
 
   # Test localization switch (Japanese locale)

@@ -1,0 +1,68 @@
+{
+  "exercises": {
+    "ベンチプレス": [
+      {"general": "胸", "detailed": "中部", "ratio": 0.75},
+      {"general": "腕（三頭）", "detailed": "長頭", "ratio": 0.15},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "インクラインベンチ": [
+      {"general": "胸", "detailed": "上部", "ratio": 0.75},
+      {"general": "肩", "detailed": "前部", "ratio": 0.15},
+      {"general": "腕（三頭）", "detailed": "長頭", "ratio": 0.10}
+    ],
+    "ダンベルベンチ": [
+      {"general": "胸", "detailed": "中部", "ratio": 0.80},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10},
+      {"general": "腕（三頭）", "detailed": "長頭", "ratio": 0.10}
+    ],
+    "懸垂": [
+      {"general": "背中", "detailed": "広背筋", "ratio": 0.75},
+      {"general": "腕（二頭）", "detailed": "長頭", "ratio": 0.15},
+      {"general": "背中", "detailed": "僧帽筋", "ratio": 0.10}
+    ],
+    "ラットプルダウン": [
+      {"general": "背中", "detailed": "広背筋", "ratio": 0.80},
+      {"general": "腕（二頭）", "detailed": "長頭", "ratio": 0.10},
+      {"general": "背中", "detailed": "僧帽筋", "ratio": 0.10}
+    ],
+    "バーベルロー": [
+      {"general": "背中", "detailed": "広背筋", "ratio": 0.70},
+      {"general": "背中", "detailed": "僧帽筋", "ratio": 0.20},
+      {"general": "腕（二頭）", "detailed": "長頭", "ratio": 0.10}
+    ],
+    "ショルダープレス": [
+      {"general": "肩", "detailed": "中部（側部）", "ratio": 0.80},
+      {"general": "腕（三頭）", "detailed": "長頭", "ratio": 0.20}
+    ],
+    "スクワット": [
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.70},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.20},
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.10}
+    ],
+    "レッグプレス": [
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.75},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.15},
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.10}
+    ],
+    "デッドリフト": [
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.40},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.30},
+      {"general": "背中", "detailed": "脊柱起立筋", "ratio": 0.20},
+      {"general": "背中", "detailed": "広背筋", "ratio": 0.10}
+    ],
+    "RDL": [
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.60},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.25},
+      {"general": "背中", "detailed": "脊柱起立筋", "ratio": 0.15}
+    ]
+  },
+  "muscle_groups": {
+    "胸": ["上部", "中部", "下部"],
+    "肩": ["前部", "中部（側部）", "後部"],
+    "背中": ["広背筋", "僧帽筋", "脊柱起立筋"],
+    "脚": ["大腿四頭筋", "ハムストリングス", "臀筋", "内転筋", "ふくらはぎ"],
+    "腕（二頭）": ["長頭", "短頭"],
+    "腕（三頭）": ["長頭", "外側頭", "内側頭"],
+    "腹": ["腹直筋", "腹斜筋"]
+  }
+}

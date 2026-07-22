@@ -53,6 +53,7 @@ defmodule DiaryWeb.Router do
 
     # Map the root URL to our new LiveView for the diary application
     live "/", DiaryLive
+    live "/workout/:date", WorkoutLive
   end
 
   # Other scopes may use custom stacks.
