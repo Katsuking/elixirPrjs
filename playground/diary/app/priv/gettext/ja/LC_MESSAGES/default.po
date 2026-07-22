@@ -92,3 +92,24 @@ msgstr "削除されました!"
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr "削除に失敗しました。"
+
+msgid "Sun"
+msgstr "日"
+
+msgid "Mon"
+msgstr "月"
+
+msgid "Tue"
+msgstr "火"
+
+msgid "Wed"
+msgstr "水"
+
+msgid "Thu"
+msgstr "木"
+
+msgid "Fri"
+msgstr "金"
+
+msgid "Sat"
+msgstr "土"

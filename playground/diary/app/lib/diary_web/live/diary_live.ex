@@ -5,7 +5,7 @@ defmodule DiaryWeb.DiaryLive do
   use DiaryWeb, :live_view
   use Gettext, backend: DiaryWeb.Gettext
 
-  import DiaryWeb.Components.Diary.{MoodPickerComponent, MoodInfoComponent, SaveButtonComponent}
+  import DiaryWeb.Components.Diary.{MoodPickerComponent, MoodInfoComponent, SaveButtonComponent, CalendarComponent}
   import DiaryWeb.DatePickerComponent # Import the custom date picker component
 
   alias Diary.Notebook
@@ -23,6 +23,16 @@ defmodule DiaryWeb.DiaryLive do
     mood = Notebook.get_mood_by_date(date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
+    # Initialize calendar states
+    current_calendar_month = Date.beginning_of_month(date)
+    leading_days_count = Date.day_of_week(current_calendar_month, :sunday) - 1
+    calendar_start_date = Date.add(current_calendar_month, -leading_days_count)
+    calendar_end_date = Date.add(calendar_start_date, 41)
+    calendar_days = Enum.map(0..41, &Date.add(calendar_start_date, &1))
+
+    # Fetch calendar data from DB
+    {calendar_moods, calendar_entry_dates} = Notebook.list_calendar_data(calendar_start_date, calendar_end_date)
+
     {:ok,
      socket
      |> subscribe_to_date(date)
@@ -31,6 +41,12 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
      |> assign(:locale, locale)
+     |> assign(current_calendar_month: current_calendar_month)
+     |> assign(calendar_days: calendar_days)
+     |> assign(calendar_start_date: calendar_start_date)
+     |> assign(calendar_end_date: calendar_end_date)
+     |> assign(calendar_moods: calendar_moods)
+     |> assign(calendar_entry_dates: calendar_entry_dates)
      |> stream(:diary_items, diary_items)}
   end
 
@@ -45,62 +61,38 @@ defmodule DiaryWeb.DiaryLive do
   # Handle changing date from date picker input
   def handle_event("change_date", %{"date" => date_str}, socket) do
     date = Date.from_iso8601!(date_str)
-    diary_items = Notebook.list_diary_items(date)
-
-    mood = Notebook.get_mood_by_date(date)
-
-    changeset = Notebook.change_diary_item(%DiaryItem{date: date})
-
-    {:noreply,
-     socket
-     |> subscribe_to_date(date)
-     |> assign(date: date)
-     |> assign(mood: mood)
-     |> assign(content_length: 0)
-     |> assign(form: to_form(changeset))
-     # Reset stream with new items
-     |> stream(:diary_items, diary_items, reset: true)}
+    {:noreply, select_date_helper(socket, date)}
   end
 
   # Handle adjusting date via back/forward buttons
   def handle_event("adjust_date", %{"days" => days_str}, socket) do
     days = String.to_integer(days_str)
     date = Date.add(socket.assigns.date, days)
-    diary_items = Notebook.list_diary_items(date)
-
-    changeset = Notebook.change_diary_item(%DiaryItem{date: date})
-
-    mood = Notebook.get_mood_by_date(date)
-
-    {:noreply,
-     socket
-     |> subscribe_to_date(date)
-     |> assign(date: date)
-     |> assign(mood: mood)
-     |> assign(content_length: 0)
-     |> assign(form: to_form(changeset))
-     # Reset stream with new items
-     |> stream(:diary_items, diary_items, reset: true)}
+    {:noreply, select_date_helper(socket, date)}
   end
 
   # Handle jumping to today's date
   def handle_event("go_to_today", _params, socket) do
     today = Date.utc_today()
-    diary_items = Notebook.list_diary_items(today)
+    {:noreply, select_date_helper(socket, today)}
+  end
 
-    changeset = Notebook.change_diary_item(%DiaryItem{date: today})
+  # Handle selecting a specific date from the calendar grid
+  def handle_event("select_date", %{"date" => date_str}, socket) do
+    date = Date.from_iso8601!(date_str)
+    {:noreply, select_date_helper(socket, date)}
+  end
 
-    mood = Notebook.get_mood_by_date(today)
+  # Handle navigating to the previous month in the calendar
+  def handle_event("prev_month", _params, socket) do
+    new_month = shift_month(socket.assigns.current_calendar_month, -1)
+    {:noreply, update_calendar_month(socket, new_month)}
+  end
 
-    {:noreply,
-     socket
-     |> subscribe_to_date(today)
-     |> assign(date: today)
-     |> assign(mood: mood)
-     |> assign(content_length: 0)
-     |> assign(form: to_form(changeset))
-     # Reset stream with new items
-     |> stream(:diary_items, diary_items, reset: true)}
+  # Handle navigating to the next month in the calendar
+  def handle_event("next_month", _params, socket) do
+    new_month = shift_month(socket.assigns.current_calendar_month, 1)
+    {:noreply, update_calendar_month(socket, new_month)}
   end
 
   def handle_event("save_mood", %{"status" => status}, socket) do
@@ -200,28 +192,61 @@ defmodule DiaryWeb.DiaryLive do
   @impl true
   # Handle PubSub messages for item creation
   def handle_info({:diary_item_created, diary_item}, socket) do
-    # Only insert if the item matches the currently viewed date
-    if diary_item.date == socket.assigns.date do
-      {:noreply, stream_insert(socket, :diary_items, diary_item)}
-    else
-      {:noreply, socket}
-    end
+    socket =
+      if diary_item.date == socket.assigns.date do
+        stream_insert(socket, :diary_items, diary_item)
+      else
+        socket
+      end
+
+    # Refresh calendar data if the item falls in the currently displayed range
+    socket =
+      if Date.compare(diary_item.date, socket.assigns.calendar_start_date) != :lt and
+         Date.compare(diary_item.date, socket.assigns.calendar_end_date) != :gt do
+        assign_calendar_data(socket, socket.assigns.calendar_start_date, socket.assigns.calendar_end_date)
+      else
+        socket
+      end
+
+    {:noreply, socket}
   end
 
   @impl true
   # Handle PubSub messages for item deletion
   def handle_info({:diary_item_deleted, diary_item}, socket) do
-    {:noreply, stream_delete(socket, :diary_items, diary_item)}
+    socket = stream_delete(socket, :diary_items, diary_item)
+
+    # Refresh calendar data if the item falls in the currently displayed range
+    socket =
+      if Date.compare(diary_item.date, socket.assigns.calendar_start_date) != :lt and
+         Date.compare(diary_item.date, socket.assigns.calendar_end_date) != :gt do
+        assign_calendar_data(socket, socket.assigns.calendar_start_date, socket.assigns.calendar_end_date)
+      else
+        socket
+      end
+
+    {:noreply, socket}
   end
 
   @impl true
   def handle_info({:mood_saved, mood}, socket) do
-    if mood.date == socket.assigns.date do
-      # 届いたメッセージ（mood）の日付が自分が今画面で見ている日付（socket.assigns.date）と一致しているか
-      {:noreply, assign(socket, mood: mood)}
-    else
-      {:noreply, socket}
-    end
+    socket =
+      if mood.date == socket.assigns.date do
+        assign(socket, mood: mood)
+      else
+        socket
+      end
+
+    # Refresh calendar data if the mood falls in the currently displayed range
+    socket =
+      if Date.compare(mood.date, socket.assigns.calendar_start_date) != :lt and
+         Date.compare(mood.date, socket.assigns.calendar_end_date) != :gt do
+        assign_calendar_data(socket, socket.assigns.calendar_start_date, socket.assigns.calendar_end_date)
+      else
+        socket
+      end
+
+    {:noreply, socket}
   end
 
   @impl true
@@ -261,6 +286,16 @@ defmodule DiaryWeb.DiaryLive do
 
             </div>
 
+            <!-- Calendar Section -->
+            <.calendar
+              current_calendar_month={@current_calendar_month}
+              calendar_days={@calendar_days}
+              calendar_moods={@calendar_moods}
+              calendar_entry_dates={@calendar_entry_dates}
+              date={@date}
+              locale={@locale}
+            />
+
             <!-- Diary Bullet Points List -->
             <div class="p-8">
               <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
@@ -269,7 +304,7 @@ defmodule DiaryWeb.DiaryLive do
 
               <div id="diary-items" phx-update="stream" class="space-y-3.5 min-h-[160px]">
                 <!-- Empty State -->
-                <div class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300">
+                <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300">
                   <span class="text-5xl mb-3">🍃</span>
                   <p class="text-sm font-medium text-slate-400">No entries for this day. Add one below!</p>
                 </div>
@@ -365,4 +400,71 @@ defmodule DiaryWeb.DiaryLive do
     </Layouts.app>
     """
   end
+
+  # Helper functions for the calendar logic
+
+  # Helper to set the active date, load its data, and dynamically adjust the calendar month if needed.
+  defp select_date_helper(socket, date) do
+    diary_items = Notebook.list_diary_items(date)
+    mood = Notebook.get_mood_by_date(date)
+    changeset = Notebook.change_diary_item(%DiaryItem{date: date})
+
+    socket =
+      socket
+      |> subscribe_to_date(date)
+      |> assign(date: date)
+      |> assign(mood: mood)
+      |> assign(content_length: 0)
+      |> assign(form: to_form(changeset))
+      |> stream(:diary_items, diary_items, reset: true)
+
+    # Shift calendar month if the selected date belongs to a different month
+    target_month = Date.beginning_of_month(date)
+
+    if Date.compare(target_month, socket.assigns.current_calendar_month) != :eq do
+      update_calendar_month(socket, target_month)
+    else
+      socket
+    end
+  end
+
+  # Helper to calculate and assign all calendar grid days and fetch the corresponding data.
+  defp update_calendar_month(socket, new_month) do
+    leading_days_count = Date.day_of_week(new_month, :sunday) - 1
+    calendar_start_date = Date.add(new_month, -leading_days_count)
+    calendar_end_date = Date.add(calendar_start_date, 41)
+    calendar_days = Enum.map(0..41, &Date.add(calendar_start_date, &1))
+
+    socket
+    |> assign(current_calendar_month: new_month)
+    |> assign(calendar_days: calendar_days)
+    |> assign(calendar_start_date: calendar_start_date)
+    |> assign(calendar_end_date: calendar_end_date)
+    |> assign_calendar_data(calendar_start_date, calendar_end_date)
+  end
+
+  # Helper to assign queried calendar data (moods and entry dates) to the socket.
+  defp assign_calendar_data(socket, start_date, end_date) do
+    {moods, entry_dates} = Notebook.list_calendar_data(start_date, end_date)
+
+    socket
+    |> assign(:calendar_moods, moods)
+    |> assign(:calendar_entry_dates, entry_dates)
+  end
+
+  # Helper to shift a month forward or backward by month offset, returning the 1st of that month.
+  defp shift_month(date, offset) do
+    year = date.year
+    month = date.month
+
+    {new_year, new_month} =
+      case month + offset do
+        0 -> {year - 1, 12}
+        13 -> {year + 1, 1}
+        m -> {year, m}
+      end
+
+    Date.new!(new_year, new_month, 1)
+  end
+
 end

@@ -107,6 +107,34 @@ defmodule Diary.Notebook do
     |> broadcast_change(:mood_saved)
   end
 
+  @doc """
+  Returns a tuple containing a map of moods by date and a MapSet of dates with diary entries,
+  for a given date range.
+  """
+  def list_calendar_data(start_date, end_date) do
+    # Fetch all moods within the date range
+    moods =
+      from(m in Diary.Mood,
+        where: m.date >= ^start_date and m.date <= ^end_date
+      )
+      |> Repo.all()
+      # Convert the list of moods into a map of %{date => mood} for O(1) lookup
+      |> Map.new(fn mood -> {mood.date, mood} end)
+
+    # Fetch distinct dates that have diary items within the date range
+    entry_dates =
+      from(di in DiaryItem,
+        where: di.date >= ^start_date and di.date <= ^end_date,
+        select: di.date,
+        distinct: true
+      )
+      |> Repo.all()
+      # Convert the list of dates into a MapSet for O(1) lookup
+      |> MapSet.new()
+
+    {moods, entry_dates}
+  end
+
   # Helper inside Diary.Notebook to broadcast database changes
   defp broadcast_change({:ok, item} = result, event) do
     Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{item.date}", {event, item})
