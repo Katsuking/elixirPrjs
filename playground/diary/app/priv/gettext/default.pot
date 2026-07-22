@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/diary_web/components/layouts.ex:91
-#: lib/diary_web/components/layouts.ex:106
+#: lib/diary_web/components/layouts.ex:160
+#: lib/diary_web/components/layouts.ex:175
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/diary_web/components/layouts.ex:98
+#: lib/diary_web/components/layouts.ex:167
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/diary_web/components/layouts.ex:83
+#: lib/diary_web/components/layouts.ex:152
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -37,177 +37,229 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:140
+#: lib/diary_web/live/diary/diary_live.ex:117
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:159
+#: lib/diary_web/live/diary/diary_live.ex:136
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:164
+#: lib/diary_web/live/diary/diary_live.ex:141
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:172
+#: lib/diary_web/live/workout/workout_live.ex:176
 #, elixir-autogen, elixir-format
 msgid "Back to Diary"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:51
+#: lib/diary_web/live/diary/calendar_component.ex:51
 #, elixir-autogen, elixir-format
 msgid "Fri"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:259
+#: lib/diary_web/live/diary/diary_live.ex:221
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:47
+#: lib/diary_web/live/diary/calendar_component.ex:47
 #, elixir-autogen, elixir-format
 msgid "Mon"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:40
+#: lib/diary_web/live/stats/workout_stats_component.ex:80
 #, elixir-autogen, elixir-format
 msgid "Monthly"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:67
+#: lib/diary_web/live/stats/workout_stats_component.ex:95
 #, elixir-autogen, elixir-format
 msgid "No data for this period"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:52
+#: lib/diary_web/live/diary/calendar_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Sat"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:32
+#: lib/diary_web/live/stats/workout_stats_component.ex:56
 #, elixir-autogen, elixir-format
 msgid "Show Details"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:32
+#: lib/diary_web/live/stats/workout_stats_component.ex:56
 #, elixir-autogen, elixir-format
 msgid "Show General"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:46
+#: lib/diary_web/live/diary/calendar_component.ex:46
 #, elixir-autogen, elixir-format
 msgid "Sun"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:50
+#: lib/diary_web/live/diary/calendar_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "Thu"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:25
+#: lib/diary_web/live/stats/workout_stats_component.ex:44
 #, elixir-autogen, elixir-format
 msgid "Training Volume"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:48
+#: lib/diary_web/live/diary/calendar_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "Tue"
 msgstr ""
 
-#: lib/diary_web/components/diary/calendar_component.ex:49
+#: lib/diary_web/live/diary/calendar_component.ex:49
 #, elixir-autogen, elixir-format
 msgid "Wed"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:39
+#: lib/diary_web/live/stats/workout_stats_component.ex:79
 #, elixir-autogen, elixir-format
 msgid "Weekly"
 msgstr ""
 
-#: lib/diary_web/components/diary/workout_stats_component.ex:41
+#: lib/diary_web/live/stats/workout_stats_component.ex:81
 #, elixir-autogen, elixir-format
 msgid "Yearly"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:239
+#: lib/diary_web/live/workout/workout_live.ex:265
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:225
+#: lib/diary_web/live/workout/workout_live.ex:281
 #, elixir-autogen, elixir-format
 msgid "Choose a muscle group and an exercise to start logging your workout."
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:118
+#: lib/diary_web/live/workout/workout_live.ex:123
 #, elixir-autogen, elixir-format
 msgid "Failed to save log. Please check your inputs."
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:232
-#, elixir-autogen, elixir-format
-msgid "Log"
-msgstr ""
-
-#: lib/diary_web/live/workout_live.ex:223
+#: lib/diary_web/live/workout/workout_live.ex:279
 #, elixir-autogen, elixir-format
 msgid "No Exercise Selected"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:297
+#: lib/diary_web/live/workout/workout_live.ex:302
 #, elixir-autogen, elixir-format
 msgid "No exercises logged for today"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:271
+#: lib/diary_web/live/workout/workout_live.ex:251
 #, elixir-autogen, elixir-format
 msgid "Reps"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:282
+#: lib/diary_web/live/workout/workout_live.ex:272
 #, elixir-autogen, elixir-format
 msgid "Save Entry"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:201
+#: lib/diary_web/live/workout/workout_live.ex:204
 #, elixir-autogen, elixir-format
 msgid "Select Exercise"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:184
+#: lib/diary_web/live/workout/workout_live.ex:188
 #, elixir-autogen, elixir-format
 msgid "Select Target Muscle"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:248
+#: lib/diary_web/live/workout/workout_live.ex:294
 #, elixir-autogen, elixir-format
 msgid "Sets"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:292
+#: lib/diary_web/live/workout/workout_live.ex:291
 #, elixir-autogen, elixir-format
 msgid "Today's Workouts"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:260
+#: lib/diary_web/live/workout/workout_live.ex:239
 #, elixir-autogen, elixir-format
 msgid "Weight (kg)"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:161
+#: lib/diary_web/live/workout/workout_live.ex:165
 #, elixir-autogen, elixir-format
 msgid "Workout Logger"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:132
+#: lib/diary_web/live/workout/workout_live.ex:137
 #, elixir-autogen, elixir-format
 msgid "Workout log deleted."
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:112
+#: lib/diary_web/live/workout/workout_live.ex:117
 #, elixir-autogen, elixir-format
 msgid "Workout log saved!"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:312
+#, elixir-autogen, elixir-format
+msgid "Add Bullet"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:279
+#, elixir-autogen, elixir-format
+msgid "Add New Entry"
+msgstr ""
+
+#: lib/diary_web/components/layouts.ex:63
+#: lib/diary_web/components/layouts.ex:112
+#, elixir-autogen, elixir-format
+msgid "Calendar"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:267
+#, elixir-autogen, elixir-format
+msgid "Delete item"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:212
+#, elixir-autogen, elixir-format
+msgid "Next"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:245
+#, elixir-autogen, elixir-format
+msgid "No entries for this day. Add one below!"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:204
+#, elixir-autogen, elixir-format
+msgid "Prev"
+msgstr ""
+
+#: lib/diary_web/components/layouts.ex:74
+#: lib/diary_web/components/layouts.ex:123
+#, elixir-autogen, elixir-format
+msgid "Stats"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:238
+#, elixir-autogen, elixir-format
+msgid "Today's Entries"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:287
+#, elixir-autogen, elixir-format
+msgid "What did you do today?"
+msgstr ""
+
+#: lib/diary_web/live/diary/diary_live.ex:208
+#, elixir-autogen, elixir-format
+msgid "today"
 msgstr ""

@@ -139,22 +139,18 @@ defmodule Diary.Notebook do
     reps_val = (reps || 0) |> to_int()
     weight_val = (weight || 0.0) |> to_float()
 
-    if weight_val <= 0.0 or reps_val <= 0 do
-      {:error, :invalid_values}
-    else
-      params = %{date: date, exercise: exercise, weight: weight_val, reps: reps_val}
+    params = %{date: date, exercise: exercise, weight: weight_val, reps: reps_val}
 
-      %WorkoutLog{}
-      |> WorkoutLog.changeset(params)
-      |> Repo.insert()
-      |> case do
-        {:ok, log} ->
-          Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
-          {:ok, log}
+    %WorkoutLog{}
+    |> WorkoutLog.changeset(params)
+    |> Repo.insert()
+    |> case do
+      {:ok, log} ->
+        Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
+        {:ok, log}
 
-        {:error, changeset} ->
-          {:error, changeset}
-      end
+      {:error, changeset} ->
+        {:error, changeset}
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule DiaryWeb.Components.Diary.CalendarComponent do
+defmodule DiaryWeb.Diary.CalendarComponent do
   @moduledoc """
   A reusable calendar component that displays month navigation and a day grid
   with entry indicators.
@@ -19,13 +19,13 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
   """
   def calendar(assigns) do
     ~H"""
-    <div class="p-8 border-b border-slate-100 bg-slate-50/30">
+    <div class="p-8 border-b border-slate-100 dark:border-zinc-800 bg-slate-50/30">
       <!-- Month Selection Header -->
       <div class="flex items-center justify-between mb-6">
         <button
           type="button"
           phx-click={@on_prev_month}
-          class="p-2.5 rounded-xl border border-zinc-200 text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
+          class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-650 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all duration-200 cursor-pointer"
         >
           <.icon name="hero-chevron-left" class="size-5" />
         </button>
@@ -35,7 +35,7 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
         <button
           type="button"
           phx-click={@on_next_month}
-          class="p-2.5 rounded-xl border border-zinc-200 text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
+          class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-650 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all duration-200 cursor-pointer"
         >
           <.icon name="hero-chevron-right" class="size-5" />
         </button>
@@ -68,8 +68,8 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
             class={[
               "relative flex flex-col items-center justify-between p-1.5 h-16 w-full rounded-2xl border transition-all duration-200 cursor-pointer",
               is_selected && "border-zinc-800 bg-zinc-50 dark:bg-zinc-800 ring-2 ring-zinc-800/10 shadow-md",
-              !is_selected && is_today && "border-zinc-300 bg-zinc-50/20",
-              !is_selected && !is_today && "border-zinc-100 bg-white hover:border-zinc-300 hover:bg-zinc-50",
+              !is_selected && is_today && "border-zinc-300 dark:border-zinc-700 bg-zinc-50/20",
+              !is_selected && !is_today && "border-zinc-100 dark:border-zinc-850 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/30",
               !is_current_month && "opacity-40"
             ]}
           >
@@ -92,7 +92,7 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
                 <span class={[
                   "w-1.5 h-1.5 rounded-full block",
                   is_selected && "bg-zinc-800 dark:bg-zinc-100",
-                  !is_selected && "bg-zinc-400"
+                  !is_selected && "bg-zinc-400 dark:bg-zinc-500"
                 ]}></span>
               <% end %>
             </div>

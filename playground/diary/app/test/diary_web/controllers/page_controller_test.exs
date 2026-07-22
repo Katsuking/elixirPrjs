@@ -3,6 +3,6 @@ defmodule DiaryWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "Today's Entries"
+    assert html_response(conn, 200) =~ "Today&#39;s Entries"
   end
 end

@@ -25,7 +25,8 @@ defmodule DiaryWeb.Layouts do
       </Layouts.app>
 
   """
-  attr :flash, :map, required: true, doc: "the map of flash messages"
+    attr :flash, :map, required: true, doc: "the map of flash messages"
+  attr :active_tab, :string, default: nil, doc: "currently active navigation tab"
 
   attr :current_scope, :map,
     default: nil,
@@ -35,27 +36,95 @@ defmodule DiaryWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
-      <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={~p"/images/label.svg"} width="80" />
-          <span class="text-md font-semibold">ELEVATE YOUR DAY</span>
-        </a>
-      </div>
-      <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
-          <li>
-            <.theme_toggle />
-          </li>
-        </ul>
-      </div>
-    </header>
+    <div class="min-h-screen flex flex-col md:flex-row bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100">
+      
+      <!-- Desktop Sidebar (hidden on mobile) -->
+      <aside class="hidden md:flex md:flex-col md:w-64 bg-white dark:bg-zinc-900 border-r border-slate-100 dark:border-zinc-850 p-6 space-y-8 flex-shrink-0">
+        <!-- Logo / Title -->
+        <div class="flex items-center gap-3">
+          <span class="text-3xl select-none">💪</span>
+          <div>
+            <h1 class="text-base font-black tracking-tight text-zinc-800 dark:text-zinc-100">FITNESS DIARY</h1>
+            <p class="text-[9px] font-bold text-slate-400 tracking-wider uppercase">Elevate Your Day</p>
+          </div>
+        </div>
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
-        {render_slot(@inner_block)}
-      </div>
-    </main>
+        <!-- Navigation Links -->
+        <nav class="flex-1 space-y-2">
+          <.link
+            navigate={~p"/"}
+            class={[
+              "flex items-center gap-3 px-4 py-3 rounded-2xl font-extrabold text-sm transition-all duration-200 cursor-pointer",
+              @active_tab == "diary" && "bg-zinc-800 text-white shadow-lg shadow-zinc-850/10",
+              @active_tab != "diary" && "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800/50 hover:text-zinc-800 dark:hover:text-zinc-100"
+            ]}
+          >
+            <.icon name="hero-calendar" class="size-5" />
+            {gettext("Calendar")}
+          </.link>
+          <.link
+            navigate={~p"/stats"}
+            class={[
+              "flex items-center gap-3 px-4 py-3 rounded-2xl font-extrabold text-sm transition-all duration-200 cursor-pointer",
+              @active_tab == "stats" && "bg-zinc-800 text-white shadow-lg shadow-zinc-850/10",
+              @active_tab != "stats" && "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800/50 hover:text-zinc-800 dark:hover:text-zinc-100"
+            ]}
+          >
+            <.icon name="hero-chart-bar" class="size-5" />
+            {gettext("Stats")}
+          </.link>
+        </nav>
+
+        <!-- Footer / Theme Toggle -->
+        <div class="pt-4 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-400">v1.0.0</span>
+          <.theme_toggle />
+        </div>
+      </aside>
+
+      <!-- Mobile Top Bar (hidden on desktop) -->
+      <header class="md:hidden flex items-center justify-between px-6 py-4 bg-white dark:bg-zinc-900 border-b border-slate-100 dark:border-zinc-850 sticky top-0 z-40">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl select-none">💪</span>
+          <span class="text-sm font-black tracking-tight text-zinc-800 dark:text-zinc-100">FITNESS DIARY</span>
+        </div>
+        <.theme_toggle />
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 min-w-0 overflow-y-auto pb-24 md:pb-12">
+        <div class="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+          {render_slot(@inner_block)}
+        </div>
+      </main>
+
+      <!-- Mobile Bottom Navigation (hidden on desktop) -->
+      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-900 border-t border-slate-100 dark:border-zinc-850 flex items-center justify-around py-3 px-6 z-40 pb-safe shadow-lg">
+        <.link
+          navigate={~p"/"}
+          class={[
+            "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
+            @active_tab == "diary" && "text-zinc-800 dark:text-zinc-100 scale-105",
+            @active_tab != "diary" && "text-slate-400 dark:text-zinc-500 hover:text-slate-600"
+          ]}
+        >
+          <.icon name="hero-calendar" class="size-6" />
+          {gettext("Calendar")}
+        </.link>
+        <.link
+          navigate={~p"/stats"}
+          class={[
+            "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
+            @active_tab == "stats" && "bg-zinc-800 dark:text-zinc-100 scale-105",
+            @active_tab != "stats" && "text-slate-400 dark:text-zinc-500 hover:text-slate-600"
+          ]}
+        >
+          <.icon name="hero-chart-bar" class="size-6" />
+          {gettext("Stats")}
+        </.link>
+      </nav>
+
+    </div>
 
     <.flash_group flash={@flash} />
     """

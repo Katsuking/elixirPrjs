@@ -47,8 +47,8 @@ defmodule DiaryWeb.WorkoutLiveTest do
     {:ok, _log2} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
     {:ok, _log3} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
 
-    # Fetch homepage
-    {:ok, view, html} = live(conn, ~p"/")
+    # Fetch stats page
+    {:ok, view, html} = live(conn, ~p"/stats")
 
     # Should render "Training Volume"
     assert html =~ "Training Volume"
@@ -59,7 +59,7 @@ defmodule DiaryWeb.WorkoutLiveTest do
     assert html =~ "2250.0 kg"
 
     # Toggle detail view
-    detail_html = view |> element("button", "Show Details") |> render_click()
+    detail_html = view |> element("button[phx-click=\"toggle_stats_detail\"]") |> render_click()
     assert detail_html =~ "Show General"
     # Detailed breakdown part: "中部" (Middle) for Chest
     assert detail_html =~ "Middle"
@@ -70,5 +70,28 @@ defmodule DiaryWeb.WorkoutLiveTest do
 
     yearly_html = view |> element("button", "Yearly") |> render_click()
     assert yearly_html =~ "Yearly"
+  end
+
+  test "displays localized validation error when logging invalid workout values", %{conn: conn} do
+    date_str = "2026-07-22"
+    
+    # Test English locale errors
+    {:ok, view_en, _html} = live(conn, ~p"/workout/#{date_str}?locale=en")
+    view_en |> element("button[phx-click='select_group'][phx-value-group='胸']") |> render_click()
+    view_en |> element("button[phx-value-exercise='ベンチプレス']") |> render_click()
+
+    form_params_invalid = %{"log" => %{"weight" => "-10.0", "reps" => "-5"}}
+    result_en = view_en |> form("#workout-log-form") |> render_submit(form_params_invalid)
+    assert result_en =~ "must be greater than or equal to 0"
+    assert result_en =~ "must be greater than 0"
+
+    # Test Japanese locale errors
+    {:ok, view_ja, _html} = live(conn, ~p"/workout/#{date_str}?locale=ja")
+    view_ja |> element("button[phx-click='select_group'][phx-value-group='胸']") |> render_click()
+    view_ja |> element("button[phx-value-exercise='ベンチプレス']") |> render_click()
+
+    result_ja = view_ja |> form("#workout-log-form") |> render_submit(form_params_invalid)
+    assert result_ja =~ "0以上の値にしてください"
+    assert result_ja =~ "0より大きい値にしてください"
   end
 end
