@@ -260,14 +260,6 @@ defmodule DiaryWeb.DiaryLive do
 
             <!-- Card Header with App Title and Navigation -->
             <div class="p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-              <div class="flex items-center justify-between">
-                <h1 class="text-3xl font-extrabold text-slate-800 tracking-tight flex items-center gap-3">
-                  <span class="text-4xl">📔</span> Bullet Diary
-                </h1>
-                <div class="text-sm font-semibold text-slate-500 bg-slate-100 py-1.5 px-3.5 rounded-full shadow-inner">
-                  50 chars max
-                </div>
-              </div>
 
               <%!-- Override the button contents using named slots --%>
               <.date_navigator date={@date} on_change="change_date">

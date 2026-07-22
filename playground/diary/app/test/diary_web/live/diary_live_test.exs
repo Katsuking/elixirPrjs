@@ -6,8 +6,8 @@ defmodule DiaryWeb.DiaryLiveTest do
   test "initial render shows calendar and active month", %{conn: conn} do
     {:ok, _view, html} = live(conn, ~p"/")
 
-    # The title should be present
-    assert html =~ "Bullet Diary"
+    # The title/headings should be present
+    assert html =~ "Today's Entries"
 
     # The calendar table or grid should be rendered
     assert html =~ "Sun"
