@@ -5,7 +5,7 @@ defmodule DiaryWeb.DiaryLive do
   use DiaryWeb, :live_view
   use Gettext, backend: DiaryWeb.Gettext
 
-  import DiaryWeb.Components.Diary.{MoodPickerComponent, MoodInfoComponent, SaveButtonComponent, CalendarComponent}
+  import DiaryWeb.Components.Diary.CalendarComponent
   import DiaryWeb.DatePickerComponent # Import the custom date picker component
 
   alias Diary.Notebook
@@ -20,7 +20,6 @@ defmodule DiaryWeb.DiaryLive do
     # Get today's date
     date = Date.utc_today()
     diary_items = Notebook.list_diary_items(date)
-    mood = Notebook.get_mood_by_date(date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     # Initialize calendar states
@@ -31,13 +30,12 @@ defmodule DiaryWeb.DiaryLive do
     calendar_days = Enum.map(0..41, &Date.add(calendar_start_date, &1))
 
     # Fetch calendar data from DB
-    {calendar_moods, calendar_entry_dates} = Notebook.list_calendar_data(calendar_start_date, calendar_end_date)
+    calendar_entry_dates = Notebook.list_calendar_data(calendar_start_date, calendar_end_date)
 
     {:ok,
      socket
      |> subscribe_to_date(date)
      |> assign(date: date)
-     |> assign(mood: mood)
      |> assign(content_length: 0)
      |> assign(form: to_form(changeset))
      |> assign(:locale, locale)
@@ -45,7 +43,6 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(calendar_days: calendar_days)
      |> assign(calendar_start_date: calendar_start_date)
      |> assign(calendar_end_date: calendar_end_date)
-     |> assign(calendar_moods: calendar_moods)
      |> assign(calendar_entry_dates: calendar_entry_dates)
      |> stream(:diary_items, diary_items)}
   end
@@ -95,35 +92,7 @@ defmodule DiaryWeb.DiaryLive do
     {:noreply, update_calendar_month(socket, new_month)}
   end
 
-  def handle_event("save_mood", %{"status" => status}, socket) do
-    case Notebook.save_mood(socket.assigns.date, status) do
-      {:ok, mood} ->
-        {:noreply,
-         socket
-         |> assign(mood: mood)
-         |> put_flash(:info, gettext("Mood updated!"))}
 
-      {:error, _changeset} ->
-        {:noreply,
-         socket
-         |> put_flash(:error, gettext("Failed to save mood."))}
-    end
-  end
-
-  def handle_event("set_mood", %{"status" => status}, socket) do
-    case Notebook.save_mood(socket.assigns.date, status) do
-      {:ok, mood} ->
-        {:noreply,
-         socket
-         |> assign(mood: mood)
-         |> put_flash(:info, gettext("Mood updated to %{status}!", status: mood.status))}
-
-      {:error, _changeset} ->
-        {:noreply,
-         socket
-         |> put_flash(:error, gettext("Failed to save mood."))}
-    end
-  end
 
   # Handle inline form validation to track characters count and errors
   def handle_event("validate", %{"diary_item" => %{"content" => content}}, socket) do
@@ -228,26 +197,7 @@ defmodule DiaryWeb.DiaryLive do
     {:noreply, socket}
   end
 
-  @impl true
-  def handle_info({:mood_saved, mood}, socket) do
-    socket =
-      if mood.date == socket.assigns.date do
-        assign(socket, mood: mood)
-      else
-        socket
-      end
 
-    # Refresh calendar data if the mood falls in the currently displayed range
-    socket =
-      if Date.compare(mood.date, socket.assigns.calendar_start_date) != :lt and
-         Date.compare(mood.date, socket.assigns.calendar_end_date) != :gt do
-        assign_calendar_data(socket, socket.assigns.calendar_start_date, socket.assigns.calendar_end_date)
-      else
-        socket
-      end
-
-    {:noreply, socket}
-  end
 
   @impl true
   def render(assigns) do
@@ -282,7 +232,6 @@ defmodule DiaryWeb.DiaryLive do
             <.calendar
               current_calendar_month={@current_calendar_month}
               calendar_days={@calendar_days}
-              calendar_moods={@calendar_moods}
               calendar_entry_dates={@calendar_entry_dates}
               date={@date}
               locale={@locale}
@@ -329,19 +278,7 @@ defmodule DiaryWeb.DiaryLive do
               </div>
             </div>
 
-            <!-- -------------------------------------------------
-            Mood UI (glassmorphism style)
-            ------------------------------------------------- -->
-            <div class="bg-white/5 backdrop-blur-md rounded-2xl p-6 mt-8 shadow-xl border border-white/20">
-              <!-- Current mood display -->
-              <.mood_info mood={@mood} />
-              <!-- Mood picker (emoji / button) -->
-              <.mood_picker selected={@mood && @mood.status} on_set="set_mood" />
-              <!-- Save button. now named save_mood_button -->
-              <.save_mood_button
-                status_to_save={@mood && @mood.status || "good"}
-                on_set="set_mood" />
-            </div>
+
 
             <!-- Add Entry Form Area -->
             <div class="p-8 bg-slate-50/80 border-t border-slate-100">
@@ -398,14 +335,12 @@ defmodule DiaryWeb.DiaryLive do
   # Helper to set the active date, load its data, and dynamically adjust the calendar month if needed.
   defp select_date_helper(socket, date) do
     diary_items = Notebook.list_diary_items(date)
-    mood = Notebook.get_mood_by_date(date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     socket =
       socket
       |> subscribe_to_date(date)
       |> assign(date: date)
-      |> assign(mood: mood)
       |> assign(content_length: 0)
       |> assign(form: to_form(changeset))
       |> stream(:diary_items, diary_items, reset: true)
@@ -435,12 +370,11 @@ defmodule DiaryWeb.DiaryLive do
     |> assign_calendar_data(calendar_start_date, calendar_end_date)
   end
 
-  # Helper to assign queried calendar data (moods and entry dates) to the socket.
+  # Helper to assign queried calendar data (entry dates) to the socket.
   defp assign_calendar_data(socket, start_date, end_date) do
-    {moods, entry_dates} = Notebook.list_calendar_data(start_date, end_date)
+    entry_dates = Notebook.list_calendar_data(start_date, end_date)
 
     socket
-    |> assign(:calendar_moods, moods)
     |> assign(:calendar_entry_dates, entry_dates)
   end
 

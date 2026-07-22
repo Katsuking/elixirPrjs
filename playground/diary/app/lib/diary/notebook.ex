@@ -79,60 +79,18 @@ defmodule Diary.Notebook do
   end
 
   @doc """
-  Gets the mood for a specific date.
-  """
-  def get_mood_by_date(date) do
-    Repo.get_by(Diary.Mood, date: date)
-  end
-
-  @doc """
-  Saves the mood for a specific date.
-  If the mood already exists, it is updated.
-  If the mood does not exist, it is created.
-  """
-  def save_mood(date, status) do
-    case get_mood_by_date(date) do # すでに存在するか
-      # まだmoodがなければ、新しくmoodを作成する
-      nil ->
-        %Diary.Mood{}
-        |> Diary.Mood.changeset(%{date: date, status: status})
-        |> Repo.insert()
-
-      # 既にmoodがあれば、そのmoodを更新する
-      mood ->
-        mood
-        |> Diary.Mood.changeset(%{status: status})
-        |> Repo.update()
-    end
-    |> broadcast_change(:mood_saved)
-  end
-
-  @doc """
-  Returns a tuple containing a map of moods by date and a MapSet of dates with diary entries,
-  for a given date range.
+  Returns a MapSet of dates with diary entries for a given date range.
   """
   def list_calendar_data(start_date, end_date) do
-    # Fetch all moods within the date range
-    moods =
-      from(m in Diary.Mood,
-        where: m.date >= ^start_date and m.date <= ^end_date
-      )
-      |> Repo.all()
-      # Convert the list of moods into a map of %{date => mood} for O(1) lookup
-      |> Map.new(fn mood -> {mood.date, mood} end)
-
     # Fetch distinct dates that have diary items within the date range
-    entry_dates =
-      from(di in DiaryItem,
-        where: di.date >= ^start_date and di.date <= ^end_date,
-        select: di.date,
-        distinct: true
-      )
-      |> Repo.all()
-      # Convert the list of dates into a MapSet for O(1) lookup
-      |> MapSet.new()
-
-    {moods, entry_dates}
+    from(di in DiaryItem,
+      where: di.date >= ^start_date and di.date <= ^end_date,
+      select: di.date,
+      distinct: true
+    )
+    |> Repo.all()
+    # Convert the list of dates into a MapSet for O(1) lookup
+    |> MapSet.new()
   end
 
   # Helper inside Diary.Notebook to broadcast database changes

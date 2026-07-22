@@ -1,13 +1,12 @@
 defmodule DiaryWeb.Components.Diary.CalendarComponent do
   @moduledoc """
   A reusable calendar component that displays month navigation and a day grid
-  with mood icons and entry indicators.
+  with entry indicators.
   """
   use DiaryWeb, :html
 
   attr :current_calendar_month, Date, required: true
   attr :calendar_days, :list, required: true
-  attr :calendar_moods, :map, required: true
   attr :calendar_entry_dates, :any, required: true # MapSet of Dates
   attr :date, Date, required: true
   attr :locale, :string, required: true
@@ -60,7 +59,6 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
             is_selected = Date.compare(day, @date) == :eq
             is_today = Date.compare(day, Date.utc_today()) == :eq
             is_current_month = day.month == @current_calendar_month.month
-            mood = Map.get(@calendar_moods, day)
             has_entries = MapSet.member?(@calendar_entry_dates, day)
           %>
           <button
@@ -85,16 +83,8 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
               {day.day}
             </span>
 
-            <!-- Mood SVG -->
-            <div class="flex-grow flex items-center justify-center min-h-[24px]">
-              <%= if mood do %>
-                <img
-                  src={"/images/#{mood_image_name(mood.status)}.svg"}
-                  class="w-6 h-6 object-contain hover:scale-110 transition-transform duration-150"
-                  title={mood.status}
-                />
-              <% end %>
-            </div>
+            <!-- Spacer Area -->
+            <div class="flex-grow flex items-center justify-center min-h-[24px]"></div>
 
             <!-- Entries Indicator (Dot) -->
             <div class="h-1 flex items-center justify-center">
@@ -139,9 +129,4 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
         "#{month_name} #{date.year}"
     end
   end
-
-  # Helper to convert a mood status into its corresponding SVG filename.
-  defp mood_image_name("very good"), do: "very_good"
-  defp mood_image_name("on fire"), do: "on_fire"
-  defp mood_image_name(status), do: status
 end

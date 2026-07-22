@@ -1,0 +1,63 @@
+<!-- livebook:{"autosave_interval_s":null} -->
+
+# Confirm list_diary_items/1 Behavior
+
+This notebook confirms the behavior of the `Diary.Notebook.list_diary_items/1` function in the running application.
+
+## Setup and Query Execution
+
+First, let's query the diary items for today:
+
+```elixir
+# Alias the necessary modules from our app
+alias Diary.Notebook
+alias Diary.Repo
+alias Diary.DiaryItem
+import Ecto.Query
+
+# Get today's date
+date = Date.utc_today()
+
+# Run the target function to see what it returns
+items = Notebook.list_diary_items(date)
+
+IO.inspect(items, label: "Diary items for #{date}")
+```
+
+## Step-by-Step Ecto Query Inspection
+
+Let's break down the Ecto query logic step by step to inspect the SQL generated and the results.
+
+```elixir
+# 1. Build the base query for the given date
+query = from(di in DiaryItem, where: di.date == ^date)
+
+# 2. Add ordering logic (ordered by position and insertion time)
+ordered_query = from(di in query, order_by: [asc: di.position, asc: di.inserted_at])
+
+# 3. Print the generated SQL query
+{sql, params} = Repo.to_sql(:all, ordered_query)
+IO.puts("SQL Query:\n#{sql}\nParameters: #{inspect(params)}")
+
+# 4. Fetch the results from the DB
+results = Repo.all(ordered_query)
+IO.inspect(results, label: "Ecto Query Results")
+```
+
+## Adding a Temporary Test Entry
+
+Let's create a temporary diary item to see it returned by the function.
+
+```elixir
+# Save a new item using the Notebook context
+{:ok, created_item} = Notebook.create_diary_item(%{
+  "date" => date,
+  "content" => "Tested via Livebook"
+})
+
+IO.inspect(created_item, label: "Created Item")
+
+# Query again to see the newly created item
+updated_items = Notebook.list_diary_items(date)
+IO.inspect(updated_items, label: "Updated Diary Items")
+```
