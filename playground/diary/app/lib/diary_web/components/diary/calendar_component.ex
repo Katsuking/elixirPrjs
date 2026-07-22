@@ -19,30 +19,30 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
   """
   def calendar(assigns) do
     ~H"""
-    <div class="p-8 border-b border-slate-100 bg-slate-50/50">
+    <div class="p-8 border-b border-slate-100 bg-slate-50/30">
       <!-- Month Selection Header -->
       <div class="flex items-center justify-between mb-6">
         <button
           type="button"
           phx-click={@on_prev_month}
-          class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
+          class="p-2.5 rounded-xl border border-zinc-200 text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
         >
           <.icon name="hero-chevron-left" class="size-5" />
         </button>
-        <span class="text-lg font-extrabold text-slate-800">
+        <span class="text-lg font-black text-zinc-800 dark:text-zinc-100">
           {format_month_year(@current_calendar_month, @locale)}
         </span>
         <button
           type="button"
           phx-click={@on_next_month}
-          class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
+          class="p-2.5 rounded-xl border border-zinc-200 text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
         >
           <.icon name="hero-chevron-right" class="size-5" />
         </button>
       </div>
 
       <!-- Weekday Headers -->
-      <div class="grid grid-cols-7 gap-2 mb-2 text-center text-xs font-bold text-slate-400 uppercase tracking-wider">
+      <div class="grid grid-cols-7 gap-2 mb-2 text-center text-[10px] font-black text-zinc-400 uppercase tracking-widest">
         <div><%= gettext("Sun") %></div>
         <div><%= gettext("Mon") %></div>
         <div><%= gettext("Tue") %></div>
@@ -67,18 +67,18 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
             phx-value-date={Date.to_iso8601(day)}
             class={[
               "relative flex flex-col items-center justify-between p-1.5 h-16 w-full rounded-2xl border transition-all duration-200 cursor-pointer",
-              is_selected && "border-indigo-600 bg-indigo-50/30 ring-2 ring-indigo-600/20 shadow-md",
-              !is_selected && is_today && "border-indigo-200 bg-indigo-50/10",
-              !is_selected && !is_today && "border-slate-100 bg-white hover:border-slate-300 hover:bg-slate-50",
+              is_selected && "border-zinc-800 bg-zinc-50 dark:bg-zinc-800 ring-2 ring-zinc-800/10 shadow-md",
+              !is_selected && is_today && "border-zinc-300 bg-zinc-50/20",
+              !is_selected && !is_today && "border-zinc-100 bg-white hover:border-zinc-300 hover:bg-zinc-50",
               !is_current_month && "opacity-40"
             ]}
           >
             <!-- Day Number -->
             <span class={[
               "text-xs font-bold",
-              is_selected && "text-indigo-600",
-              !is_selected && is_current_month && "text-slate-700",
-              !is_current_month && "text-slate-400"
+              is_selected && "text-zinc-800 dark:text-zinc-100",
+              !is_selected && is_current_month && "text-zinc-700 dark:text-zinc-300",
+              !is_current_month && "text-zinc-400"
             ]}>
               {day.day}
             </span>
@@ -91,8 +91,8 @@ defmodule DiaryWeb.Components.Diary.CalendarComponent do
               <%= if has_entries do %>
                 <span class={[
                   "w-1.5 h-1.5 rounded-full block",
-                  is_selected && "bg-indigo-600",
-                  !is_selected && "bg-slate-400"
+                  is_selected && "bg-zinc-800 dark:bg-zinc-100",
+                  !is_selected && "bg-zinc-400"
                 ]}></span>
               <% end %>
             </div>

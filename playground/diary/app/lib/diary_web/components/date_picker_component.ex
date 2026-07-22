@@ -20,7 +20,7 @@ defmodule DiaryWeb.DatePickerComponent do
         type="button"
         phx-click={@on_adjust}
         phx-value-days="-1"
-        class="flex items-center justify-center p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
+        class="flex items-center justify-center p-2.5 rounded-xl border border-zinc-200 text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
       >
         <%= render_slot(@prev_button_content) || ~H|<.icon name="hero-chevron-left" class="size-5" />| %>
       </button>
@@ -31,14 +31,14 @@ defmodule DiaryWeb.DatePickerComponent do
           name="date"
           value={Date.to_iso8601(@date)}
           id="date-picker-input"
-          class="w-full text-center font-bold text-slate-700 bg-white border border-slate-200 rounded-xl py-2 px-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all duration-200 cursor-pointer"
+          class="w-full text-center font-bold text-zinc-700 bg-white border border-zinc-200 rounded-xl py-2 px-4 focus:ring-2 focus:ring-zinc-800 focus:border-zinc-800 outline-none transition-all duration-200 cursor-pointer"
         />
       </form>
       <!-- Today Button -->
       <button
         type="button"
         phx-click={@on_today}
-        class="flex items-center justify-center py-2 px-4 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
+        class="flex items-center justify-center py-2 px-4 rounded-xl border border-zinc-200 text-sm font-bold text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
       >
         <%= render_slot(@today_button_content) || "Today" %>
       </button>
@@ -47,7 +47,7 @@ defmodule DiaryWeb.DatePickerComponent do
         type="button"
         phx-click={@on_adjust}
         phx-value-days="1"
-        class="flex items-center justify-center p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/55 transition-all duration-200 cursor-pointer"
+        class="flex items-center justify-center p-2.5 rounded-xl border border-zinc-200 text-zinc-600 hover:text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 transition-all duration-200 cursor-pointer"
       >
         <%= render_slot(@next_button_content) || ~H|<.icon name="hero-chevron-right" class="size-5" />| %>
       </button>

@@ -123,56 +123,73 @@ defmodule Diary.Notebook do
   end
 
   @doc """
-  Returns all workout logs for a given date, indexed by exercise name.
+  Returns all workout logs for a given date.
   """
   def list_workout_logs(date) do
     WorkoutLog
     |> where(date: ^date)
+    |> order_by(asc: :id)
     |> Repo.all()
-    # Return as a map of %{exercise_name => log}
-    |> Map.new(fn log -> {log.exercise, log} end)
   end
 
   @doc """
-  Saves a workout log for a given date, exercise, and weight.
-  If weight is <= 0.0 or nil, deletes the log if it exists.
-  Otherwise, inserts or updates the log.
+  Saves a set log for a given date, exercise, weight, and reps.
   """
-  def save_workout_log(date, exercise, weight) do
-    existing = Repo.get_by(WorkoutLog, date: date, exercise: exercise)
+  def save_workout_log(date, exercise, weight, reps) do
+    reps_val = (reps || 0) |> to_int()
+    weight_val = (weight || 0.0) |> to_float()
 
-    cond do
-      is_nil(weight) or weight <= 0.0 ->
-        if existing do
-          Repo.delete!(existing)
+    if weight_val <= 0.0 or reps_val <= 0 do
+      {:error, :invalid_values}
+    else
+      params = %{date: date, exercise: exercise, weight: weight_val, reps: reps_val}
+
+      %WorkoutLog{}
+      |> WorkoutLog.changeset(params)
+      |> Repo.insert()
+      |> case do
+        {:ok, log} ->
           Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
-        end
-        {:ok, nil}
+          {:ok, log}
 
-      true ->
-        result =
-          case existing do
-            nil ->
-              %WorkoutLog{}
-              |> WorkoutLog.changeset(%{date: date, exercise: exercise, weight: weight})
-              |> Repo.insert()
-
-            log ->
-              log
-              |> WorkoutLog.changeset(%{weight: weight})
-              |> Repo.update()
-          end
-
-        case result do
-          {:ok, log} ->
-            Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
-            {:ok, log}
-
-          {:error, changeset} ->
-            {:error, changeset}
-        end
+        {:error, changeset} ->
+          {:error, changeset}
+      end
     end
   end
+
+  @doc """
+  Deletes a workout log entry by id.
+  """
+  def delete_workout_log(id) do
+    case Repo.get(WorkoutLog, id) do
+      nil -> {:ok, nil}
+      log ->
+        date = log.date
+        Repo.delete!(log)
+        Phoenix.PubSub.broadcast(Diary.PubSub, "diary:#{date}", {:workout_log_updated, date})
+        {:ok, log}
+    end
+  end
+
+  defp to_int(val) when is_integer(val), do: val
+  defp to_int(val) when is_binary(val) do
+    case Integer.parse(val) do
+      {i, _} -> i
+      _ -> 0
+    end
+  end
+  defp to_int(_), do: 0
+
+  defp to_float(val) when is_float(val), do: val
+  defp to_float(val) when is_integer(val), do: val * 1.0
+  defp to_float(val) when is_binary(val) do
+    case Float.parse(val) do
+      {f, _} -> f
+      _ -> 0.0
+    end
+  end
+  defp to_float(_), do: 0.0
 
   @doc """
   Returns all workout logs in a given date range.
@@ -184,28 +201,28 @@ defmodule Diary.Notebook do
   end
 
   @doc """
-  Aggregates workout weights into general and detailed muscle groups.
+  Aggregates workout training volume (weight * reps) into general and detailed muscle groups.
   """
   def aggregate_workout_weights(workout_logs) do
     initial_state = %{general: %{}, detailed: %{}}
 
     Enum.reduce(workout_logs, initial_state, fn log, acc ->
       exercise = log.exercise
-      weight = log.weight
+      log_volume = (log.weight || 0.0) * (log.reps || 0)
       ratios = WorkoutMaster.exercise_ratios(exercise)
 
       Enum.reduce(ratios, acc, fn ratio_item, acc_inner ->
         general_group = ratio_item.general
         detailed_part = ratio_item.detailed
-        distributed_weight = weight * ratio_item.ratio
+        distributed_volume = log_volume * ratio_item.ratio
 
         # 1. Update general totals
-        new_general = Map.update(acc_inner.general, general_group, distributed_weight, &(&1 + distributed_weight))
+        new_general = Map.update(acc_inner.general, general_group, distributed_volume, &(&1 + distributed_volume))
 
         # 2. Update detailed totals
         new_detailed =
-          Map.update(acc_inner.detailed, general_group, %{detailed_part => distributed_weight}, fn detailed_map ->
-            Map.update(detailed_map, detailed_part, distributed_weight, &(&1 + distributed_weight))
+          Map.update(acc_inner.detailed, general_group, %{detailed_part => distributed_volume}, fn detailed_map ->
+            Map.update(detailed_map, detailed_part, distributed_volume, &(&1 + distributed_volume))
           end)
 
         %{general: new_general, detailed: new_detailed}

@@ -37,22 +37,22 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:123
+#: lib/diary_web/live/diary_live.ex:140
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:142
+#: lib/diary_web/live/diary_live.ex:159
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr ""
 
-#: lib/diary_web/live/diary_live.ex:147
+#: lib/diary_web/live/diary_live.ex:164
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:122
+#: lib/diary_web/live/workout_live.ex:172
 #, elixir-autogen, elixir-format
 msgid "Back to Diary"
 msgstr ""
@@ -62,12 +62,7 @@ msgstr ""
 msgid "Fri"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:132
-#, elixir-autogen, elixir-format
-msgid "Input Weights"
-msgstr ""
-
-#: lib/diary_web/live/diary_live.ex:234
+#: lib/diary_web/live/diary_live.ex:259
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr ""
@@ -77,12 +72,12 @@ msgstr ""
 msgid "Mon"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:177
+#: lib/diary_web/components/diary/workout_stats_component.ex:40
 #, elixir-autogen, elixir-format
 msgid "Monthly"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:204
+#: lib/diary_web/components/diary/workout_stats_component.ex:67
 #, elixir-autogen, elixir-format
 msgid "No data for this period"
 msgstr ""
@@ -92,12 +87,12 @@ msgstr ""
 msgid "Sat"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:169
+#: lib/diary_web/components/diary/workout_stats_component.ex:32
 #, elixir-autogen, elixir-format
 msgid "Show Details"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:169
+#: lib/diary_web/components/diary/workout_stats_component.ex:32
 #, elixir-autogen, elixir-format
 msgid "Show General"
 msgstr ""
@@ -112,12 +107,7 @@ msgstr ""
 msgid "Thu"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:111
-#, elixir-autogen, elixir-format
-msgid "Training Logs"
-msgstr ""
-
-#: lib/diary_web/live/workout_live.ex:162
+#: lib/diary_web/components/diary/workout_stats_component.ex:25
 #, elixir-autogen, elixir-format
 msgid "Training Volume"
 msgstr ""
@@ -132,17 +122,173 @@ msgstr ""
 msgid "Wed"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:176
+#: lib/diary_web/components/diary/workout_stats_component.ex:39
 #, elixir-autogen, elixir-format
 msgid "Weekly"
 msgstr ""
 
-#: lib/diary_web/live/workout_live.ex:69
-#, elixir-autogen, elixir-format
-msgid "Weights updated!"
-msgstr ""
-
-#: lib/diary_web/live/workout_live.ex:178
+#: lib/diary_web/components/diary/workout_stats_component.ex:41
 #, elixir-autogen, elixir-format
 msgid "Yearly"
 msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:239
+#, elixir-autogen, elixir-format
+msgid "Cancel"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:225
+#, elixir-autogen, elixir-format
+msgid "Choose a muscle group and an exercise to start logging your workout."
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:118
+#, elixir-autogen, elixir-format
+msgid "Failed to save log. Please check your inputs."
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:232
+#, elixir-autogen, elixir-format
+msgid "Log"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:223
+#, elixir-autogen, elixir-format
+msgid "No Exercise Selected"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:297
+#, elixir-autogen, elixir-format
+msgid "No exercises logged for today"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:271
+#, elixir-autogen, elixir-format
+msgid "Reps"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:282
+#, elixir-autogen, elixir-format
+msgid "Save Entry"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:201
+#, elixir-autogen, elixir-format
+msgid "Select Exercise"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:184
+#, elixir-autogen, elixir-format
+msgid "Select Target Muscle"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:248
+#, elixir-autogen, elixir-format
+msgid "Sets"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:292
+#, elixir-autogen, elixir-format
+msgid "Today's Workouts"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:260
+#, elixir-autogen, elixir-format
+msgid "Weight (kg)"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:161
+#, elixir-autogen, elixir-format
+msgid "Workout Logger"
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:132
+#, elixir-autogen, elixir-format
+msgid "Workout log deleted."
+msgstr ""
+
+#: lib/diary_web/live/workout_live.ex:112
+#, elixir-autogen, elixir-format
+msgid "Workout log saved!"
+msgstr ""
+
+msgid "胸"
+msgstr "Chest"
+
+msgid "背中"
+msgstr "Back"
+
+msgid "肩"
+msgstr "Shoulders"
+
+msgid "脚"
+msgstr "Legs"
+
+msgid "腕（二頭）"
+msgstr "Arms (Biceps)"
+
+msgid "腕（三頭）"
+msgstr "Arms (Triceps)"
+
+msgid "腹"
+msgstr "Abs"
+
+msgid "上部"
+msgstr "Upper"
+
+msgid "中部"
+msgstr "Middle"
+
+msgid "下部"
+msgstr "Lower"
+
+msgid "前部"
+msgstr "Front"
+
+msgid "中部（側部）"
+msgstr "Lateral"
+
+msgid "後部"
+msgstr "Rear"
+
+msgid "広背筋"
+msgstr "Lats"
+
+msgid "僧帽筋"
+msgstr "Traps"
+
+msgid "脊柱起立筋"
+msgstr "Erectors"
+
+msgid "大腿四頭筋"
+msgstr "Quads"
+
+msgid "ハムストリングス"
+msgstr "Hamstrings"
+
+msgid "臀筋"
+msgstr "Glutes"
+
+msgid "内転筋"
+msgstr "Adductors"
+
+msgid "ふくらはぎ"
+msgstr "Calves"
+
+msgid "長頭"
+msgstr "Long Head"
+
+msgid "短頭"
+msgstr "Short Head"
+
+msgid "外側頭"
+msgstr "Lateral Head"
+
+msgid "内側頭"
+msgstr "Medial Head"
+
+msgid "腹直筋"
+msgstr "Abs"
+
+msgid "腹斜筋"
+msgstr "Obliques"

@@ -242,7 +242,7 @@ defmodule DiaryWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label for={@id}>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label-text font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 block">{@label}</span>
         <select
           id={@id}
           name={@name}
@@ -263,7 +263,7 @@ defmodule DiaryWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label for={@id}>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label-text font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 block">{@label}</span>
         <textarea
           id={@id}
           name={@name}
@@ -284,7 +284,7 @@ defmodule DiaryWeb.CoreComponents do
     ~H"""
     <div class="fieldset mb-2">
       <label for={@id}>
-        <span :if={@label} class="label mb-1">{@label}</span>
+        <span :if={@label} class="label-text font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 block">{@label}</span>
         <input
           type={@type}
           name={@name}

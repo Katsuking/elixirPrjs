@@ -2,52 +2,72 @@ defmodule DiaryWeb.WorkoutLiveTest do
   use DiaryWeb.ConnCase
   import Phoenix.LiveViewTest
 
-  test "renders workout logs page and permits weight logging", %{conn: conn} do
-    # Go to a specific date's workout page
+  alias Diary.Notebook
+
+  test "renders workout logger, filters by muscle group, and logs a workout", %{conn: conn} do
     date_str = "2026-07-22"
     {:ok, view, html} = live(conn, ~p"/workout/#{date_str}")
 
-    # Should render header
-    assert html =~ "Training Logs"
+    # Verify the page header
+    assert html =~ "Workout Logger"
 
-    # Should render exercise inputs
-    assert html =~ "ベンチプレス"
+    # Select "胸" (Chest) muscle group
+    view |> element("button[phx-click='select_group'][phx-value-group='胸']") |> render_click()
 
-    # Input weight for Bench Press and save it
-    # We trigger form change which saves weight via phx-change
-    weights_params = %{
-      "weights" => %{
-        "ベンチプレス" => "100"
+    # Verify that chest exercises like "ベンチプレス" are rendered
+    assert render(view) =~ "ベンチプレス"
+
+    # Click on "ベンチプレス" to select it
+    view |> element("button[phx-value-exercise='ベンチプレス']") |> render_click()
+
+    # Fill in the form: 100.0 kg, 10 reps (sets input is removed)
+    form_params = %{
+      "log" => %{
+        "weight" => "100.0",
+        "reps" => "10"
       }
     }
 
-    # Triggering the form change should update state
-    form_html = view |> form("form[phx-change='save_weight']", weights_params) |> render_change()
+    # Submit the form to save the log entry
+    result_html = view |> form("#workout-log-form") |> render_submit(form_params)
 
-    # Weights updated message
-    assert form_html =~ "Weights updated!"
+    # Check for success flash message
+    assert result_html =~ "Workout log saved!"
 
-    # The stats volume should now reflect the Bench Press weight distributed (e.g. 75 kg for Chest/胸)
-    assert form_html =~ "胸"
-    # Bench press weight 100 * 75% = 75.0 kg
-    assert form_html =~ "75.0 kg"
-
-    # Toggle detailed view
-    detail_html = view |> element("button", "Show Details") |> render_click()
-    assert detail_html =~ "Show General"
-    assert detail_html =~ "中部" # Detailed breakdown for Chest
+    # Verify that the exercise is listed under Today's Workouts
+    assert result_html =~ "ベンチプレス"
+    assert result_html =~ "100.0 kg × 10 reps"
   end
 
-  test "tab switching between weekly, monthly, and yearly stats", %{conn: conn} do
-    date_str = "2026-07-22"
-    {:ok, view, _html} = live(conn, ~p"/workout/#{date_str}")
+  test "displays aggregated training volume on the homepage", %{conn: conn} do
+    # Insert 3 workout logs for today (representing 3 sets of 100 kg * 10 reps = 3000 kg volume)
+    # Bench Press targets Chest ("胸") at 75% -> 2250.0 kg chest volume
+    today = Date.utc_today()
+    {:ok, _log1} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
+    {:ok, _log2} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
+    {:ok, _log3} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
 
-    # Switch to monthly tab
+    # Fetch homepage
+    {:ok, view, html} = live(conn, ~p"/")
+
+    # Should render "Training Volume"
+    assert html =~ "Training Volume"
+
+    # Chest targets should now show volume
+    # Bench Press: 3 sets * 100 kg * 10 reps * 75% = 2250.0 kg
+    assert html =~ "Chest"
+    assert html =~ "2250.0 kg"
+
+    # Toggle detail view
+    detail_html = view |> element("button", "Show Details") |> render_click()
+    assert detail_html =~ "Show General"
+    # Detailed breakdown part: "中部" (Middle) for Chest
+    assert detail_html =~ "Middle"
+
+    # Switch stats period tabs
     monthly_html = view |> element("button", "Monthly") |> render_click()
-    # Check that Monthly is active/visible
     assert monthly_html =~ "Monthly"
 
-    # Switch to yearly tab
     yearly_html = view |> element("button", "Yearly") |> render_click()
     assert yearly_html =~ "Yearly"
   end

@@ -7,6 +7,7 @@ defmodule DiaryWeb.DiaryLive do
 
   import DiaryWeb.Components.Diary.CalendarComponent
   import DiaryWeb.DatePickerComponent # Import the custom date picker component
+  import DiaryWeb.Components.Diary.WorkoutStatsComponent
 
   alias Diary.Notebook
   alias Diary.DiaryItem
@@ -31,6 +32,7 @@ defmodule DiaryWeb.DiaryLive do
 
     # Fetch calendar data from DB
     calendar_entry_dates = Notebook.list_calendar_data(calendar_start_date, calendar_end_date)
+    stats = Notebook.get_workout_stats(date)
 
     {:ok,
      socket
@@ -44,6 +46,9 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(calendar_start_date: calendar_start_date)
      |> assign(calendar_end_date: calendar_end_date)
      |> assign(calendar_entry_dates: calendar_entry_dates)
+     |> assign(stats: stats)
+     |> assign(active_tab: "weekly")
+     |> assign(detail_view: false)
      |> stream(:diary_items, diary_items)}
   end
 
@@ -72,6 +77,18 @@ defmodule DiaryWeb.DiaryLive do
   def handle_event("go_to_today", _params, socket) do
     today = Date.utc_today()
     {:noreply, select_date_helper(socket, today)}
+  end
+
+  @impl true
+  # Handle switching active stats tab (weekly / monthly / yearly) on the homepage
+  def handle_event("set_stats_tab", %{"tab" => tab}, socket) do
+    {:noreply, assign(socket, active_tab: tab)}
+  end
+
+  @impl true
+  # Handle toggling detailed muscle breakdown view on the homepage
+  def handle_event("toggle_stats_detail", _params, socket) do
+    {:noreply, assign(socket, detail_view: !socket.assigns.detail_view)}
   end
 
   # Handle selecting a specific date from the calendar grid
@@ -197,6 +214,13 @@ defmodule DiaryWeb.DiaryLive do
     {:noreply, socket}
   end
 
+  @impl true
+  # Handle PubSub messages for workout log updates
+  def handle_info({:workout_log_updated, _date}, socket) do
+    stats = Notebook.get_workout_stats(socket.assigns.date)
+    {:noreply, assign(socket, stats: stats)}
+  end
+
 
 
   @impl true
@@ -204,8 +228,9 @@ defmodule DiaryWeb.DiaryLive do
     ~H"""
     <Layouts.app flash={@flash}>
       <div class="bg-slate-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto">
-          <!-- Main Card Container -->
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- Left side: Calendar + Diary Items -->
           <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden transition-all duration-300">
 
             <!-- Card Header with App Title and Navigation -->
@@ -229,7 +254,7 @@ defmodule DiaryWeb.DiaryLive do
               <div class="flex justify-center">
                 <.link
                   navigate={~p"/workout/#{Date.to_iso8601(@date)}"}
-                  class="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm"
+                  class="w-full flex items-center justify-center gap-2 py-3 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm"
                 >
                   💪 {gettext("Log Workouts")}
                 </.link>
@@ -263,10 +288,10 @@ defmodule DiaryWeb.DiaryLive do
                 <div
                   :for={{id, item} <- @streams.diary_items}
                   id={id}
-                  class="group flex items-center justify-between p-4 bg-slate-50/60 hover:bg-indigo-50/30 border border-slate-100 hover:border-indigo-100 rounded-2xl transition-all duration-200"
+                  class="group flex items-center justify-between p-4 bg-slate-50/60 hover:bg-zinc-50/50 border border-slate-100 hover:border-zinc-300 rounded-2xl transition-all duration-200"
                 >
                   <div class="flex items-start gap-3.5 pr-4">
-                    <span class="flex-shrink-0 text-lg select-none text-indigo-500 group-hover:scale-110 transition-transform duration-200">•</span>
+                    <span class="flex-shrink-0 text-lg select-none text-zinc-500 group-hover:scale-110 transition-transform duration-200">•</span>
                     <p class="text-slate-700 font-medium break-all leading-relaxed">{item.content}</p>
                   </div>
 
@@ -304,7 +329,7 @@ defmodule DiaryWeb.DiaryLive do
                     placeholder="What did you do today?"
                     autocomplete="off"
                     id="diary-item-content-input"
-                    class="w-full pl-4 pr-20 py-3.5 text-slate-700 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all duration-200 placeholder:text-slate-400 shadow-sm"
+                    class="w-full pl-4 pr-20 py-3.5 text-slate-700 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-zinc-800/10 focus:border-zinc-800 outline-none transition-all duration-200 placeholder:text-slate-400 shadow-sm"
                     error_class="border-rose-500 focus:ring-rose-500/20 focus:border-rose-500"
                   />
 
@@ -324,15 +349,25 @@ defmodule DiaryWeb.DiaryLive do
                     type="submit"
                     id="submit-item-btn"
                     disabled={@content_length == 0 or @content_length > 50}
-                    class="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 text-white disabled:text-slate-400 font-bold rounded-2xl shadow-lg shadow-indigo-600/10 hover:shadow-indigo-600/20 disabled:shadow-none transition-all duration-200 transform active:scale-[0.98] disabled:transform-none cursor-pointer disabled:cursor-not-allowed"
+                    class="flex items-center gap-2 px-6 py-3 bg-zinc-800 hover:bg-zinc-900 disabled:bg-slate-200 text-white disabled:text-slate-400 font-bold rounded-2xl shadow-lg shadow-zinc-850/10 hover:shadow-zinc-850/20 disabled:shadow-none transition-all duration-200 transform active:scale-[0.98] disabled:transform-none cursor-pointer disabled:cursor-not-allowed"
                   >
                     <.icon name="hero-plus" class="size-4" /> Add Bullet
                   </button>
                 </div>
               </.form>
             </div>
-
           </div>
+
+          <!-- Right side: Workout Volume Statistics -->
+          <.workout_stats
+            stats={@stats}
+            active_tab={@active_tab}
+            detail_view={@detail_view}
+            on_tab_change="set_stats_tab"
+            on_toggle_detail="toggle_stats_detail"
+            locale={@locale}
+          />
+
         </div>
       </div>
     </Layouts.app>
@@ -345,6 +380,7 @@ defmodule DiaryWeb.DiaryLive do
   defp select_date_helper(socket, date) do
     diary_items = Notebook.list_diary_items(date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
+    stats = Notebook.get_workout_stats(date)
 
     socket =
       socket
@@ -352,6 +388,7 @@ defmodule DiaryWeb.DiaryLive do
       |> assign(date: date)
       |> assign(content_length: 0)
       |> assign(form: to_form(changeset))
+      |> assign(stats: stats)
       |> stream(:diary_items, diary_items, reset: true)
 
     # Shift calendar month if the selected date belongs to a different month
