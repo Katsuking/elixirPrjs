@@ -64,7 +64,7 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
 
           <!-- Navigation Tabs -->
           <div class="flex bg-slate-100 dark:bg-zinc-800 p-1 rounded-xl">
-            <%= for tab <- ["weekly", "monthly", "yearly"] do %>
+            <%= for tab <- ["daily", "weekly", "monthly", "yearly"] do %>
               <button
                 type="button"
                 phx-click={@on_tab_change}
@@ -76,6 +76,7 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
                 ]}
               >
                 <%= case tab do %>
+                  <% "daily" -> %> <%= gettext("Daily") %>
                   <% "weekly" -> %> <%= gettext("Weekly") %>
                   <% "monthly" -> %> <%= gettext("Monthly") %>
                   <% "yearly" -> %> <%= gettext("Yearly") %>

@@ -39,13 +39,23 @@ defmodule DiaryWeb.WorkoutLiveTest do
     assert result_html =~ "100.0 kg × 10 reps"
   end
 
-  test "displays aggregated training volume on the homepage", %{conn: conn} do
+  test "displays aggregated training volume on the homepage and stats page", %{conn: conn} do
     # Insert 3 workout logs for today (representing 3 sets of 100 kg * 10 reps = 3000 kg volume)
     # Bench Press targets Chest ("胸") at 75% -> 2250.0 kg chest volume
     today = Date.utc_today()
     {:ok, _log1} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
     {:ok, _log2} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
     {:ok, _log3} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
+
+    # Fetch homepage (diary page) and verify today's volume is shown in English
+    {:ok, _diary_view, diary_html} = live(conn, ~p"/")
+    assert diary_html =~ "Today&#39;s Volume"
+    assert diary_html =~ "3000.0 kg"
+
+    # Verify today's volume on homepage in Japanese
+    {:ok, _diary_view_ja, diary_html_ja} = live(conn, ~p"/?locale=ja")
+    assert diary_html_ja =~ "本日の総重量"
+    assert diary_html_ja =~ "3000.0 kg"
 
     # Fetch stats page
     {:ok, view, html} = live(conn, ~p"/stats")
@@ -65,6 +75,9 @@ defmodule DiaryWeb.WorkoutLiveTest do
     assert detail_html =~ "Middle"
 
     # Switch stats period tabs
+    daily_html = view |> element("button", "Daily") |> render_click()
+    assert daily_html =~ "Daily"
+
     monthly_html = view |> element("button", "Monthly") |> render_click()
     assert monthly_html =~ "Monthly"
 

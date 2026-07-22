@@ -168,6 +168,16 @@ defmodule Diary.Notebook do
     end
   end
 
+  @doc """
+  Calculates the total training volume (weight * reps) for a given date.
+  """
+  def get_workout_volume_for_date(date) do
+    list_workout_logs(date)
+    |> Enum.reduce(0.0, fn log, acc ->
+      acc + (log.weight * log.reps)
+    end)
+  end
+
   defp to_int(val) when is_integer(val), do: val
   defp to_int(val) when is_binary(val) do
     case Integer.parse(val) do
@@ -230,6 +240,9 @@ defmodule Diary.Notebook do
   Fetches and aggregates weekly, monthly, and yearly workout logs relative to a given date.
   """
   def get_workout_stats(date) do
+    # Daily range
+    daily_logs = list_workout_logs(date)
+
     # Weekly range (beginning to end of week)
     weekly_start = Date.beginning_of_week(date)
     weekly_end = Date.end_of_week(date)
@@ -246,6 +259,7 @@ defmodule Diary.Notebook do
     yearly_logs = list_workout_logs_in_range(yearly_start, yearly_end)
 
     %{
+      daily: aggregate_workout_weights(daily_logs),
       weekly: aggregate_workout_weights(weekly_logs),
       monthly: aggregate_workout_weights(monthly_logs),
       yearly: aggregate_workout_weights(yearly_logs)

@@ -37,17 +37,17 @@ msgstr "インターネットに接続できません。"
 msgid "close"
 msgstr "閉じる"
 
-#: lib/diary_web/live/diary/diary_live.ex:117
+#: lib/diary_web/live/diary/diary_live.ex:119
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr "追加されました!"
 
-#: lib/diary_web/live/diary/diary_live.ex:136
+#: lib/diary_web/live/diary/diary_live.ex:138
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr "削除されました!"
 
-#: lib/diary_web/live/diary/diary_live.ex:141
+#: lib/diary_web/live/diary/diary_live.ex:143
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr "削除に失敗しました。"
@@ -62,7 +62,7 @@ msgstr "日記に戻る"
 msgid "Fri"
 msgstr "金"
 
-#: lib/diary_web/live/diary/diary_live.ex:221
+#: lib/diary_web/live/diary/diary_live.ex:245
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr "トレーニングを記録"
@@ -72,12 +72,12 @@ msgstr "トレーニングを記録"
 msgid "Mon"
 msgstr "月"
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:80
+#: lib/diary_web/live/stats/workout_stats_component.ex:81
 #, elixir-autogen, elixir-format
 msgid "Monthly"
 msgstr "月"
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:95
+#: lib/diary_web/live/stats/workout_stats_component.ex:96
 #, elixir-autogen, elixir-format
 msgid "No data for this period"
 msgstr "この期間のデータはありません"
@@ -122,12 +122,12 @@ msgstr "火"
 msgid "Wed"
 msgstr "水"
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:79
+#: lib/diary_web/live/stats/workout_stats_component.ex:80
 #, elixir-autogen, elixir-format
 msgid "Weekly"
 msgstr "週"
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:81
+#: lib/diary_web/live/stats/workout_stats_component.ex:82
 #, elixir-autogen, elixir-format
 msgid "Yearly"
 msgstr "年"
@@ -207,12 +207,12 @@ msgstr "記録を削除しました。"
 msgid "Workout log saved!"
 msgstr "記録を保存しました！"
 
-#: lib/diary_web/live/diary/diary_live.ex:312
+#: lib/diary_web/live/diary/diary_live.ex:344
 #, elixir-autogen, elixir-format
 msgid "Add Bullet"
 msgstr "入力を追加"
 
-#: lib/diary_web/live/diary/diary_live.ex:279
+#: lib/diary_web/live/diary/diary_live.ex:311
 #, elixir-autogen, elixir-format
 msgid "Add New Entry"
 msgstr "新しい入力を追加"
@@ -223,22 +223,22 @@ msgstr "新しい入力を追加"
 msgid "Calendar"
 msgstr "カレンダー"
 
-#: lib/diary_web/live/diary/diary_live.ex:267
+#: lib/diary_web/live/diary/diary_live.ex:299
 #, elixir-autogen, elixir-format
 msgid "Delete item"
 msgstr "項目を削除"
 
-#: lib/diary_web/live/diary/diary_live.ex:212
+#: lib/diary_web/live/diary/diary_live.ex:236
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr "翌日"
 
-#: lib/diary_web/live/diary/diary_live.ex:245
+#: lib/diary_web/live/diary/diary_live.ex:277
 #, elixir-autogen, elixir-format
 msgid "No entries for this day. Add one below!"
 msgstr "この日の日記はありません。下から新しく追加してください。"
 
-#: lib/diary_web/live/diary/diary_live.ex:204
+#: lib/diary_web/live/diary/diary_live.ex:228
 #, elixir-autogen, elixir-format
 msgid "Prev"
 msgstr "前日"
@@ -249,17 +249,162 @@ msgstr "前日"
 msgid "Stats"
 msgstr "統計情報"
 
-#: lib/diary_web/live/diary/diary_live.ex:238
+#: lib/diary_web/live/diary/diary_live.ex:270
 #, elixir-autogen, elixir-format
 msgid "Today's Entries"
 msgstr "本日の記録一覧"
 
-#: lib/diary_web/live/diary/diary_live.ex:287
+#: lib/diary_web/live/diary/diary_live.ex:319
 #, elixir-autogen, elixir-format
 msgid "What did you do today?"
 msgstr "今日は何をしましたか？"
 
-#: lib/diary_web/live/diary/diary_live.ex:208
+#: lib/diary_web/live/diary/diary_live.ex:232
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr "今日"
+
+#: lib/diary_web/live/diary/diary_live.ex:252
+#, elixir-autogen, elixir-format
+msgid "Today's Volume"
+msgstr "本日の総重量"
+
+#: lib/diary/workout_master.ex:33
+#, elixir-autogen, elixir-format
+msgid "ふくらはぎ"
+msgstr ""
+
+#: lib/diary/workout_master.ex:30
+#, elixir-autogen, elixir-format
+msgid "ハムストリングス"
+msgstr ""
+
+#: lib/diary/workout_master.ex:20
+#, elixir-autogen, elixir-format
+msgid "上部"
+msgstr ""
+
+#: lib/diary/workout_master.ex:22
+#, elixir-autogen, elixir-format
+msgid "下部"
+msgstr ""
+
+#: lib/diary/workout_master.ex:21
+#, elixir-autogen, elixir-format
+msgid "中部"
+msgstr ""
+
+#: lib/diary/workout_master.ex:24
+#, elixir-autogen, elixir-format
+msgid "中部（側部）"
+msgstr ""
+
+#: lib/diary/workout_master.ex:27
+#, elixir-autogen, elixir-format
+msgid "僧帽筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:37
+#, elixir-autogen, elixir-format
+msgid "内側頭"
+msgstr ""
+
+#: lib/diary/workout_master.ex:32
+#, elixir-autogen, elixir-format
+msgid "内転筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:23
+#, elixir-autogen, elixir-format
+msgid "前部"
+msgstr ""
+
+#: lib/diary/workout_master.ex:36
+#, elixir-autogen, elixir-format
+msgid "外側頭"
+msgstr ""
+
+#: lib/diary/workout_master.ex:29
+#, elixir-autogen, elixir-format
+msgid "大腿四頭筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:26
+#, elixir-autogen, elixir-format
+msgid "広背筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:25
+#, elixir-autogen, elixir-format
+msgid "後部"
+msgstr ""
+
+#: lib/diary/workout_master.ex:35
+#, elixir-autogen, elixir-format
+msgid "短頭"
+msgstr ""
+
+#: lib/diary/workout_master.ex:13
+#, elixir-autogen, elixir-format
+msgid "肩"
+msgstr ""
+
+#: lib/diary/workout_master.ex:12
+#, elixir-autogen, elixir-format
+msgid "背中"
+msgstr ""
+
+#: lib/diary/workout_master.ex:11
+#, elixir-autogen, elixir-format
+msgid "胸"
+msgstr ""
+
+#: lib/diary/workout_master.ex:28
+#, elixir-autogen, elixir-format
+msgid "脊柱起立筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:14
+#, elixir-autogen, elixir-format
+msgid "脚"
+msgstr ""
+
+#: lib/diary/workout_master.ex:16
+#, elixir-autogen, elixir-format
+msgid "腕（三頭）"
+msgstr ""
+
+#: lib/diary/workout_master.ex:15
+#, elixir-autogen, elixir-format
+msgid "腕（二頭）"
+msgstr ""
+
+#: lib/diary/workout_master.ex:17
+#, elixir-autogen, elixir-format
+msgid "腹"
+msgstr ""
+
+#: lib/diary/workout_master.ex:39
+#, elixir-autogen, elixir-format
+msgid "腹斜筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:38
+#, elixir-autogen, elixir-format
+msgid "腹直筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:31
+#, elixir-autogen, elixir-format
+msgid "臀筋"
+msgstr ""
+
+#: lib/diary/workout_master.ex:34
+#, elixir-autogen, elixir-format
+msgid "長頭"
+msgstr ""
+
+#: lib/diary_web/live/stats/workout_stats_component.ex:79
+#, elixir-autogen, elixir-format
+msgid "Daily"
+msgstr "日"

@@ -29,6 +29,7 @@ defmodule DiaryWeb.DiaryLive do
 
     # Fetch calendar data from DB
     calendar_entry_dates = Notebook.list_calendar_data(calendar_start_date, calendar_end_date)
+    total_volume = Notebook.get_workout_volume_for_date(date)
 
     {:ok,
      socket
@@ -42,6 +43,7 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(calendar_start_date: calendar_start_date)
      |> assign(calendar_end_date: calendar_end_date)
      |> assign(calendar_entry_dates: calendar_entry_dates)
+     |> assign(total_volume: total_volume)
      |> stream(:diary_items, diary_items)}
   end
 
@@ -192,6 +194,28 @@ defmodule DiaryWeb.DiaryLive do
   end
 
   @impl true
+  # Handle PubSub messages for workout log updates to refresh total daily volume
+  def handle_info({:workout_log_updated, date}, socket) do
+    socket =
+      if date == socket.assigns.date do
+        assign(socket, total_volume: Notebook.get_workout_volume_for_date(date))
+      else
+        socket
+      end
+
+    # Refresh calendar data if the update falls in the currently displayed range
+    socket =
+      if Date.compare(date, socket.assigns.calendar_start_date) != :lt and
+         Date.compare(date, socket.assigns.calendar_end_date) != :gt do
+        assign_calendar_data(socket, socket.assigns.calendar_start_date, socket.assigns.calendar_end_date)
+      else
+        socket
+      end
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} active_tab="diary">
@@ -220,6 +244,14 @@ defmodule DiaryWeb.DiaryLive do
             >
               💪 {gettext("Log Workouts")}
             </.link>
+          </div>
+
+          <div :if={@total_volume > 0.0} class="flex items-center justify-between px-5 py-3.5 bg-slate-50/60 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800/60 rounded-2xl">
+            <div class="flex items-center gap-2">
+              <span class="text-base select-none">🏋️‍♂️</span>
+              <span class="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider">{gettext("Today's Volume")}</span>
+            </div>
+            <span class="text-sm font-black text-zinc-800 dark:text-zinc-100">{format_volume(@total_volume)} kg</span>
           </div>
         </div>
 
@@ -324,6 +356,7 @@ defmodule DiaryWeb.DiaryLive do
   defp select_date_helper(socket, date) do
     diary_items = Notebook.list_diary_items(date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
+    total_volume = Notebook.get_workout_volume_for_date(date)
 
     socket =
       socket
@@ -331,6 +364,7 @@ defmodule DiaryWeb.DiaryLive do
       |> assign(date: date)
       |> assign(content_length: 0)
       |> assign(form: to_form(changeset))
+      |> assign(total_volume: total_volume)
       |> stream(:diary_items, diary_items, reset: true)
 
     target_month = Date.beginning_of_month(date)
@@ -374,4 +408,13 @@ defmodule DiaryWeb.DiaryLive do
 
     Date.new!(new_year, new_month, 1)
   end
+
+  # Helper to format floats to decimal notation without scientific symbols
+  defp format_volume(volume) when is_float(volume) do
+    :erlang.float_to_binary(volume, [:compact, decimals: 1])
+  end
+  defp format_volume(volume) when is_integer(volume) do
+    to_string(volume)
+  end
+  defp format_volume(_), do: "0.0"
 end

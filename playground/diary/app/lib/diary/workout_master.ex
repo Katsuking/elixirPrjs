@@ -3,6 +3,41 @@ defmodule Diary.WorkoutMaster do
   Loads and parses the workout_master.json file.
   Provides access to exercises, target muscle ratios, and muscle groups.
   """
+  use Gettext, backend: DiaryWeb.Gettext
+
+  # Dummy function for gettext static extraction
+  def dummy_translations do
+    # Muscle Groups
+    gettext("胸")
+    gettext("背中")
+    gettext("肩")
+    gettext("脚")
+    gettext("腕（二頭）")
+    gettext("腕（三頭）")
+    gettext("腹")
+
+    # Detailed parts
+    gettext("上部")
+    gettext("中部")
+    gettext("下部")
+    gettext("前部")
+    gettext("中部（側部）")
+    gettext("後部")
+    gettext("広背筋")
+    gettext("僧帽筋")
+    gettext("脊柱起立筋")
+    gettext("大腿四頭筋")
+    gettext("ハムストリングス")
+    gettext("臀筋")
+    gettext("内転筋")
+    gettext("ふくらはぎ")
+    gettext("長頭")
+    gettext("短頭")
+    gettext("外側頭")
+    gettext("内側頭")
+    gettext("腹直筋")
+    gettext("腹斜筋")
+  end
 
   # Path to the JSON configuration file
   @external_resource json_path = Path.join([__DIR__, "../../config/workout_master.json"])
