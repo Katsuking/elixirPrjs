@@ -7,6 +7,7 @@ defmodule Diary.WorkoutMaster do
 
   # Dummy function for gettext static extraction
   def dummy_translations do
+    # Muscle Groups
     gettext("胸")
     gettext("背中")
     gettext("肩")
@@ -14,6 +15,7 @@ defmodule Diary.WorkoutMaster do
     gettext("腕")
     gettext("腹")
 
+    # Detailed parts
     gettext("上部")
     gettext("中部")
     gettext("下部")
@@ -32,9 +34,18 @@ defmodule Diary.WorkoutMaster do
     gettext("短頭")
     gettext("外側頭")
     gettext("内側頭")
-    gettext("腹直筋")
-    gettext("腹斜筋")
 
+    # Training systems for Abs (Added for dynamic grouping)
+    gettext("クランチ系")
+    gettext("シットアップ系")
+    gettext("レッグレイズ系")
+    gettext("ハンギング系")
+    gettext("プランク系")
+    gettext("ツイスト・腹斜筋系")
+    gettext("ロールアウト系")
+    gettext("体幹・スタビリティ系")
+
+    # Exercise names (Added for i18n support)
     gettext("ベンチプレス")
     gettext("インクラインベンチ")
     gettext("ダンベルベンチ")
@@ -49,6 +60,13 @@ defmodule Diary.WorkoutMaster do
     gettext("ダンベルカール")
     gettext("プレスダウン")
     gettext("クランチ")
+    gettext("シットアップ")
+    gettext("レッグレイズ")
+    gettext("ハンギングレッグレイズ")
+    gettext("プランク")
+    gettext("ロシアツイスト")
+    gettext("アブローラー")
+    gettext("バードドッグ")
   end
 
   # Path to the JSON configuration file

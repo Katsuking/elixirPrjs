@@ -473,3 +473,78 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "クランチ"
 msgstr ""
+
+#: lib/diary/workout_master.ex:34
+#, elixir-autogen, elixir-format
+msgid "クランチ系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:35
+#, elixir-autogen, elixir-format
+msgid "シットアップ系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:36
+#, elixir-autogen, elixir-format
+msgid "レッグレイズ系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:37
+#, elixir-autogen, elixir-format
+msgid "ハンギング系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:38
+#, elixir-autogen, elixir-format
+msgid "プランク系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:39
+#, elixir-autogen, elixir-format
+msgid "ツイスト・腹斜筋系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:40
+#, elixir-autogen, elixir-format
+msgid "ロールアウト系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:41
+#, elixir-autogen, elixir-format
+msgid "体幹・スタビリティ系"
+msgstr ""
+
+#: lib/diary/workout_master.ex:57
+#, elixir-autogen, elixir-format
+msgid "シットアップ"
+msgstr ""
+
+#: lib/diary/workout_master.ex:58
+#, elixir-autogen, elixir-format
+msgid "レッグレイズ"
+msgstr ""
+
+#: lib/diary/workout_master.ex:59
+#, elixir-autogen, elixir-format
+msgid "ハンギングレッグレイズ"
+msgstr ""
+
+#: lib/diary/workout_master.ex:60
+#, elixir-autogen, elixir-format
+msgid "プランク"
+msgstr ""
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "ロシアツイスト"
+msgstr ""
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "アブローラー"
+msgstr ""
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "バードドッグ"
+msgstr ""

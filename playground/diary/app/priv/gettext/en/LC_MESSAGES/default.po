@@ -473,3 +473,78 @@ msgstr "Triceps Pressdown"
 #, elixir-autogen, elixir-format
 msgid "クランチ"
 msgstr "Crunch"
+
+#: lib/diary/workout_master.ex:34
+#, elixir-autogen, elixir-format
+msgid "クランチ系"
+msgstr "Crunch Variations"
+
+#: lib/diary/workout_master.ex:35
+#, elixir-autogen, elixir-format
+msgid "シットアップ系"
+msgstr "Sit-up Variations"
+
+#: lib/diary/workout_master.ex:36
+#, elixir-autogen, elixir-format
+msgid "レッグレイズ系"
+msgstr "Leg Raise Variations"
+
+#: lib/diary/workout_master.ex:37
+#, elixir-autogen, elixir-format
+msgid "ハンギング系"
+msgstr "Hanging Variations"
+
+#: lib/diary/workout_master.ex:38
+#, elixir-autogen, elixir-format
+msgid "プランク系"
+msgstr "Plank Variations"
+
+#: lib/diary/workout_master.ex:39
+#, elixir-autogen, elixir-format
+msgid "ツイスト・腹斜筋系"
+msgstr "Twist & Oblique Variations"
+
+#: lib/diary/workout_master.ex:40
+#, elixir-autogen, elixir-format
+msgid "ロールアウト系"
+msgstr "Rollout Variations"
+
+#: lib/diary/workout_master.ex:41
+#, elixir-autogen, elixir-format
+msgid "体幹・スタビリティ系"
+msgstr "Core & Stability Variations"
+
+#: lib/diary/workout_master.ex:57
+#, elixir-autogen, elixir-format
+msgid "シットアップ"
+msgstr "Sit-up"
+
+#: lib/diary/workout_master.ex:58
+#, elixir-autogen, elixir-format
+msgid "レッグレイズ"
+msgstr "Leg Raise"
+
+#: lib/diary/workout_master.ex:59
+#, elixir-autogen, elixir-format
+msgid "ハンギングレッグレイズ"
+msgstr "Hanging Leg Raise"
+
+#: lib/diary/workout_master.ex:60
+#, elixir-autogen, elixir-format
+msgid "プランク"
+msgstr "Plank"
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "ロシアツイスト"
+msgstr "Russian Twist"
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "アブローラー"
+msgstr "Ab Roller"
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "バードドッグ"
+msgstr "Bird Dog"
