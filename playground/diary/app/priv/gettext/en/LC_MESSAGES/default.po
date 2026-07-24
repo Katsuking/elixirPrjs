@@ -403,3 +403,73 @@ msgstr "Long Head"
 #, elixir-autogen, elixir-format
 msgid "Daily"
 msgstr "Daily"
+
+#: lib/diary/workout_master.ex:40
+#, elixir-autogen, elixir-format
+msgid "ベンチプレス"
+msgstr "Bench Press"
+
+#: lib/diary/workout_master.ex:41
+#, elixir-autogen, elixir-format
+msgid "インクラインベンチ"
+msgstr "Incline Bench Press"
+
+#: lib/diary/workout_master.ex:42
+#, elixir-autogen, elixir-format
+msgid "ダンベルベンチ"
+msgstr "Dumbbell Bench Press"
+
+#: lib/diary/workout_master.ex:43
+#, elixir-autogen, elixir-format
+msgid "懸垂"
+msgstr "Pull-up"
+
+#: lib/diary/workout_master.ex:44
+#, elixir-autogen, elixir-format
+msgid "ラットプルダウン"
+msgstr "Lat Pulldown"
+
+#: lib/diary/workout_master.ex:45
+#, elixir-autogen, elixir-format
+msgid "バーベルロー"
+msgstr "Barbell Row"
+
+#: lib/diary/workout_master.ex:46
+#, elixir-autogen, elixir-format
+msgid "ショルダープレス"
+msgstr "Shoulder Press"
+
+#: lib/diary/workout_master.ex:47
+#, elixir-autogen, elixir-format
+msgid "スクワット"
+msgstr "Squat"
+
+#: lib/diary/workout_master.ex:48
+#, elixir-autogen, elixir-format
+msgid "レッグプレス"
+msgstr "Leg Press"
+
+#: lib/diary/workout_master.ex:49
+#, elixir-autogen, elixir-format
+msgid "デッドリフト"
+msgstr "Deadlift"
+
+#: lib/diary/workout_master.ex:50
+#, elixir-autogen, elixir-format
+msgid "RDL"
+msgstr "Romanian Deadlift"
+
+#: lib/diary/workout_master.ex:51
+#, elixir-autogen, elixir-format
+msgid "ダンベルカール"
+msgstr "Dumbbell Curl"
+
+#: lib/diary/workout_master.ex:52
+#, elixir-autogen, elixir-format
+msgid "プレスダウン"
+msgstr "Triceps Pressdown"
+
+#: lib/diary/workout_master.ex:53
+#, elixir-autogen, elixir-format
+msgid "クランチ"
+msgstr "Crunch"

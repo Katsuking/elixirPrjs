@@ -226,7 +226,8 @@ defmodule DiaryWeb.WorkoutLive do
               </h2>
 
               <%= if @selected_exercise do %>
-                <p class="text-sm font-extrabold text-zinc-700 dark:text-zinc-300">{@selected_exercise}</p>
+                <!-- Translate exercise name dynamically using Gettext -->
+                <p class="text-sm font-extrabold text-zinc-700 dark:text-zinc-300">{Gettext.gettext(DiaryWeb.Gettext, @selected_exercise)}</p>
 
                 <.form for={@form} id="workout-log-form" phx-submit="save_log" novalidate class="space-y-4">
                   <div class="grid grid-cols-2 gap-4">
@@ -348,7 +349,8 @@ defmodule DiaryWeb.WorkoutLive do
         !@active && "bg-white dark:bg-zinc-900 border-slate-100 dark:border-zinc-850 hover:border-slate-200 dark:hover:border-zinc-750 text-slate-700 dark:text-zinc-300"
       ]}
     >
-      <span class="text-xs">{@exercise}</span>
+      <!-- Translate exercise name dynamically using Gettext -->
+      <span class="text-xs">{Gettext.gettext(DiaryWeb.Gettext, @exercise)}</span>
       <div class="flex items-center gap-2">
         <%= if Enum.any?(@logs) do %>
           <span class="text-[10px] bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-2 py-1 rounded-full font-bold">
@@ -368,7 +370,8 @@ defmodule DiaryWeb.WorkoutLive do
     ~H"""
     <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-zinc-800/40 rounded-2xl border border-slate-100 dark:border-zinc-850 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200">
       <div class="space-y-1">
-        <p class="text-xs font-black text-slate-700 dark:text-zinc-300">{@log.exercise}</p>
+        <!-- Translate exercise name dynamically using Gettext -->
+        <p class="text-xs font-black text-slate-700 dark:text-zinc-300">{Gettext.gettext(DiaryWeb.Gettext, @log.exercise)}</p>
         <p class="text-[10px] font-bold text-slate-400 dark:text-zinc-500">
           {@log.weight} kg × {@log.reps} reps
         </p>
