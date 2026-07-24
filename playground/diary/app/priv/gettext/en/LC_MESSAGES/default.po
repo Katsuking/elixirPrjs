@@ -698,3 +698,8 @@ msgstr "Face Pull"
 #, elixir-autogen, elixir-format
 msgid "アップライトロウ"
 msgstr "Upright Row"
+
+#: lib/diary_web/live/workout/workout_live.ex:305
+#, elixir-autogen, elixir-format
+msgid "Only you can ignite your own destiny."
+msgstr "Only you can ignite your own destiny."

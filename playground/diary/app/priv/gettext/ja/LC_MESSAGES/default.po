@@ -698,3 +698,8 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "アップライトロウ"
 msgstr ""
+
+#: lib/diary_web/live/workout/workout_live.ex:305
+#, elixir-autogen, elixir-format
+msgid "Only you can ignite your own destiny."
+msgstr "己の運命に火を灯せるのは、自分自身だけだ。"

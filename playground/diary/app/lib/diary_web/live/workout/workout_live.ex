@@ -301,8 +301,8 @@ defmodule DiaryWeb.WorkoutLive do
               <div class="space-y-2.5">
                 <%= if Enum.empty?(@logs) do %>
                   <div class="flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
-                    <span class="text-4xl mb-2">🌿</span>
-                    <p class="text-xs font-bold text-slate-400 dark:text-zinc-500">{gettext("No exercises logged for today")}</p>
+                    <img src={~p"/images/hono.svg"} class="w-24 h-auto" alt="No data" />
+                    <p class="text-xs font-bold text-slate-400 dark:text-zinc-500">{gettext("Only you can ignite your own destiny.")}</p>
                   </div>
                 <% else %>
                   <%= for log <- @logs do %>
