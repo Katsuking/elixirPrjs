@@ -19,7 +19,8 @@ defmodule DiaryWeb.Diary.CalendarComponent do
   """
   def calendar(assigns) do
     ~H"""
-    <div class="p-8 border-b border-slate-100 dark:border-zinc-800 bg-slate-50/30">
+    <!-- Responsive container with smaller padding on mobile -->
+    <div class="p-4 sm:p-8 border-b border-slate-100 dark:border-zinc-800 bg-slate-50/30">
       <!-- Month Selection Header -->
       <div class="flex items-center justify-between mb-6">
         <button
@@ -41,8 +42,8 @@ defmodule DiaryWeb.Diary.CalendarComponent do
         </button>
       </div>
 
-      <!-- Weekday Headers -->
-      <div class="grid grid-cols-7 gap-2 mb-2 text-center text-[10px] font-black text-zinc-400 uppercase tracking-widest">
+      <!-- Weekday Headers - Smaller gap and tracking on mobile -->
+      <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-2 text-center text-[10px] font-black text-zinc-400 uppercase tracking-wider sm:tracking-widest">
         <div><%= gettext("Sun") %></div>
         <div><%= gettext("Mon") %></div>
         <div><%= gettext("Tue") %></div>
@@ -52,8 +53,8 @@ defmodule DiaryWeb.Diary.CalendarComponent do
         <div><%= gettext("Sat") %></div>
       </div>
 
-      <!-- Calendar Days Grid -->
-      <div class="grid grid-cols-7 gap-2">
+      <!-- Calendar Days Grid - Smaller gap on mobile -->
+      <div class="grid grid-cols-7 gap-1 sm:gap-2">
         <%= for day <- @calendar_days do %>
           <%
             is_selected = Date.compare(day, @date) == :eq
@@ -61,12 +62,13 @@ defmodule DiaryWeb.Diary.CalendarComponent do
             is_current_month = day.month == @current_calendar_month.month
             has_entries = MapSet.member?(@calendar_entry_dates, day)
           %>
+          <!-- Responsive day buttons (h-12 and rounded-xl on mobile, h-16 and rounded-2xl on desktop) -->
           <button
             type="button"
             phx-click={@on_select_date}
             phx-value-date={Date.to_iso8601(day)}
             class={[
-              "relative flex flex-col items-center justify-between p-1.5 h-16 w-full rounded-2xl border transition-all duration-200 cursor-pointer",
+              "relative flex flex-col items-center justify-between p-1 sm:p-1.5 h-12 sm:h-16 w-full rounded-xl sm:rounded-2xl border transition-all duration-200 cursor-pointer",
               is_selected && "border-zinc-800 bg-zinc-50 dark:bg-zinc-800 ring-2 ring-zinc-800/10 shadow-md",
               !is_selected && is_today && "border-zinc-300 dark:border-zinc-700 bg-zinc-50/20",
               !is_selected && !is_today && "border-zinc-100 dark:border-zinc-850 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/30",
@@ -83,8 +85,8 @@ defmodule DiaryWeb.Diary.CalendarComponent do
               {day.day}
             </span>
 
-            <!-- Spacer Area -->
-            <div class="flex-grow flex items-center justify-center min-h-[24px]"></div>
+            <!-- Spacer Area - Smaller min-height on mobile -->
+            <div class="flex-grow flex items-center justify-center min-h-[8px] sm:min-h-[24px]"></div>
 
             <!-- Entries Indicator (Dot) -->
             <div class="h-1 flex items-center justify-center">

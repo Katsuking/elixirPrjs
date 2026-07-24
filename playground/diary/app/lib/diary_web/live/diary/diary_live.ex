@@ -225,15 +225,24 @@ defmodule DiaryWeb.DiaryLive do
         <div class="p-8 border-b border-slate-100 dark:border-zinc-800 bg-gradient-to-r from-slate-50 to-white dark:from-zinc-900 dark:to-zinc-900/50 space-y-4">
           <.date_navigator date={@date} on_change="change_date">
             <:prev_button_content>
-              <span class="text-xs">{gettext("Prev")}</span>
+              <!-- Show chevron icon on mobile, and add 'Prev' text on larger screens -->
+              <div class="flex items-center gap-1">
+                <.icon name="hero-chevron-left" class="size-4" />
+                <span class="hidden sm:inline text-xs">{gettext("Prev")}</span>
+              </div>
             </:prev_button_content>
 
             <:today_button_content>
-              <span>{gettext("today")}</span>
+              <!-- Responsive text size for today button -->
+              <span class="text-xs sm:text-sm">{gettext("today")}</span>
             </:today_button_content>
 
             <:next_button_content>
-              <span class="text-xs">{gettext("Next")}</span>
+              <!-- Show chevron icon on mobile, and add 'Next' text on larger screens -->
+              <div class="flex items-center gap-1">
+                <span class="hidden sm:inline text-xs">{gettext("Next")}</span>
+                <.icon name="hero-chevron-right" class="size-4" />
+              </div>
             </:next_button_content>
           </.date_navigator>
 
