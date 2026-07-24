@@ -12,6 +12,8 @@ defmodule Diary.DiaryItem do
     field :date, :date
     # Display position for ordering items within the same day
     field :position, :integer, default: 0
+    # Associate with User schema for multi-tenant isolation
+    belongs_to :user, Diary.Accounts.User
 
     timestamps()
   end
@@ -21,8 +23,8 @@ defmodule Diary.DiaryItem do
   """
   def changeset(diary_item, attrs \\ %{}) do
     diary_item
-    |> cast(attrs, [:content, :date, :position])
-    |> validate_required([:content, :date])
+    |> cast(attrs, [:content, :date, :position, :user_id])
+    |> validate_required([:content, :date, :user_id])
     # Ensure the content length does not exceed 50 characters
     |> validate_length(:content, max: 50)
   end

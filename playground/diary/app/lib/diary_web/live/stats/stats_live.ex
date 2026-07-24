@@ -12,19 +12,22 @@ defmodule DiaryWeb.StatsLive do
 
   @impl true
   def mount(_params, session, socket) do
+    # Fetch user_id from socket.assigns.current_scope.user (assigned by require_authenticated)
+    user_id = socket.assigns.current_scope.user.id
     locale = session["locale"] || "en"
     Gettext.put_locale(DiaryWeb.Gettext, locale)
 
     date = Date.utc_today()
-    stats = Notebook.get_workout_stats(date)
+    stats = Notebook.get_workout_stats(user_id, date)
 
     if connected?(socket) do
-      # Subscribe to workout updates for the selected date
-      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{date}")
+      # Subscribe to workout updates for the selected date on user-isolated channel
+      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{user_id}:#{date}")
     end
 
     {:ok,
      socket
+     |> assign(user_id: user_id)
      |> assign(date: date)
      |> assign(:locale, locale)
      |> assign(stats: stats)
@@ -73,17 +76,19 @@ defmodule DiaryWeb.StatsLive do
   @impl true
   # Handle PubSub messages for workout log updates
   def handle_info({:workout_log_updated, _date}, socket) do
-    stats = Notebook.get_workout_stats(socket.assigns.date)
+    user_id = socket.assigns.user_id
+    stats = Notebook.get_workout_stats(user_id, socket.assigns.date)
     {:noreply, assign(socket, stats: stats)}
   end
 
   # Helper to set the active date and reload stats
   defp select_date_helper(socket, date) do
-    stats = Notebook.get_workout_stats(date)
+    user_id = socket.assigns.user_id
+    stats = Notebook.get_workout_stats(user_id, date)
 
     if connected?(socket) do
-      Phoenix.PubSub.unsubscribe(Diary.PubSub, "diary:#{socket.assigns.date}")
-      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{date}")
+      Phoenix.PubSub.unsubscribe(Diary.PubSub, "diary:#{user_id}:#{socket.assigns.date}")
+      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{user_id}:#{date}")
     end
 
     socket

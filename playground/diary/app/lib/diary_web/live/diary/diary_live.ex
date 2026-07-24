@@ -13,11 +13,13 @@ defmodule DiaryWeb.DiaryLive do
 
   @impl true
   def mount(_params, session, socket) do
+    # Fetch user_id from socket.assigns.current_scope.user (assigned by on_mount require_authenticated)
+    user_id = socket.assigns.current_scope.user.id
     locale = session["locale"] || "en"
     Gettext.put_locale(DiaryWeb.Gettext, locale)
 
     date = Date.utc_today()
-    diary_items = Notebook.list_diary_items(date)
+    diary_items = Notebook.list_diary_items(user_id, date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     # Initialize calendar states
@@ -28,11 +30,12 @@ defmodule DiaryWeb.DiaryLive do
     calendar_days = Enum.map(0..41, &Date.add(calendar_start_date, &1))
 
     # Fetch calendar data from DB
-    calendar_entry_dates = Notebook.list_calendar_data(calendar_start_date, calendar_end_date)
-    total_volume = Notebook.get_workout_volume_for_date(date)
+    calendar_entry_dates = Notebook.list_calendar_data(user_id, calendar_start_date, calendar_end_date)
+    total_volume = Notebook.get_workout_volume_for_date(user_id, date)
 
     {:ok,
      socket
+     |> assign(user_id: user_id)
      |> subscribe_to_date(date)
      |> assign(date: date)
      |> assign(content_length: 0)
@@ -106,7 +109,8 @@ defmodule DiaryWeb.DiaryLive do
 
   # Handle saving new diary item
   def handle_event("save", %{"diary_item" => %{"content" => content}}, socket) do
-    case Notebook.create_diary_item(%{"date" => socket.assigns.date, "content" => content}) do
+    user_id = socket.assigns.user_id
+    case Notebook.create_diary_item(user_id, %{"date" => socket.assigns.date, "content" => content}) do
       {:ok, diary_item} ->
         # Clear input on success
         changeset = Notebook.change_diary_item(%DiaryItem{date: socket.assigns.date})
@@ -128,7 +132,8 @@ defmodule DiaryWeb.DiaryLive do
 
   # Handle deletion of a diary item
   def handle_event("delete", %{"id" => id}, socket) do
-    diary_item = Notebook.get_diary_item!(id)
+    user_id = socket.assigns.user_id
+    diary_item = Notebook.get_diary_item!(user_id, id)
 
     case Notebook.delete_diary_item(diary_item) do
       {:ok, deleted_item} ->
@@ -145,11 +150,12 @@ defmodule DiaryWeb.DiaryLive do
   end
 
   defp subscribe_to_date(socket, new_date) do
+    user_id = socket.assigns.user_id
     if connected?(socket) do
       if old_date = socket.assigns[:date] do
-        Phoenix.PubSub.unsubscribe(Diary.PubSub, "diary:#{old_date}")
+        Phoenix.PubSub.unsubscribe(Diary.PubSub, "diary:#{user_id}:#{old_date}")
       end
-      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{new_date}")
+      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{user_id}:#{new_date}")
     end
     socket
   end
@@ -196,9 +202,10 @@ defmodule DiaryWeb.DiaryLive do
   @impl true
   # Handle PubSub messages for workout log updates to refresh total daily volume
   def handle_info({:workout_log_updated, date}, socket) do
+    user_id = socket.assigns.user_id
     socket =
       if date == socket.assigns.date do
-        assign(socket, total_volume: Notebook.get_workout_volume_for_date(date))
+        assign(socket, total_volume: Notebook.get_workout_volume_for_date(user_id, date))
       else
         socket
       end
@@ -366,9 +373,10 @@ defmodule DiaryWeb.DiaryLive do
   # Helper functions for the calendar logic
 
   defp select_date_helper(socket, date) do
-    diary_items = Notebook.list_diary_items(date)
+    user_id = socket.assigns.user_id
+    diary_items = Notebook.list_diary_items(user_id, date)
     changeset = Notebook.change_diary_item(%DiaryItem{date: date})
-    total_volume = Notebook.get_workout_volume_for_date(date)
+    total_volume = Notebook.get_workout_volume_for_date(user_id, date)
 
     socket =
       socket
@@ -403,7 +411,8 @@ defmodule DiaryWeb.DiaryLive do
   end
 
   defp assign_calendar_data(socket, start_date, end_date) do
-    entry_dates = Notebook.list_calendar_data(start_date, end_date)
+    user_id = socket.assigns.user_id
+    entry_dates = Notebook.list_calendar_data(user_id, start_date, end_date)
     socket |> assign(:calendar_entry_dates, entry_dates)
   end
 

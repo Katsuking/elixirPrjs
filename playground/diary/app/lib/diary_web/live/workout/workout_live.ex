@@ -10,6 +10,8 @@ defmodule DiaryWeb.WorkoutLive do
 
   @impl true
   def mount(%{"date" => date_str}, session, socket) do
+    # Fetch user_id from socket.assigns.current_scope.user (assigned by require_authenticated)
+    user_id = socket.assigns.current_scope.user.id
     # Retrieve locale saved by the session (fallback to "en")
     locale = session["locale"] || "en"
     Gettext.put_locale(DiaryWeb.Gettext, locale)
@@ -21,9 +23,9 @@ defmodule DiaryWeb.WorkoutLive do
         _ -> Date.utc_today()
       end
 
-    # Subscribe to PubSub for real-time synchronization on this date
+    # Subscribe to PubSub for real-time synchronization on this date for this user
     if connected?(socket) do
-      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{date}")
+      Phoenix.PubSub.subscribe(Diary.PubSub, "diary:#{user_id}:#{date}")
     end
 
     # Group exercises by primary muscle group (the first group defined in their ratios)
@@ -39,10 +41,11 @@ defmodule DiaryWeb.WorkoutLive do
     # List of all muscle groups that have exercises defined
     muscle_groups = Map.keys(exercises_by_group)
 
-    logs = Notebook.list_workout_logs(date)
+    logs = Notebook.list_workout_logs(user_id, date)
 
     {:ok,
      socket
+     |> assign(user_id: user_id)
      |> assign(date: date)
      |> assign(exercises_by_group: exercises_by_group)
      |> assign(muscle_groups: muscle_groups)
@@ -96,15 +99,16 @@ defmodule DiaryWeb.WorkoutLive do
   @impl true
   # Save the logged set (weight and reps) for the selected exercise
   def handle_event("save_log", %{"log" => log_params}, socket) do
+    user_id = socket.assigns.user_id
     date = socket.assigns.date
     exercise = socket.assigns.selected_exercise
 
     weight = log_params["weight"]
     reps = log_params["reps"]
 
-    case Notebook.save_workout_log(date, exercise, weight, reps) do
+    case Notebook.save_workout_log(user_id, date, exercise, weight, reps) do
       {:ok, log} ->
-        logs = Notebook.list_workout_logs(date)
+        logs = Notebook.list_workout_logs(user_id, date)
         form_params = %{
           "weight" => to_string(log.weight),
           "reps" => to_string(log.reps)
@@ -127,9 +131,10 @@ defmodule DiaryWeb.WorkoutLive do
   @impl true
   # Delete a logged set by ID
   def handle_event("delete_log", %{"id" => log_id}, socket) do
+    user_id = socket.assigns.user_id
     date = socket.assigns.date
-    {:ok, _} = Notebook.delete_workout_log(String.to_integer(log_id))
-    logs = Notebook.list_workout_logs(date)
+    {:ok, _} = Notebook.delete_workout_log(user_id, String.to_integer(log_id))
+    logs = Notebook.list_workout_logs(user_id, date)
 
     {:noreply,
      socket
@@ -140,8 +145,9 @@ defmodule DiaryWeb.WorkoutLive do
   @impl true
   # Sync data in real-time when updates are broadcast via PubSub
   def handle_info({:workout_log_updated, date}, socket) do
+    user_id = socket.assigns.user_id
     if Date.compare(date, socket.assigns.date) == :eq do
-      logs = Notebook.list_workout_logs(date)
+      logs = Notebook.list_workout_logs(user_id, date)
       {:noreply, assign(socket, logs: logs)}
     else
       {:noreply, socket}

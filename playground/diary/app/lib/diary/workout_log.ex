@@ -10,6 +10,8 @@ defmodule Diary.WorkoutLog do
     field :exercise, :string
     field :weight, :float # Weight in kg
     field :reps, :integer, default: 0
+    # Associate with User schema for multi-tenant isolation
+    belongs_to :user, Diary.Accounts.User
 
     timestamps()
   end
@@ -19,8 +21,8 @@ defmodule Diary.WorkoutLog do
   """
   def changeset(workout_log, attrs) do
     workout_log
-    |> cast(attrs, [:date, :exercise, :weight, :reps])
-    |> validate_required([:date, :exercise, :weight, :reps])
+    |> cast(attrs, [:date, :exercise, :weight, :reps, :user_id])
+    |> validate_required([:date, :exercise, :weight, :reps, :user_id])
     |> validate_number(:weight, greater_than_or_equal_to: 0.0)
     |> validate_number(:reps, greater_than: 0)
   end
