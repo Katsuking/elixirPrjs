@@ -409,15 +409,90 @@ msgstr "Daily"
 msgid "ベンチプレス"
 msgstr "Bench Press"
 
-#: lib/diary/workout_master.ex:41
+#: lib/diary/workout_master.ex:51
 #, elixir-autogen, elixir-format
-msgid "インクラインベンチ"
+msgid "インクラインベンチプレス"
 msgstr "Incline Bench Press"
 
-#: lib/diary/workout_master.ex:42
+#: lib/diary/workout_master.ex:52
 #, elixir-autogen, elixir-format
-msgid "ダンベルベンチ"
+msgid "デクラインベンチプレス"
+msgstr "Decline Bench Press"
+
+#: lib/diary/workout_master.ex:53
+#, elixir-autogen, elixir-format
+msgid "ダンベルベンチプレス"
 msgstr "Dumbbell Bench Press"
+
+#: lib/diary/workout_master.ex:54
+#, elixir-autogen, elixir-format
+msgid "インクラインダンベルプレス"
+msgstr "Incline Dumbbell Press"
+
+#: lib/diary/workout_master.ex:55
+#, elixir-autogen, elixir-format
+msgid "デクラインダンベルプレス"
+msgstr "Decline Dumbbell Press"
+
+#: lib/diary/workout_master.ex:56
+#, elixir-autogen, elixir-format
+msgid "チェストプレス（マシン）"
+msgstr "Machine Chest Press"
+
+#: lib/diary/workout_master.ex:57
+#, elixir-autogen, elixir-format
+msgid "スミスマシンベンチプレス"
+msgstr "Smith Machine Bench Press"
+
+#: lib/diary/workout_master.ex:58
+#, elixir-autogen, elixir-format
+msgid "ダンベルフライ"
+msgstr "Dumbbell Fly"
+
+#: lib/diary/workout_master.ex:59
+#, elixir-autogen, elixir-format
+msgid "インクラインダンベルフライ"
+msgstr "Incline Dumbbell Fly"
+
+#: lib/diary/workout_master.ex:60
+#, elixir-autogen, elixir-format
+msgid "ケーブルフライ"
+msgstr "Cable Fly"
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "ロー・トゥ・ハイ ケーブルフライ"
+msgstr "Low-to-High Cable Fly"
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "ハイ・トゥ・ロー ケーブルフライ"
+msgstr "High-to-Low Cable Fly"
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "ペックデック（マシンフライ）"
+msgstr "Pec Deck Fly"
+
+#: lib/diary/workout_master.ex:64
+#, elixir-autogen, elixir-format
+msgid "ディップス（胸狙い）"
+msgstr "Chest Dips"
+
+#: lib/diary/workout_master.ex:65
+#, elixir-autogen, elixir-format
+msgid "プッシュアップ"
+msgstr "Push-up"
+
+#: lib/diary/workout_master.ex:66
+#, elixir-autogen, elixir-format
+msgid "ウェイトプッシュアップ"
+msgstr "Weighted Push-up"
+
+#: lib/diary/workout_master.ex:67
+#, elixir-autogen, elixir-format
+msgid "スヴェンプレス（プレートスクイーズプレス）"
+msgstr "Svend Press"
 
 #: lib/diary/workout_master.ex:43
 #, elixir-autogen, elixir-format

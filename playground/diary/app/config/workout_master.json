@@ -5,15 +5,75 @@
       {"general": "腕", "detailed": "三頭筋", "ratio": 0.15},
       {"general": "肩", "detailed": "前部", "ratio": 0.10}
     ],
-    "インクラインベンチ": [
+    "インクラインベンチプレス": [
       {"general": "胸", "detailed": "上部", "ratio": 0.75},
       {"general": "肩", "detailed": "前部", "ratio": 0.15},
       {"general": "腕", "detailed": "三頭筋", "ratio": 0.10}
     ],
-    "ダンベルベンチ": [
+    "デクラインベンチプレス": [
+      {"general": "胸", "detailed": "下部", "ratio": 0.75},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "ダンベルベンチプレス": [
       {"general": "胸", "detailed": "中部", "ratio": 0.80},
       {"general": "肩", "detailed": "前部", "ratio": 0.10},
       {"general": "腕", "detailed": "三頭筋", "ratio": 0.10}
+    ],
+    "インクラインダンベルプレス": [
+      {"general": "胸", "detailed": "上部", "ratio": 0.80},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.10}
+    ],
+    "デクラインダンベルプレス": [
+      {"general": "胸", "detailed": "下部", "ratio": 0.80},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.10},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "チェストプレス（マシン）": [
+      {"general": "胸", "detailed": "中部", "ratio": 0.85},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15}
+    ],
+    "スミスマシンベンチプレス": [
+      {"general": "胸", "detailed": "中部", "ratio": 0.75},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "ダンベルフライ": [
+      {"general": "胸", "detailed": "中部", "ratio": 1.0}
+    ],
+    "インクラインダンベルフライ": [
+      {"general": "胸", "detailed": "上部", "ratio": 1.0}
+    ],
+    "ケーブルフライ": [
+      {"general": "胸", "detailed": "中部", "ratio": 1.0}
+    ],
+    "ロー・トゥ・ハイ ケーブルフライ": [
+      {"general": "胸", "detailed": "上部", "ratio": 1.0}
+    ],
+    "ハイ・トゥ・ロー ケーブルフライ": [
+      {"general": "胸", "detailed": "下部", "ratio": 1.0}
+    ],
+    "ペックデック（マシンフライ）": [
+      {"general": "胸", "detailed": "中部", "ratio": 1.0}
+    ],
+    "ディップス（胸狙い）": [
+      {"general": "胸", "detailed": "下部", "ratio": 0.70},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.20},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "プッシュアップ": [
+      {"general": "胸", "detailed": "中部", "ratio": 0.75},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "ウェイトプッシュアップ": [
+      {"general": "胸", "detailed": "中部", "ratio": 0.75},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15},
+      {"general": "肩", "detailed": "前部", "ratio": 0.10}
+    ],
+    "スヴェンプレス（プレートスクイーズプレス）": [
+      {"general": "胸", "detailed": "中部", "ratio": 1.0}
     ],
     "懸垂": [
       {"general": "背中", "detailed": "広背筋", "ratio": 0.75},
