@@ -204,7 +204,8 @@ defmodule DiaryWeb.WorkoutLive do
                 <h2 class="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
                   {gettext("Select Exercise")} ({ Gettext.gettext(DiaryWeb.Gettext, @selected_group) })
                 </h2>
-                <div class="space-y-2.5">
+                <!-- Scrollable container for exercises when the list is long -->
+                <div class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
                   <%= for exercise <- Map.get(@exercises_by_group, @selected_group, []) do %>
                     <.exercise_selection_row
                       exercise={exercise}
