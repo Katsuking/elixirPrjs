@@ -157,12 +157,13 @@ defmodule DiaryWeb.WorkoutLive do
     ~H"""
     <Layouts.app flash={@flash} active_tab="diary">
       <div class="max-w-4xl mx-auto space-y-6">
-        
+
         <!-- Header Card -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-zinc-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-zinc-850">
           <div class="space-y-1">
             <h1 class="text-2xl font-extrabold text-slate-800 dark:text-zinc-100 tracking-tight flex items-center gap-2">
-              <span class="text-3xl select-none">💪</span> {gettext("Workout Logger")}
+            <img src={~p"/images/label.svg"} class="w-16 h-auto" alt="No data" />
+              {gettext("Workout Logger")}
             </h1>
             <p class="text-sm font-semibold text-slate-500">
               {format_date(@date, @locale)}
@@ -179,7 +180,7 @@ defmodule DiaryWeb.WorkoutLive do
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
-          
+
           <!-- Left Side: Selection of Muscle Group and Exercises (3 columns) -->
           <div class="md:col-span-3 space-y-6">
             <!-- Muscle Group selector component -->

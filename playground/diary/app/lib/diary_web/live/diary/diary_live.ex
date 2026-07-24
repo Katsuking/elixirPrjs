@@ -251,7 +251,8 @@ defmodule DiaryWeb.DiaryLive do
               navigate={~p"/workout/#{Date.to_iso8601(@date)}"}
               class="w-full flex items-center justify-center gap-2 py-3 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm"
             >
-              💪 {gettext("Log Workouts")}
+              <img src={~p"/images/label.svg"} class="w-7 h-auto" alt="No data" />
+              {gettext("Log Workouts")}
             </.link>
           </div>
 
