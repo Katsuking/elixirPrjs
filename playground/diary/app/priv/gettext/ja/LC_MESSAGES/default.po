@@ -618,3 +618,48 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "ハンドグリッパー"
 msgstr ""
+
+#: lib/diary/workout_master.ex:58
+#, elixir-autogen, elixir-format
+msgid "ハックスクワット"
+msgstr ""
+
+#: lib/diary/workout_master.ex:59
+#, elixir-autogen, elixir-format
+msgid "スミススクワット"
+msgstr ""
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "レッグエクステンション"
+msgstr ""
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "ライイングレッグカール"
+msgstr ""
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "シーテッドレッグカール"
+msgstr ""
+
+#: lib/diary/workout_master.ex:65
+#, elixir-autogen, elixir-format
+msgid "ルーマニアンデッドリフト"
+msgstr ""
+
+#: lib/diary/workout_master.ex:66
+#, elixir-autogen, elixir-format
+msgid "ブルガリアンスクワット"
+msgstr ""
+
+#: lib/diary/workout_master.ex:67
+#, elixir-autogen, elixir-format
+msgid "ランジ"
+msgstr ""
+
+#: lib/diary/workout_master.ex:68
+#, elixir-autogen, elixir-format
+msgid "カーフレイズ"
+msgstr ""

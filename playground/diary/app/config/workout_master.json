@@ -39,10 +39,29 @@
       {"general": "脚", "detailed": "臀筋", "ratio": 0.20},
       {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.10}
     ],
+    "ハックスクワット": [
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.75},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.15},
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.10}
+    ],
+    "スミススクワット": [
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.70},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.20},
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.10}
+    ],
     "レッグプレス": [
       {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.75},
       {"general": "脚", "detailed": "臀筋", "ratio": 0.15},
       {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.10}
+    ],
+    "レッグエクステンション": [
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 1.0}
+    ],
+    "ライイングレッグカール": [
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 1.0}
+    ],
+    "シーテッドレッグカール": [
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 1.0}
     ],
     "デッドリフト": [
       {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.40},
@@ -50,10 +69,23 @@
       {"general": "背中", "detailed": "脊柱起立筋", "ratio": 0.20},
       {"general": "背中", "detailed": "広背筋", "ratio": 0.10}
     ],
-    "RDL": [
+    "ルーマニアンデッドリフト": [
       {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.60},
       {"general": "脚", "detailed": "臀筋", "ratio": 0.25},
       {"general": "背中", "detailed": "脊柱起立筋", "ratio": 0.15}
+    ],
+    "ブルガリアンスクワット": [
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.50},
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.35},
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.15}
+    ],
+    "ランジ": [
+      {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.50},
+      {"general": "脚", "detailed": "臀筋", "ratio": 0.35},
+      {"general": "脚", "detailed": "ハムストリングス", "ratio": 0.15}
+    ],
+    "カーフレイズ": [
+      {"general": "脚", "detailed": "ふくらはぎ", "ratio": 1.0}
     ],
     "バーベルカール": [
       {"general": "腕", "detailed": "二頭筋", "ratio": 1.0}

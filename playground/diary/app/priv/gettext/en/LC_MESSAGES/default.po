@@ -618,3 +618,48 @@ msgstr "Reverse Wrist Curl"
 #, elixir-autogen, elixir-format
 msgid "ハンドグリッパー"
 msgstr "Hand Gripper"
+
+#: lib/diary/workout_master.ex:58
+#, elixir-autogen, elixir-format
+msgid "ハックスクワット"
+msgstr "Hack Squat"
+
+#: lib/diary/workout_master.ex:59
+#, elixir-autogen, elixir-format
+msgid "スミススクワット"
+msgstr "Smith Machine Squat"
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "レッグエクステンション"
+msgstr "Leg Extension"
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "ライイングレッグカール"
+msgstr "Lying Leg Curl"
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "シーテッドレッグカール"
+msgstr "Seated Leg Curl"
+
+#: lib/diary/workout_master.ex:65
+#, elixir-autogen, elixir-format
+msgid "ルーマニアンデッドリフト"
+msgstr "Romanian Deadlift"
+
+#: lib/diary/workout_master.ex:66
+#, elixir-autogen, elixir-format
+msgid "ブルガリアンスクワット"
+msgstr "Bulgarian Split Squat"
+
+#: lib/diary/workout_master.ex:67
+#, elixir-autogen, elixir-format
+msgid "ランジ"
+msgstr "Lunge"
+
+#: lib/diary/workout_master.ex:68
+#, elixir-autogen, elixir-format
+msgid "カーフレイズ"
+msgstr "Calf Raise"
