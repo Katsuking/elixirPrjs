@@ -663,3 +663,38 @@ msgstr "Lunge"
 #, elixir-autogen, elixir-format
 msgid "カーフレイズ"
 msgstr "Calf Raise"
+
+#: lib/diary/workout_master.ex:57
+#, elixir-autogen, elixir-format
+msgid "バーベルショルダープレス"
+msgstr "Barbell Shoulder Press"
+
+#: lib/diary/workout_master.ex:58
+#, elixir-autogen, elixir-format
+msgid "ダンベルショルダープレス"
+msgstr "Dumbbell Shoulder Press"
+
+#: lib/diary/workout_master.ex:59
+#, elixir-autogen, elixir-format
+msgid "サイドレイズ"
+msgstr "Side Raise"
+
+#: lib/diary/workout_master.ex:60
+#, elixir-autogen, elixir-format
+msgid "ケーブルサイドレイズ"
+msgstr "Cable Side Raise"
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "リアレイズ"
+msgstr "Rear Delt Raise"
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "フェイスプル"
+msgstr "Face Pull"
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "アップライトロウ"
+msgstr "Upright Row"

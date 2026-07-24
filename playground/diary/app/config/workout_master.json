@@ -31,8 +31,33 @@
       {"general": "腕", "detailed": "二頭筋", "ratio": 0.10}
     ],
     "ショルダープレス": [
-      {"general": "肩", "detailed": "中部（側部）", "ratio": 0.80},
-      {"general": "腕", "detailed": "三頭筋", "ratio": 0.20}
+      {"general": "肩", "detailed": "中部（側部）", "ratio": 0.85},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15}
+    ],
+    "バーベルショルダープレス": [
+      {"general": "肩", "detailed": "前部", "ratio": 0.85},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15}
+    ],
+    "ダンベルショルダープレス": [
+      {"general": "肩", "detailed": "前部", "ratio": 0.85},
+      {"general": "腕", "detailed": "三頭筋", "ratio": 0.15}
+    ],
+    "サイドレイズ": [
+      {"general": "肩", "detailed": "中部（側部）", "ratio": 1.0}
+    ],
+    "ケーブルサイドレイズ": [
+      {"general": "肩", "detailed": "中部（側部）", "ratio": 1.0}
+    ],
+    "リアレイズ": [
+      {"general": "肩", "detailed": "後部", "ratio": 1.0}
+    ],
+    "フェイスプル": [
+      {"general": "肩", "detailed": "後部", "ratio": 0.70},
+      {"general": "背中", "detailed": "僧帽筋", "ratio": 0.30}
+    ],
+    "アップライトロウ": [
+      {"general": "肩", "detailed": "中部（側部）", "ratio": 0.75},
+      {"general": "背中", "detailed": "僧帽筋", "ratio": 0.25}
     ],
     "スクワット": [
       {"general": "脚", "detailed": "大腿四頭筋", "ratio": 0.70},
