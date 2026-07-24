@@ -77,7 +77,7 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
                 phx-click={@on_tab_change}
                 phx-value-tab={tab}
                 class={[
-                  "px-3 py-1.5 rounded-lg text-xs font-black transition-all duration-200 cursor-pointer",
+                  "px-3 py-1.5 rounded-lg text-xs font-black transition-all duration-200 cursor-pointer focus:outline-none",
                   @active_tab == tab && "bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-100 shadow-sm",
                   @active_tab != tab && "text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300"
                 ]}
@@ -99,7 +99,7 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
         <%= if @active_stats == nil or @active_stats.general == %{} do %>
           <!-- Empty State -->
           <div class="flex flex-col items-center justify-center py-20 text-zinc-300 dark:text-zinc-700">
-            <span class="text-4xl mb-2">🏋️</span>
+            <img src={~p"/images/hono.svg"} class="w-24 h-auto" alt="No data" />
             <p class="text-sm font-medium text-zinc-400 dark:text-zinc-500">{gettext("No data for this period")}</p>
           </div>
         <% else %>
