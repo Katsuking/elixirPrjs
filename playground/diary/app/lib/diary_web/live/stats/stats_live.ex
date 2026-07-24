@@ -113,7 +113,7 @@ defmodule DiaryWeb.StatsLive do
           </.date_navigator>
         </div>
 
-        <!-- Workout Volume Statistics -->
+        <!-- Workout Volume Statistics - Pass date to enable dynamic active period strings -->
         <.workout_stats
           stats={@stats}
           active_tab={@active_tab}
@@ -121,6 +121,7 @@ defmodule DiaryWeb.StatsLive do
           on_tab_change="set_stats_tab"
           on_toggle_detail="toggle_stats_detail"
           locale={@locale}
+          date={@date}
         />
       </div>
     </Layouts.app>

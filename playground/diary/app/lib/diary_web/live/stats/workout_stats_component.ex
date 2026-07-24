@@ -16,6 +16,8 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
   attr :on_tab_change, :string, default: "set_stats_tab"
   attr :on_toggle_detail, :string, default: "toggle_stats_detail"
   attr :locale, :string, required: true
+  # Add date assign to calculate and display the active period
+  attr :date, Date, required: true
 
   def workout_stats(assigns) do
     active_stats = Map.get(assigns.stats, String.to_existing_atom(assigns.active_tab))
@@ -40,8 +42,13 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
       <!-- Section Header -->
       <div class="p-8 border-b border-slate-100 dark:border-zinc-800 bg-gradient-to-r from-slate-50 to-white dark:from-zinc-900 dark:to-zinc-900/50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 class="text-lg font-black text-zinc-800 dark:text-zinc-100 tracking-tight">
-            <%= gettext("Training Volume") %>
+          <!-- Responsive layout: Stack title and period vertically on mobile, row on larger screens -->
+          <h2 class="text-lg font-black text-zinc-800 dark:text-zinc-100 tracking-tight flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
+            <span><%= gettext("Training Volume") %></span>
+            <!-- Small dynamic period display -->
+            <span class="text-xs font-normal text-zinc-500 dark:text-zinc-400">
+              ({format_period(@date, @active_tab, @locale)})
+            </span>
           </h2>
           <p class="text-xs text-zinc-400 dark:text-zinc-500 font-bold mt-1">Aggregated target muscle work</p>
         </div>
@@ -157,4 +164,87 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
     to_string(volume)
   end
   defp format_volume(_), do: "0.0"
+
+  # Format period string for header based on active tab and locale
+  defp format_period(date, active_tab, locale) do
+    case active_tab do
+      "daily" ->
+        format_full_date(date, locale)
+
+      "weekly" ->
+        start_date = Date.beginning_of_week(date)
+        end_date = Date.end_of_week(date)
+        case locale do
+          "ja" ->
+            "#{start_date.year}/#{pad(start_date.month)}/#{pad(start_date.day)} 〜 #{end_date.year}/#{pad(end_date.month)}/#{pad(end_date.day)}"
+          _ ->
+            "#{month_abbr(start_date.month)} #{start_date.day}, #{start_date.year} - #{month_abbr(end_date.month)} #{end_date.day}, #{end_date.year}"
+        end
+
+      "monthly" ->
+        case locale do
+          "ja" ->
+            "#{date.year}年 #{date.month}月"
+          _ ->
+            "#{month_name(date.month)} #{date.year}"
+        end
+
+      "yearly" ->
+        case locale do
+          "ja" ->
+            "#{date.year}年"
+          _ ->
+            "#{date.year}"
+        end
+    end
+  end
+
+  # Pad single digit numbers with a leading zero
+  defp pad(num) do
+    num |> to_string() |> String.pad_leading(2, "0")
+  end
+
+  # Format full date for daily display
+  defp format_full_date(date, "ja") do
+    "#{date.year}年 #{date.month}月 #{date.day}日"
+  end
+  defp format_full_date(date, _) do
+    "#{month_name(date.month)} #{date.day}, #{date.year}"
+  end
+
+  # Helper to return English month names
+  defp month_name(month) do
+    case month do
+      1 -> "January"
+      2 -> "February"
+      3 -> "March"
+      4 -> "April"
+      5 -> "May"
+      6 -> "June"
+      7 -> "July"
+      8 -> "August"
+      9 -> "September"
+      10 -> "October"
+      11 -> "November"
+      12 -> "December"
+    end
+  end
+
+  # Helper to return abbreviated English month names
+  defp month_abbr(month) do
+    case month do
+      1 -> "Jan"
+      2 -> "Feb"
+      3 -> "Mar"
+      4 -> "Apr"
+      5 -> "May"
+      6 -> "Jun"
+      7 -> "Jul"
+      8 -> "Aug"
+      9 -> "Sep"
+      10 -> "Oct"
+      11 -> "Nov"
+      12 -> "Dec"
+    end
+  end
 end
