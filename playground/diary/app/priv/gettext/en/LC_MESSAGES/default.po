@@ -494,20 +494,105 @@ msgstr "Weighted Push-up"
 msgid "スヴェンプレス（プレートスクイーズプレス）"
 msgstr "Svend Press"
 
-#: lib/diary/workout_master.ex:43
+#: lib/diary/workout_master.ex:68
 #, elixir-autogen, elixir-format
-msgid "懸垂"
+msgid "デッドリフト"
+msgstr "Deadlift"
+
+#: lib/diary/workout_master.ex:69
+#, elixir-autogen, elixir-format
+msgid "ラックプル"
+msgstr "Rack Pull"
+
+#: lib/diary/workout_master.ex:70
+#, elixir-autogen, elixir-format
+msgid "懸垂（プルアップ）"
 msgstr "Pull-up"
 
-#: lib/diary/workout_master.ex:44
+#: lib/diary/workout_master.ex:71
 #, elixir-autogen, elixir-format
 msgid "ラットプルダウン"
 msgstr "Lat Pulldown"
 
-#: lib/diary/workout_master.ex:45
+#: lib/diary/workout_master.ex:72
+#, elixir-autogen, elixir-format
+msgid "ストレートアームプルダウン"
+msgstr "Straight-Arm Pulldown"
+
+#: lib/diary/workout_master.ex:73
 #, elixir-autogen, elixir-format
 msgid "バーベルロー"
 msgstr "Barbell Row"
+
+#: lib/diary/workout_master.ex:74
+#, elixir-autogen, elixir-format
+msgid "ペンドレイロー"
+msgstr "Pendlay Row"
+
+#: lib/diary/workout_master.ex:75
+#, elixir-autogen, elixir-format
+msgid "Tバーロー"
+msgstr "T-Bar Row"
+
+#: lib/diary/workout_master.ex:76
+#, elixir-autogen, elixir-format
+msgid "ダンベルロー（ワンハンドロー）"
+msgstr "Dumbbell Row"
+
+#: lib/diary/workout_master.ex:77
+#, elixir-autogen, elixir-format
+msgid "シーテッドケーブルロー"
+msgstr "Seated Cable Row"
+
+#: lib/diary/workout_master.ex:78
+#, elixir-autogen, elixir-format
+msgid "チェストサポートロー"
+msgstr "Chest-Supported Row"
+
+#: lib/diary/workout_master.ex:79
+#, elixir-autogen, elixir-format
+msgid "マシンロー"
+msgstr "Machine Row"
+
+#: lib/diary/workout_master.ex:80
+#, elixir-autogen, elixir-format
+msgid "インバーテッドロー"
+msgstr "Inverted Row"
+
+#: lib/diary/workout_master.ex:81
+#, elixir-autogen, elixir-format
+msgid "ケーブルプルオーバー"
+msgstr "Cable Pullover"
+
+#: lib/diary/workout_master.ex:82
+#, elixir-autogen, elixir-format
+msgid "ダンベルプルオーバー"
+msgstr "Dumbbell Pullover"
+
+#: lib/diary/workout_master.ex:83
+#, elixir-autogen, elixir-format
+msgid "スミスマシンロー"
+msgstr "Smith Machine Row"
+
+#: lib/diary/workout_master.ex:84
+#, elixir-autogen, elixir-format
+msgid "メドウズロー"
+msgstr "Meadows Row"
+
+#: lib/diary/workout_master.ex:85
+#, elixir-autogen, elixir-format
+msgid "ケーブルロー（ワイドグリップ）"
+msgstr "Cable Row (Wide Grip)"
+
+#: lib/diary/workout_master.ex:86
+#, elixir-autogen, elixir-format
+msgid "ケーブルロー（ナローグリップ）"
+msgstr "Cable Row (Narrow Grip)"
+
+#: lib/diary/workout_master.ex:87
+#, elixir-autogen, elixir-format
+msgid "リアデルトロー（背中・後肩狙い）"
+msgstr "Rear Delt Row"
 
 #: lib/diary/workout_master.ex:46
 #, elixir-autogen, elixir-format
@@ -524,10 +609,6 @@ msgstr "Squat"
 msgid "レッグプレス"
 msgstr "Leg Press"
 
-#: lib/diary/workout_master.ex:49
-#, elixir-autogen, elixir-format
-msgid "デッドリフト"
-msgstr "Deadlift"
 
 #: lib/diary/workout_master.ex:50
 #, elixir-autogen, elixir-format
