@@ -369,15 +369,10 @@ msgstr "Erectors"
 msgid "脚"
 msgstr "Legs"
 
-#: lib/diary/workout_master.ex:16
+#: lib/diary/workout_master.ex:14
 #, elixir-autogen, elixir-format
-msgid "腕（三頭）"
-msgstr "Triceps"
-
-#: lib/diary/workout_master.ex:15
-#, elixir-autogen, elixir-format
-msgid "腕（二頭）"
-msgstr "Biceps"
+msgid "腕"
+msgstr "Arms"
 
 #: lib/diary/workout_master.ex:17
 #, elixir-autogen, elixir-format

@@ -183,12 +183,12 @@ defmodule DiaryWeb.WorkoutLive do
 
           <!-- Left Side: Selection of Muscle Group and Exercises (3 columns) -->
           <div class="md:col-span-3 space-y-6">
-            <!-- Muscle Group selector component -->
             <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md border border-slate-100 dark:border-zinc-850 p-6 space-y-4">
               <h2 class="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
                 {gettext("Select Target Muscle")}
               </h2>
-              <div class="grid grid-cols-2 gap-3">
+              <!-- Responsive grid to accommodate 7 muscle groups instead of 4 -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
                 <%= for group <- @muscle_groups do %>
                   <.muscle_group_button
                     group={group}

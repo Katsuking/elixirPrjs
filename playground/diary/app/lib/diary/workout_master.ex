@@ -7,13 +7,12 @@ defmodule Diary.WorkoutMaster do
 
   # Dummy function for gettext static extraction
   def dummy_translations do
-    # Muscle Groups
+    # Muscle Groups (Unified biceps and triceps into arms)
     gettext("胸")
     gettext("背中")
     gettext("肩")
     gettext("脚")
-    gettext("腕（二頭）")
-    gettext("腕（三頭）")
+    gettext("腕")
     gettext("腹")
 
     # Detailed parts

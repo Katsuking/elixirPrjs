@@ -258,7 +258,9 @@ defmodule DiaryWeb.DiaryLive do
 
           <div :if={@total_volume > 0.0} class="flex items-center justify-between px-5 py-3.5 bg-slate-50/60 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800/60 rounded-2xl">
             <div class="flex items-center gap-2">
-              <span class="text-base select-none">🏋️‍♂️</span>
+              <!-- Show black barbell in light mode, and white barbell in dark mode -->
+              <img src={~p"/images/barbell_black.svg"} class="dark:hidden w-5 h-auto" alt="Barbell" />
+              <img src={~p"/images/barbell_white.svg"} class="hidden dark:block w-5 h-auto" alt="Barbell" />
               <span class="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider">{gettext("Today's Volume")}</span>
             </div>
             <span class="text-sm font-black text-zinc-800 dark:text-zinc-100">{format_volume(@total_volume)} kg</span>

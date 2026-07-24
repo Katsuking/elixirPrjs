@@ -369,14 +369,9 @@ msgstr ""
 msgid "脚"
 msgstr ""
 
-#: lib/diary/workout_master.ex:16
+#: lib/diary/workout_master.ex:14
 #, elixir-autogen, elixir-format
-msgid "腕（三頭）"
-msgstr ""
-
-#: lib/diary/workout_master.ex:15
-#, elixir-autogen, elixir-format
-msgid "腕（二頭）"
+msgid "腕"
 msgstr ""
 
 #: lib/diary/workout_master.ex:17
