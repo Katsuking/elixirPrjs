@@ -1,0 +1,61 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <radialGradient id="core">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#ffe600"/>
+      <stop offset="70%" stop-color="#ff6a00"/>
+      <stop offset="100%" stop-color="#ff2200"/>
+    </radialGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+
+  </defs>
+
+  <!-- 周囲へ飛ぶ四角エネルギー -->
+  <g fill="#ff6a00">
+
+    <rect x="238" y="45" width="36" height="36"/>
+    <rect x="238" y="431" width="36" height="36"/>
+
+    <rect x="45" y="238" width="36" height="36"/>
+    <rect x="431" y="238" width="36" height="36"/>
+
+    <rect x="105" y="105" width="32" height="32"/>
+    <rect x="375" y="105" width="32" height="32"/>
+
+    <rect x="105" y="375" width="32" height="32"/>
+    <rect x="375" y="375" width="32" height="32"/>
+
+  </g>
+
+  <!-- 外側の小さな粒 -->
+  <g fill="#ffcc00">
+    <rect x="250" y="15" width="12" height="12"/>
+    <rect x="485" y="250" width="12" height="12"/>
+    <rect x="250" y="485" width="12" height="12"/>
+    <rect x="15" y="250" width="12" height="12"/>
+  </g>
+
+  <!-- 中心の発光 -->
+
+<rect x="150" y="150" width="212" height="212"
+        fill="#ff4500"
+        opacity="0.35"
+        filter="url(#glow)"/>
+
+  <!-- 中心エネルギー核 -->
+
+<rect x="185" y="185" width="142" height="142"
+        fill="url(#core)"
+        transform="rotate(45 256 256)"/>
+
+  <!-- 中心の白い核 -->
+
+<rect x="220" y="220" width="72" height="72"
+        fill="#ffffff"
+        transform="rotate(45 256 256)"/>
+
+</svg>

@@ -42,7 +42,7 @@ defmodule DiaryWeb.Layouts do
       <aside class="hidden md:flex md:flex-col md:w-64 bg-white dark:bg-zinc-900 border-r border-slate-100 dark:border-zinc-850 p-6 space-y-8 flex-shrink-0">
         <!-- Logo / Title -->
         <div class="flex items-center gap-3">
-          <img src={~p"/images/label.svg"} class="w-16 h-auto" alt="No data" />
+          <img src={~p"/images/power.svg"} class="w-8 h-auto" alt="No data" />
           <div>
             <h1 class="text-base font-black tracking-tight text-zinc-800 dark:text-zinc-100">FITNESS DIARY</h1>
             <p class="text-[9px] font-bold text-slate-400 tracking-wider uppercase">Elevate Your Day</p>
@@ -85,7 +85,7 @@ defmodule DiaryWeb.Layouts do
       <!-- Mobile Top Bar (hidden on desktop) -->
       <header class="md:hidden flex items-center justify-between px-6 py-4 bg-white dark:bg-zinc-900 border-b border-slate-100 dark:border-zinc-850 sticky top-0 z-40">
         <div class="flex items-center gap-2">
-          <img src={~p"/images/label.svg"} class="w-16 h-auto" alt="No data" />
+          <img src={~p"/images/power.svg"} class="w-8 h-auto" alt="No data" />
           <span class="text-sm font-black tracking-tight text-zinc-800 dark:text-zinc-100">FITNESS DIARY</span>
         </div>
         <.theme_toggle />

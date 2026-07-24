@@ -278,7 +278,7 @@ defmodule DiaryWeb.WorkoutLive do
                 </.form>
               <% else %>
                 <div class="flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
-                  <span class="text-4xl mb-2">📋</span>
+                  <img src={~p"/images/on_the_way.svg"} class="w-16 h-auto" alt="No data" />
                   <p class="text-xs font-bold text-slate-400 dark:text-zinc-500 mb-1">{gettext("No Exercise Selected")}</p>
                   <p class="text-[10px] text-slate-400 dark:text-zinc-500 text-center max-w-[200px]">
                     {gettext("Choose a muscle group and an exercise to start logging your workout.")}
