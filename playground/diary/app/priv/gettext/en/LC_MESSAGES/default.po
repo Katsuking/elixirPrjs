@@ -548,3 +548,73 @@ msgstr "Ab Roller"
 #, elixir-autogen, elixir-format
 msgid "バードドッグ"
 msgstr "Bird Dog"
+
+#: lib/diary/workout_master.ex:33
+#, elixir-autogen, elixir-format
+msgid "二頭筋"
+msgstr "Biceps"
+
+#: lib/diary/workout_master.ex:34
+#, elixir-autogen, elixir-format
+msgid "三頭筋"
+msgstr "Triceps"
+
+#: lib/diary/workout_master.ex:35
+#, elixir-autogen, elixir-format
+msgid "前腕"
+msgstr "Forearms"
+
+#: lib/diary/workout_master.ex:60
+#, elixir-autogen, elixir-format
+msgid "バーベルカール"
+msgstr "Barbell Curl"
+
+#: lib/diary/workout_master.ex:61
+#, elixir-autogen, elixir-format
+msgid "ハンマーカール"
+msgstr "Hammer Curl"
+
+#: lib/diary/workout_master.ex:62
+#, elixir-autogen, elixir-format
+msgid "プリーチャーカール"
+msgstr "Preacher Curl"
+
+#: lib/diary/workout_master.ex:63
+#, elixir-autogen, elixir-format
+msgid "ケーブルカール"
+msgstr "Cable Curl"
+
+#: lib/diary/workout_master.ex:64
+#, elixir-autogen, elixir-format
+msgid "ローププレスダウン"
+msgstr "Rope Pressdown"
+
+#: lib/diary/workout_master.ex:65
+#, elixir-autogen, elixir-format
+msgid "スカルクラッシャー"
+msgstr "Skull Crusher"
+
+#: lib/diary/workout_master.ex:66
+#, elixir-autogen, elixir-format
+msgid "オーバーヘッドエクステンション"
+msgstr "Overhead Extension"
+
+#: lib/diary/workout_master.ex:67
+#, elixir-autogen, elixir-format
+msgid "キックバック"
+msgstr "Kickback"
+
+#: lib/diary/workout_master.ex:68
+#, elixir-autogen, elixir-format
+msgid "リストカール"
+msgstr "Wrist Curl"
+
+#: lib/diary/workout_master.ex:69
+#, elixir-autogen, elixir-format
+msgid "リバースリストカール"
+msgstr "Reverse Wrist Curl"
+
+#: lib/diary/workout_master.ex:70
+#, elixir-autogen, elixir-format
+msgid "ハンドグリッパー"
+msgstr "Hand Gripper"
