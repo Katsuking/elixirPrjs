@@ -273,7 +273,7 @@ defmodule DiaryWeb.DiaryLive do
           <div id="diary-items" phx-update="stream" class="space-y-3.5 min-h-[160px]">
             <!-- Empty State -->
             <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
-              <span class="text-5xl mb-3">🍃</span>
+              <img src={~p"/images/nodata.svg"} class="w-32 h-auto mb-3" alt="No data" />
               <p class="text-sm font-medium text-slate-400 dark:text-zinc-500">{gettext("No entries for this day. Add one below!")}</p>
             </div>
 

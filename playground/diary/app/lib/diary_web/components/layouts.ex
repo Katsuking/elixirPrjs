@@ -36,8 +36,8 @@ defmodule DiaryWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <div class="min-h-screen flex flex-col md:flex-row bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100">
-      
+    <div class="h-screen overflow-hidden flex flex-col md:flex-row bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100">
+
       <!-- Desktop Sidebar (hidden on mobile) -->
       <aside class="hidden md:flex md:flex-col md:w-64 bg-white dark:bg-zinc-900 border-r border-slate-100 dark:border-zinc-850 p-6 space-y-8 flex-shrink-0">
         <!-- Logo / Title -->
