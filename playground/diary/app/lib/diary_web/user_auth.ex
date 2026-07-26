@@ -3,6 +3,7 @@ defmodule DiaryWeb.UserAuth do
 
   import Plug.Conn
   import Phoenix.Controller
+  use Gettext, backend: DiaryWeb.Gettext # Use Gettext backend for localization
 
   alias Diary.Accounts
   alias Diary.Accounts.Scope
@@ -142,11 +143,17 @@ defmodule DiaryWeb.UserAuth do
   #
   defp renew_session(conn, _user) do
     delete_csrf_token()
+    locale = get_session(conn, :locale) # Preserve the user's selected locale during session renewal
 
     conn
     |> configure_session(renew: true)
     |> clear_session()
+    |> maybe_put_locale(locale) # Restore the locale if it was set
   end
+
+  # Helper to restore locale back into connection session
+  defp maybe_put_locale(conn, nil), do: conn
+  defp maybe_put_locale(conn, locale), do: put_session(conn, :locale, locale)
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}, _),
     do: write_remember_me_cookie(conn, token)
@@ -223,7 +230,7 @@ defmodule DiaryWeb.UserAuth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
+        |> Phoenix.LiveView.put_flash(:error, gettext("You must log in to access this page.")) # Localized message
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
       {:halt, socket}
@@ -238,7 +245,7 @@ defmodule DiaryWeb.UserAuth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "You must re-authenticate to access this page.")
+        |> Phoenix.LiveView.put_flash(:error, gettext("You must re-authenticate to access this page.")) # Localized message
         |> Phoenix.LiveView.redirect(to: ~p"/users/log-in")
 
       {:halt, socket}
@@ -272,7 +279,7 @@ defmodule DiaryWeb.UserAuth do
       conn
     else
       conn
-      |> put_flash(:error, "You must log in to access this page.")
+      |> put_flash(:error, gettext("You must log in to access this page.")) # Localized message
       |> maybe_store_return_to()
       |> redirect(to: ~p"/users/log-in")
       |> halt()

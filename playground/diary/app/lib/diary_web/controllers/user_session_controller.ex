@@ -5,11 +5,11 @@ defmodule DiaryWeb.UserSessionController do
   alias DiaryWeb.UserAuth
 
   def create(conn, %{"_action" => "confirmed"} = params) do
-    create(conn, params, "User confirmed successfully.")
+    create(conn, params, gettext("User confirmed successfully.")) # Localized message
   end
 
   def create(conn, params) do
-    create(conn, params, "Welcome back!")
+    create(conn, params, gettext("Welcome back!")) # Localized message
   end
 
   # magic link login
@@ -24,7 +24,7 @@ defmodule DiaryWeb.UserSessionController do
 
       _ ->
         conn
-        |> put_flash(:error, "The link is invalid or it has expired.")
+        |> put_flash(:error, gettext("The link is invalid or it has expired.")) # Localized message
         |> redirect(to: ~p"/users/log-in")
     end
   end
@@ -40,7 +40,7 @@ defmodule DiaryWeb.UserSessionController do
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
-      |> put_flash(:error, "Invalid email or password")
+      |> put_flash(:error, gettext("Invalid email or password")) # Localized message
       |> put_flash(:email, String.slice(email, 0, 160))
       |> redirect(to: ~p"/users/log-in")
     end
@@ -56,12 +56,12 @@ defmodule DiaryWeb.UserSessionController do
 
     conn
     |> put_session(:user_return_to, ~p"/users/settings")
-    |> create(params, "Password updated successfully!")
+    |> create(params, gettext("Password updated successfully!")) # Localized message
   end
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "Logged out successfully.")
+    |> put_flash(:info, gettext("Logged out successfully.")) # Localized message
     |> UserAuth.log_out_user()
   end
 end
