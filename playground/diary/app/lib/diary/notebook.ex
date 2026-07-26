@@ -144,6 +144,16 @@ defmodule Diary.Notebook do
   end
 
   @doc """
+  Returns all diary items for a given user ordered by date.
+  """
+  def list_all_diary_items(user_id) do
+    DiaryItem
+    |> where(user_id: ^user_id)
+    |> order_by(asc: :date, asc: :position)
+    |> Repo.all()
+  end
+
+  @doc """
   Saves a set log for a given date, exercise, weight, reps and user.
   """
   def save_workout_log(user_id, date, exercise, weight, reps) do

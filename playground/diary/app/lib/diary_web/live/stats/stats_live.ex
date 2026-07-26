@@ -102,17 +102,26 @@ defmodule DiaryWeb.StatsLive do
     <Layouts.app flash={@flash} active_tab="stats">
       <div class="max-w-2xl mx-auto space-y-6">
         <!-- Title and Export Header -->
-        <div class="flex items-center justify-between px-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-2">
           <h1 class="text-xl font-black text-slate-800 dark:text-zinc-100">
             <%= gettext("Statistics") %>
           </h1>
-          <.link
-            href={~p"/workout/export/csv"}
-            class="btn btn-primary btn-soft btn-sm flex items-center gap-1.5 cursor-pointer"
-          >
-            <.icon name="hero-arrow-down-tray" class="size-4" />
-            <%= gettext("Export CSV") %>
-          </.link>
+          <div class="flex items-center gap-2">
+            <.link
+              href={~p"/workout/export/csv"}
+              class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
+            >
+              <.icon name="hero-arrow-down-tray" class="size-4" />
+              <%= gettext("Export Detailed Logs") %>
+            </.link>
+            <.link
+              href={~p"/workout/export/daily-summary"}
+              class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
+            >
+              <.icon name="hero-document-text" class="size-4" />
+              <%= gettext("Export Daily Summary") %>
+            </.link>
+          </div>
         </div>
 
         <!-- Date Navigator Card -->
