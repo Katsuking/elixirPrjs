@@ -69,7 +69,7 @@ defmodule DiaryWeb.Diary.CalendarComponent do
             phx-value-date={Date.to_iso8601(day)}
             class={[
               "relative flex flex-col items-center justify-between p-1 sm:p-1.5 h-12 sm:h-16 w-full rounded-xl sm:rounded-2xl border transition-all duration-200 cursor-pointer",
-              is_selected && "border-zinc-800 bg-zinc-50 dark:bg-zinc-800 ring-2 ring-zinc-800/10 shadow-md",
+              is_selected && "border-zinc-900 dark:border-zinc-100 bg-zinc-900 dark:bg-zinc-100 shadow-md scale-102 ring-2 ring-zinc-900/10 dark:ring-white/10",
               !is_selected && is_today && "border-zinc-300 dark:border-zinc-700 bg-zinc-50/20",
               !is_selected && !is_today && "border-zinc-100 dark:border-zinc-850 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/30",
               !is_current_month && "opacity-40"
@@ -77,8 +77,8 @@ defmodule DiaryWeb.Diary.CalendarComponent do
           >
             <!-- Day Number -->
             <span class={[
-              "text-xs font-bold",
-              is_selected && "text-zinc-800 dark:text-zinc-100",
+              "text-xs font-black",
+              is_selected && "text-white dark:text-zinc-900",
               !is_selected && is_current_month && "text-zinc-700 dark:text-zinc-300",
               !is_current_month && "text-zinc-400"
             ]}>
@@ -93,7 +93,7 @@ defmodule DiaryWeb.Diary.CalendarComponent do
               <%= if has_entries do %>
                 <span class={[
                   "w-1.5 h-1.5 rounded-full block",
-                  is_selected && "bg-zinc-800 dark:bg-zinc-100",
+                  is_selected && "bg-white dark:bg-zinc-900",
                   !is_selected && "bg-zinc-400 dark:bg-zinc-500"
                 ]}></span>
               <% end %>
