@@ -593,13 +593,13 @@ msgstr "おかえりなさい！"
 msgid "You are running the local mail adapter."
 msgstr "現在、ローカルメールアダプターが動作しています。"
 
-#: lib/diary_web/user_auth.ex:227
-#: lib/diary_web/user_auth.ex:276
+#: lib/diary_web/user_auth.ex:233
+#: lib/diary_web/user_auth.ex:282
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
 msgstr "このページにアクセスするにはログインが必要です。"
 
-#: lib/diary_web/user_auth.ex:242
+#: lib/diary_web/user_auth.ex:248
 #, elixir-autogen, elixir-format
 msgid "You must re-authenticate to access this page."
 msgstr "このページにアクセスするには再認証が必要です。"
@@ -1088,3 +1088,8 @@ msgstr "新規登録"
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "設定"
+
+#: lib/diary_web/live/workout/workout_live.ex:385
+#, elixir-autogen, elixir-format
+msgid "Est. 1RM"
+msgstr "推定1RM"

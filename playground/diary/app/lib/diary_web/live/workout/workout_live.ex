@@ -381,6 +381,9 @@ defmodule DiaryWeb.WorkoutLive do
         <p class="text-xs font-black text-slate-700 dark:text-zinc-300">{Gettext.gettext(DiaryWeb.Gettext, @log.exercise)}</p>
         <p class="text-[10px] font-bold text-slate-400 dark:text-zinc-500">
           {@log.weight} kg × {@log.reps} reps
+          <span class="ml-2 text-[9px] font-bold text-indigo-500 dark:text-indigo-400">
+            (<%= gettext("Est. 1RM") %>: {estimate_1rm(@log.weight, @log.reps)} kg)
+          </span>
         </p>
       </div>
       <button
@@ -394,6 +397,13 @@ defmodule DiaryWeb.WorkoutLive do
     </div>
     """
   end
+
+  # Estimates 1RM (One Rep Max) using Epley formula: weight * (1 + reps / 30)
+  defp estimate_1rm(weight, 1), do: weight
+  defp estimate_1rm(weight, reps) when is_integer(reps) and reps > 0 do
+    round(weight * (1 + reps / 30.0))
+  end
+  defp estimate_1rm(weight, _), do: weight
 
   # Format target date based on selected locale
   defp format_date(date, locale) do

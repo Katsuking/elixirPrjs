@@ -593,13 +593,13 @@ msgstr ""
 msgid "You are running the local mail adapter."
 msgstr ""
 
-#: lib/diary_web/user_auth.ex:227
-#: lib/diary_web/user_auth.ex:276
+#: lib/diary_web/user_auth.ex:233
+#: lib/diary_web/user_auth.ex:282
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
 msgstr ""
 
-#: lib/diary_web/user_auth.ex:242
+#: lib/diary_web/user_auth.ex:248
 #, elixir-autogen, elixir-format
 msgid "You must re-authenticate to access this page."
 msgstr ""
@@ -1087,4 +1087,9 @@ msgstr ""
 #: lib/diary_web/components/layouts/root.html.heex:47
 #, elixir-autogen, elixir-format
 msgid "Settings"
+msgstr ""
+
+#: lib/diary_web/live/workout/workout_live.ex:385
+#, elixir-autogen, elixir-format
+msgid "Est. 1RM"
 msgstr ""
