@@ -101,6 +101,20 @@ defmodule DiaryWeb.StatsLive do
     ~H"""
     <Layouts.app flash={@flash} active_tab="stats">
       <div class="max-w-2xl mx-auto space-y-6">
+        <!-- Title and Export Header -->
+        <div class="flex items-center justify-between px-2">
+          <h1 class="text-xl font-black text-slate-800 dark:text-zinc-100">
+            <%= gettext("Statistics") %>
+          </h1>
+          <.link
+            href={~p"/workout/export/csv"}
+            class="btn btn-primary btn-soft btn-sm flex items-center gap-1.5 cursor-pointer"
+          >
+            <.icon name="hero-arrow-down-tray" class="size-4" />
+            <%= gettext("Export CSV") %>
+          </.link>
+        </div>
+
         <!-- Date Navigator Card -->
         <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 p-6">
           <.date_navigator date={@date} on_change="change_date">

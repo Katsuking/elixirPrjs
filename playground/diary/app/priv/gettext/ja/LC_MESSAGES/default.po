@@ -1093,3 +1093,13 @@ msgstr "設定"
 #, elixir-autogen, elixir-format
 msgid "Est. 1RM"
 msgstr "推定1RM"
+
+#: lib/diary_web/live/stats/stats_live.ex:114
+#, elixir-autogen, elixir-format
+msgid "Export CSV"
+msgstr "CSVエクスポート"
+
+#: lib/diary_web/live/stats/stats_live.ex:107
+#, elixir-autogen, elixir-format
+msgid "Statistics"
+msgstr "統計"

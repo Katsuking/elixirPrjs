@@ -134,6 +134,16 @@ defmodule Diary.Notebook do
   end
 
   @doc """
+  Returns all workout logs for a given user ordered by date.
+  """
+  def list_all_workout_logs(user_id) do
+    WorkoutLog
+    |> where(user_id: ^user_id)
+    |> order_by(asc: :date, asc: :id)
+    |> Repo.all()
+  end
+
+  @doc """
   Saves a set log for a given date, exercise, weight, reps and user.
   """
   def save_workout_log(user_id, date, exercise, weight, reps) do

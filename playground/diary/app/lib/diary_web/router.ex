@@ -96,6 +96,7 @@ defmodule DiaryWeb.Router do
     end
 
     post "/users/update-password", UserSessionController, :update_password
+    get "/workout/export/csv", WorkoutController, :export_csv
   end
 
   scope "/", DiaryWeb do
