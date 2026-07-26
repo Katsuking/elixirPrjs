@@ -1,0 +1,59 @@
+services:
+  web:
+    # Build context points to app/ relative to prod/ directory
+    build:
+      context: ../app
+      dockerfile: Dockerfile
+    # Do not expose port 4000 to the host for security. Only expose to internal docker network.
+    expose:
+      - "4000"
+    environment:
+      - MIX_ENV=prod
+      - PORT=4000
+      - PHX_SERVER=true
+      - PHX_HOST=${PHX_HOST:-wayup.cc} # Domain name loaded from env, defaults to wayup.cc
+      # Points to the local db service
+      - DATABASE_URL=ecto://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db/${DB_NAME:-diary_prod}
+      # Inject secret key base generated at runtime
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+    depends_on:
+      - db
+    networks:
+      - prod_network
+
+  db:
+    # Use postgres version compatible with the development environment
+    image: postgres:16.0-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-diary_prod}
+    volumes:
+      # Persistent storage for production database data
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - prod_network
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    # Map host port 80 for local HTTP verification
+    ports:
+      - "80:80"
+    volumes:
+      # Mount local nginx configuration to test proxy and rate limits
+      - ./nginx.local.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+    networks:
+      - prod_network
+
+volumes:
+  # Named volume for Postgres database persistence
+  db_data:
+
+networks:
+  # Internal bridge network for isolated communication
+  prod_network:
+    driver: bridge

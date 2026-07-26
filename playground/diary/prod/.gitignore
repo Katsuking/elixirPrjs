@@ -1,0 +1,3 @@
+# Ignore actual environment files containing credentials
+.env*
+!.env.prod.example

@@ -119,13 +119,31 @@ if config_env() == :prod do
   # ## Configuring the mailer
   #
   # In production you need to configure the mailer to use a different adapter.
-  # Here is an example configuration for Mailgun:
-  #
-  #     config :diary, Diary.Mailer,
-  #       adapter: Swoosh.Adapters.Mailgun,
-  #       api_key: System.get_env("MAILGUN_API_KEY"),
-  #       domain: System.get_env("MAILGUN_DOMAIN")
-  #
+  # If MAILER_ADAPTER is not specified, it falls back to Swoosh.Adapters.Logger
+  # to prevent crashes during local testing.
+  mailer_adapter =
+    case System.get_env("MAILER_ADAPTER") do
+      "mailgun" -> Swoosh.Adapters.Mailgun
+      "sendgrid" -> Swoosh.Adapters.Sendgrid
+      "ses" -> Swoosh.Adapters.AmazonSES
+      "brevo" -> Swoosh.Adapters.Brevo
+      "local" -> Swoosh.Adapters.Local
+      _ -> Swoosh.Adapters.Logger
+    end
+
+  config :diary, Diary.Mailer, adapter: mailer_adapter
+
+  if mailer_adapter == Swoosh.Adapters.Mailgun do
+    config :diary, Diary.Mailer,
+      api_key: System.get_env("MAILGUN_API_KEY"),
+      domain: System.get_env("MAILGUN_DOMAIN")
+  end
+
+  if mailer_adapter == Swoosh.Adapters.Brevo do
+    config :diary, Diary.Mailer,
+      api_key: System.get_env("BREVO_API_KEY")
+  end
+
   # Most non-SMTP adapters require an API client. Swoosh supports Req, Hackney,
   # and Finch out-of-the-box. This configuration is typically done at
   # compile-time in your config/prod.exs:
