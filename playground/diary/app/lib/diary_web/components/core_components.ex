@@ -502,4 +502,38 @@ defmodule DiaryWeb.CoreComponents do
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
+
+  @doc """
+  Renders a locale selector dropdown using daisyUI.
+  """
+  attr :current_locale, :string, required: true
+  attr :class, :string, default: nil
+
+  def locale_select(assigns) do
+    ~H"""
+    <div class={["dropdown dropdown-end", @class]}>
+      <div tabindex="0" role="button" class="btn btn-ghost btn-xs gap-1 normal-case font-bold">
+        <.icon name="hero-globe-alt" class="size-3.5" />
+        <%= if @current_locale == "ja" do %>
+          日本語
+        <% else %>
+          English
+        <% end %>
+        <.icon name="hero-chevron-down" class="size-3 opacity-60" />
+      </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 dark:bg-zinc-800 rounded-box z-[20] w-32 p-2 shadow-lg border border-slate-100 dark:border-zinc-800 mt-1.5 text-xs">
+        <li>
+          <.link href="?locale=ja" class={[@current_locale == "ja" && "active"]}>
+            日本語
+          </.link>
+        </li>
+        <li>
+          <.link href="?locale=en" class={[@current_locale == "en" && "active"]}>
+            English
+          </.link>
+        </li>
+      </ul>
+    </div>
+    """
+  end
 end
