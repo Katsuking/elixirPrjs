@@ -10,6 +10,7 @@ defmodule Diary.Accounts.User do
     field :authenticated_at, :utc_datetime, virtual: true
 
     timestamps(type: :utc_datetime)
+    has_many :user_identities, Diary.Accounts.UserIdentity
   end
 
   @doc """

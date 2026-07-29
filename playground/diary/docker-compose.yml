@@ -9,6 +9,12 @@ services:
       - "4000:4000"
     environment:
       - MIX_ENV=dev
+      - GITHUB_CLIENT_ID
+      - GITHUB_CLIENT_SECRET
+      - GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET
+      - DISCORD_CLIENT_ID
+      - DISCORD_CLIENT_SECRET
     # The existing DB container is already up, so depends_on is not needed
     # Start the Phoenix web server as a named Erlang node with FQDN
     command: elixir --name diary@web.local --cookie my_secret_cookie -S mix phx.server

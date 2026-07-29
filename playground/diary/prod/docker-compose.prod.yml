@@ -15,7 +15,14 @@ services:
       # Points to the local db service
       - DATABASE_URL=ecto://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db/${DB_NAME:-diary_prod}
       # Inject secret key base generated at runtime
-      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - SECRET_KEY_BASE
+      # OAuth credentials loaded from the host environment
+      - GITHUB_CLIENT_ID
+      - GITHUB_CLIENT_SECRET
+      - GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET
+      - DISCORD_CLIENT_ID
+      - DISCORD_CLIENT_SECRET
     depends_on:
       - db
     networks:

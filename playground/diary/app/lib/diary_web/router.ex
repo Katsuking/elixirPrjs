@@ -112,5 +112,12 @@ defmodule DiaryWeb.Router do
 
     post "/users/log-in", UserSessionController, :create
     delete "/users/log-out", UserSessionController, :delete
+
+    # OAuth Routes
+    get "/auth/:provider", OAuthController, :request
+    get "/auth/:provider/callback", OAuthController, :callback
+    post "/auth/:provider/callback", OAuthController, :callback
+
+
   end
 end

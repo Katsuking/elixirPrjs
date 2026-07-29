@@ -152,3 +152,28 @@ if config_env() == :prod do
   #
   # See https://swoosh.hexdocs.pm/Swoosh.html#module-installation for details.
 end
+
+github_client_id = System.get_env("GITHUB_CLIENT_ID")
+github_client_secret = System.get_env("GITHUB_CLIENT_SECRET")
+google_client_id = System.get_env("GOOGLE_CLIENT_ID")
+google_client_secret = System.get_env("GOOGLE_CLIENT_SECRET")
+discord_client_id = System.get_env("DISCORD_CLIENT_ID")
+discord_client_secret = System.get_env("DISCORD_CLIENT_SECRET")
+
+config :diary, :oauth_providers, [
+  github: [
+    client_id: github_client_id,
+    client_secret: github_client_secret,
+    strategy: Assent.Strategy.Github
+  ],
+  google: [
+    client_id: google_client_id,
+    client_secret: google_client_secret,
+    strategy: Assent.Strategy.Google
+  ],
+  discord: [
+    client_id: discord_client_id,
+    client_secret: discord_client_secret,
+    strategy: Assent.Strategy.Discord
+  ]
+]

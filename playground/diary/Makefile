@@ -4,7 +4,7 @@ $(eval $(RUN_ARGS):;@:)
 
 .PHONY: up
 up:
-	docker compose up -d
+	docker compose --env-file ../../.env up -d
 
 # Stop and remove containers, networks, and volumes
 .PHONY: down

@@ -379,7 +379,7 @@ msgstr "アカウント設定"
 msgid "Already registered?"
 msgstr "既に登録済みですか？"
 
-#: lib/diary_web/live/user_live/registration.ex:75
+#: lib/diary_web/live/user_live/registration.ex:112
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr "%{email} にメールを送信しました。メール内のリンクからアカウントを確認してください。"
@@ -448,7 +448,7 @@ msgstr "メールアドレス変更リンクが無効か、または期限切れ
 msgid "Email changed successfully."
 msgstr "メールアドレスが正常に変更されました。"
 
-#: lib/diary_web/live/user_live/login.ex:125
+#: lib/diary_web/live/user_live/login.ex:162
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr "入力されたメールアドレスがシステムに登録されている場合、間もなくログイン方法が記載されたメールが届きます。"
@@ -1108,3 +1108,13 @@ msgstr "日次サマリーを出力"
 #, elixir-autogen, elixir-format
 msgid "Export Detailed Logs"
 msgstr "詳細ログを出力"
+
+#: lib/diary_web/live/user_live/login.ex:94
+#, elixir-autogen, elixir-format
+msgid "or log in with"
+msgstr "または以下でログイン"
+
+#: lib/diary_web/live/user_live/registration.ex:41
+#, elixir-autogen, elixir-format
+msgid "or register with"
+msgstr "または以下で登録"
