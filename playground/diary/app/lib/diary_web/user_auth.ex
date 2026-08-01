@@ -220,10 +220,18 @@ defmodule DiaryWeb.UserAuth do
       end
   """
   def on_mount(:mount_current_scope, _params, session, socket) do
+    # Set the locale for the current LiveView process based on the session before mount
+    locale = session["locale"] || "en"
+    Gettext.put_locale(DiaryWeb.Gettext, locale)
+
     {:cont, mount_current_scope(socket, session)}
   end
 
   def on_mount(:require_authenticated, _params, session, socket) do
+    # Set the locale for the current LiveView process based on the session before mount
+    locale = session["locale"] || "en"
+    Gettext.put_locale(DiaryWeb.Gettext, locale)
+
     socket = mount_current_scope(socket, session)
 
     if socket.assigns.current_scope && socket.assigns.current_scope.user do
@@ -239,6 +247,10 @@ defmodule DiaryWeb.UserAuth do
   end
 
   def on_mount(:require_sudo_mode, _params, session, socket) do
+    # Set the locale for the current LiveView process based on the session before mount
+    locale = session["locale"] || "en"
+    Gettext.put_locale(DiaryWeb.Gettext, locale)
+
     socket = mount_current_scope(socket, session)
 
     if Accounts.sudo_mode?(socket.assigns.current_scope.user, -10) do
