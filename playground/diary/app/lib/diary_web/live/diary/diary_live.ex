@@ -268,7 +268,7 @@ defmodule DiaryWeb.DiaryLive do
               <!-- Show black barbell in light mode, and white barbell in dark mode -->
               <img src={~p"/images/barbell_black.svg"} class="dark:hidden w-5 h-auto" alt="Barbell" />
               <img src={~p"/images/barbell_white.svg"} class="hidden dark:block w-5 h-auto" alt="Barbell" />
-              <span class="text-[10px] font-black text-slate-400 dark:text-zinc-500 uppercase tracking-wider">{gettext("Today's Volume")}</span>
+              <span class="text-[10px] font-black text-slate-400 dark:text-zinc-400 uppercase tracking-wider">{gettext("Today's Volume")}</span>
             </div>
             <span class="text-sm font-black text-zinc-800 dark:text-zinc-100">{format_volume(@total_volume)} kg</span>
           </div>
@@ -285,7 +285,7 @@ defmodule DiaryWeb.DiaryLive do
 
         <!-- Diary Bullet Points List -->
         <div class="p-8">
-          <h2 class="text-xs font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-4">
+          <h2 class="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest mb-4">
             {gettext("Today's Entries")}
           </h2>
 
@@ -293,7 +293,7 @@ defmodule DiaryWeb.DiaryLive do
             <!-- Empty State -->
             <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
               <img src={~p"/images/nodata.svg"} class="w-32 h-auto mb-3" alt="No data" />
-              <p class="text-sm font-medium text-slate-400 dark:text-zinc-500">{gettext("No entries for this day. Add one below!")}</p>
+              <p class="text-sm font-medium text-slate-400 dark:text-zinc-400">{gettext("No entries for this day. Add one below!")}</p>
             </div>
 
             <!-- Stream Item Row -->
@@ -326,7 +326,7 @@ defmodule DiaryWeb.DiaryLive do
 
         <!-- Add Entry Form Area -->
         <div class="p-8 bg-slate-50/80 dark:bg-zinc-800/20 border-t border-slate-100 dark:border-zinc-800">
-          <h2 class="text-xs font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-4">
+          <h2 class="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest mb-4">
             {gettext("Add New Entry")}
           </h2>
 
@@ -338,7 +338,7 @@ defmodule DiaryWeb.DiaryLive do
                 placeholder={gettext("What did you do today?")}
                 autocomplete="off"
                 id="diary-item-content-input"
-                class="w-full pl-4 pr-20 py-3.5 text-slate-700 dark:text-zinc-250 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl focus:ring-2 focus:ring-zinc-800/10 focus:border-zinc-800 outline-none transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-zinc-600 shadow-sm"
+                class="w-full pl-4 pr-20 py-3.5 text-slate-700 dark:text-zinc-50 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl focus:ring-2 focus:ring-zinc-800/10 focus:border-zinc-800 outline-none transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-zinc-600 shadow-sm"
                 error_class="border-rose-500 focus:ring-rose-500/20 focus:border-rose-500"
               />
 
@@ -347,7 +347,7 @@ defmodule DiaryWeb.DiaryLive do
                 "absolute right-3.5 top-3.5 text-xs font-bold px-2 py-1 rounded-lg select-none pointer-events-none transition-colors duration-200",
                 @content_length > 50 && "text-rose-600 bg-rose-50 dark:bg-rose-950/20",
                 @content_length in 41..50 && "text-amber-600 bg-amber-50 dark:bg-amber-950/20",
-                @content_length <= 40 && "text-slate-400 dark:text-zinc-500 bg-slate-100 dark:bg-zinc-800"
+                @content_length <= 40 && "text-slate-400 dark:text-zinc-400 bg-slate-100 dark:bg-zinc-800"
               ]}>
                 {@content_length}/50
               </div>

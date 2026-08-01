@@ -38,14 +38,11 @@
     </script>
   </head>
   <body>
-    <ul class="menu menu-horizontal w-full relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <li class="mr-2 border-r border-slate-200 dark:border-zinc-800 pr-4">
-        <.locale_select current_locale={Gettext.get_locale(DiaryWeb.Gettext)} />
-      </li>
+    <!-- Align header items to the end (right) and remove user email display for a cleaner layout. Increase z-index to z-50 to make sure the dropdown shows on top of other content. -->
+    <ul class="menu menu-horizontal w-full relative z-50 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+      <!-- Render locale selector as a direct li menu item to prevent dead hover zones in the nav bar -->
+      <.locale_select current_locale={Gettext.get_locale(DiaryWeb.Gettext)} class="mr-2 border-r border-slate-200 dark:border-zinc-800 pr-4" />
       <%= if @current_scope do %>
-        <li>
-          {@current_scope.user.email}
-        </li>
         <li>
           <.link href={~p"/users/settings"}><%= gettext("Settings") %></.link>
         </li>

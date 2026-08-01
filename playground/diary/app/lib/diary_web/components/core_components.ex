@@ -511,29 +511,43 @@ defmodule DiaryWeb.CoreComponents do
 
   def locale_select(assigns) do
     ~H"""
-    <div class={["dropdown dropdown-end", @class]}>
-      <div tabindex="0" role="button" class="btn btn-ghost btn-xs gap-1 normal-case font-bold">
+    <!-- Render as a list item (li) to comply with the parent ul.menu structure, avoiding nesting dead zones -->
+    <li class={["dropdown dropdown-bottom dropdown-end", @class]}>
+      <!-- Use native HTML button for robust touch/focus events on mobile OS like iOS Safari -->
+      <button tabindex="0" type="button" class="btn btn-ghost btn-xs gap-1 normal-case font-bold">
         <.icon name="hero-globe-alt" class="size-3.5" />
-        <%= if @current_locale == "ja" do %>
-          日本語
-        <% else %>
-          English
-        <% end %>
+        <!-- Hide the locale name text on mobile screens to save space and avoid wrapping -->
+        <span class="hidden sm:inline">
+          <%= if @current_locale == "ja" do %>
+            日本語
+          <% else %>
+            English
+          <% end %>
+        </span>
         <.icon name="hero-chevron-down" class="size-3 opacity-60" />
-      </div>
-      <ul tabindex="0" class="dropdown-content menu bg-base-100 dark:bg-zinc-800 rounded-box z-[20] w-32 p-2 shadow-lg border border-slate-100 dark:border-zinc-800 mt-1.5 text-xs">
+      </button>
+      <!-- Ensure the dropdown menu container has a high z-index and appropriate styling -->
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 dark:bg-zinc-800 rounded-box z-[50] w-32 p-2 shadow-lg border border-slate-100 dark:border-zinc-800 mt-1.5 text-xs">
         <li>
-          <.link href="?locale=ja" class={[@current_locale == "ja" && "active"]}>
+          <!-- Use explicit fixed text colors for both light and dark modes to guarantee readability, removing active state highlighting as requested -->
+          <.link
+            href="?locale=ja"
+            class="!text-zinc-800 dark:!text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-700"
+          >
             日本語
           </.link>
         </li>
         <li>
-          <.link href="?locale=en" class={[@current_locale == "en" && "active"]}>
+          <!-- Use explicit fixed text colors for both light and dark modes to guarantee readability, removing active state highlighting as requested -->
+          <.link
+            href="?locale=en"
+            class="!text-zinc-800 dark:!text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-700"
+          >
             English
           </.link>
         </li>
       </ul>
-    </div>
+    </li>
     """
   end
 end

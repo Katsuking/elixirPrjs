@@ -105,7 +105,7 @@ defmodule DiaryWeb.Layouts do
           class={[
             "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
             @active_tab == "diary" && "text-zinc-800 dark:text-zinc-100 scale-105",
-            @active_tab != "diary" && "text-slate-400 dark:text-zinc-500 hover:text-slate-600"
+            @active_tab != "diary" && "text-slate-400 dark:text-zinc-400 hover:text-slate-600"
           ]}
         >
           <.icon name="hero-calendar" class="size-6" />
@@ -116,7 +116,7 @@ defmodule DiaryWeb.Layouts do
           class={[
             "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
             @active_tab == "stats" && "text-zinc-800 dark:text-zinc-100 scale-105",
-            @active_tab != "stats" && "text-slate-400 dark:text-zinc-500 hover:text-slate-600"
+            @active_tab != "stats" && "text-slate-400 dark:text-zinc-400 hover:text-slate-600"
           ]}
         >
           <.icon name="hero-chart-bar" class="size-6" />

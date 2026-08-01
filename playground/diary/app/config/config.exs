@@ -84,6 +84,18 @@ config :logger, :default_formatter,
 config :phoenix, :json_library, Jason
 
 
+# Configure Oban background job processor
+config :diary, Oban,
+  engine: Oban.Engines.Basic,
+  repo: Diary.Repo,
+  queues: [default: 10],
+  plugins: [
+    {Oban.Plugins.Cron,
+     crontab: [
+       {"0 15 * * *", Diary.Workers.DailyStatsCollector}
+     ]}
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

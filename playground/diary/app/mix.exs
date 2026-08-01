@@ -76,7 +76,8 @@ defmodule Diary.MixProject do
       {:bandit, "~> 1.5"},
       {:kino, "~> 0.12", only: :dev},
       {:assent, "~> 0.3.0"},
-      {:jose, "~> 1.11"}
+      {:jose, "~> 1.11"},
+      {:oban, "~> 2.19"}
     ]
   end
 

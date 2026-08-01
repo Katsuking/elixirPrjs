@@ -43,3 +43,9 @@ config :phoenix_live_view,
 # Sort query params output of verified routes for robust url comparisons
 config :phoenix,
   sort_verified_routes_query_params: true
+
+# Configure Oban for manual testing mode
+config :diary, Oban, testing: :manual
+
+# Configure Notifier Req options for mocking in test environment
+config :diary, :notifier_req_options, plug: {Req.Test, Diary.Workers.Notifier}

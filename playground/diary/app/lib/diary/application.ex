@@ -12,8 +12,8 @@ defmodule Diary.Application do
       Diary.Repo,
       {DNSCluster, query: Application.get_env(:diary, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Diary.PubSub},
-      # Start a worker by calling: Diary.Worker.start_link(arg)
-      # {Diary.Worker, arg},
+      # Start Oban background job processor
+      {Oban, Application.fetch_env!(:diary, Oban)},
       # Start to serve requests, typically the last entry
       DiaryWeb.Endpoint
     ]

@@ -190,7 +190,7 @@ defmodule DiaryWeb.WorkoutLive do
           <!-- Left Side: Selection of Muscle Group and Exercises (3 columns) -->
           <div class="md:col-span-3 space-y-6">
             <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md border border-slate-100 dark:border-zinc-850 p-6 space-y-4">
-              <h2 class="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
+              <h2 class="text-xs font-black text-slate-400 dark:text-zinc-400 uppercase tracking-widest">
                 {gettext("Select Target Muscle")}
               </h2>
               <!-- Responsive grid to accommodate 7 muscle groups instead of 4 -->
@@ -207,7 +207,7 @@ defmodule DiaryWeb.WorkoutLive do
             <!-- Exercises selector component -->
             <%= if @selected_group do %>
               <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md border border-slate-100 dark:border-zinc-850 p-6 space-y-4">
-                <h2 class="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
+                <h2 class="text-xs font-black text-slate-400 dark:text-zinc-400 uppercase tracking-widest">
                   {gettext("Select Exercise")} ({ Gettext.gettext(DiaryWeb.Gettext, @selected_group) })
                 </h2>
                 <!-- Scrollable container for exercises when the list is long -->
@@ -228,7 +228,7 @@ defmodule DiaryWeb.WorkoutLive do
           <div class="md:col-span-2 space-y-6">
             <!-- Input Form Card -->
             <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md border border-slate-100 dark:border-zinc-850 p-6 space-y-4">
-              <h2 class="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
+              <h2 class="text-xs font-black text-slate-400 dark:text-zinc-400 uppercase tracking-widest">
                 Log Set
               </h2>
 
@@ -285,8 +285,8 @@ defmodule DiaryWeb.WorkoutLive do
               <% else %>
                 <div class="flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
                   <img src={~p"/images/on_the_way.svg"} class="w-16 h-auto" alt="No data" />
-                  <p class="text-xs font-bold text-slate-400 dark:text-zinc-500 mb-1">{gettext("No Exercise Selected")}</p>
-                  <p class="text-[10px] text-slate-400 dark:text-zinc-500 text-center max-w-[200px]">
+                  <p class="text-xs font-bold text-slate-400 dark:text-zinc-400 mb-1">{gettext("No Exercise Selected")}</p>
+                  <p class="text-[10px] text-slate-400 dark:text-zinc-400 text-center max-w-[200px]">
                     {gettext("Choose a muscle group and an exercise to start logging your workout.")}
                   </p>
                 </div>
@@ -296,7 +296,7 @@ defmodule DiaryWeb.WorkoutLive do
             <!-- List of logs for the date -->
             <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md border border-slate-100 dark:border-zinc-850 p-6 space-y-4">
               <div class="flex items-center justify-between">
-                <h2 class="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
+                <h2 class="text-xs font-black text-slate-400 dark:text-zinc-400 uppercase tracking-widest">
                   {gettext("Today's Workouts")}
                 </h2>
                 <span class="text-[10px] bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-2 py-1 rounded-full font-bold">
@@ -308,7 +308,7 @@ defmodule DiaryWeb.WorkoutLive do
                 <%= if Enum.empty?(@logs) do %>
                   <div class="flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
                     <img src={~p"/images/hono.svg"} class="w-24 h-auto" alt="No data" />
-                    <p class="text-xs font-bold text-slate-400 dark:text-zinc-500">{gettext("Only you can ignite your own destiny.")}</p>
+                    <p class="text-xs font-bold text-slate-400 dark:text-zinc-400">{gettext("Only you can ignite your own destiny.")}</p>
                   </div>
                 <% else %>
                   <%= for log <- @logs do %>
@@ -364,9 +364,9 @@ defmodule DiaryWeb.WorkoutLive do
             {Enum.count(@logs)} sets
           </span>
         <% else %>
-          <span class="text-[10px] text-slate-400 dark:text-zinc-500 font-bold">Not logged</span>
+          <span class="text-[10px] text-slate-400 dark:text-zinc-400 font-bold">Not logged</span>
         <% end %>
-        <.icon name="hero-chevron-right" class="size-3.5 text-slate-400 dark:text-zinc-500" />
+        <.icon name="hero-chevron-right" class="size-3.5 text-slate-400 dark:text-zinc-400" />
       </div>
     </button>
     """
@@ -379,7 +379,7 @@ defmodule DiaryWeb.WorkoutLive do
       <div class="space-y-1">
         <!-- Translate exercise name dynamically using Gettext -->
         <p class="text-xs font-black text-slate-700 dark:text-zinc-300">{Gettext.gettext(DiaryWeb.Gettext, @log.exercise)}</p>
-        <p class="text-[10px] font-bold text-slate-400 dark:text-zinc-500">
+        <p class="text-[10px] font-bold text-slate-400 dark:text-zinc-400">
           {@log.weight} kg × {@log.reps} reps
           <span class="ml-2 text-[9px] font-bold text-indigo-500 dark:text-indigo-400">
             (<%= gettext("Est. 1RM") %>: {estimate_1rm(@log.weight, @log.reps)} kg)

@@ -23,7 +23,7 @@ defmodule Diary.Accounts do
 
   """
   def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email)
+    Repo.one(from u in User, where: u.email == ^email and is_nil(u.deleted_at))
   end
 
   @doc """
@@ -40,7 +40,7 @@ defmodule Diary.Accounts do
   """
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+    user = get_user_by_email(email)
     if User.valid_password?(user, password), do: user
   end
 
@@ -58,7 +58,9 @@ defmodule Diary.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    Repo.one!(from u in User, where: u.id == ^id and is_nil(u.deleted_at))
+  end
 
   ## User registration
 

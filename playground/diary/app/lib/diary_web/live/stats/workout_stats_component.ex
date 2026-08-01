@@ -50,7 +50,7 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
               ({format_period(@date, @active_tab, @locale)})
             </span>
           </h2>
-          <p class="text-xs text-zinc-400 dark:text-zinc-500 font-bold mt-1">Aggregated target muscle work</p>
+          <p class="text-xs text-zinc-400 dark:text-zinc-400 font-bold mt-1">Aggregated target muscle work</p>
         </div>
 
         <!-- Controls: Detail Toggle & Period Tabs -->
@@ -100,7 +100,7 @@ defmodule DiaryWeb.Stats.WorkoutStatsComponent do
           <!-- Empty State -->
           <div class="flex flex-col items-center justify-center py-20 text-zinc-300 dark:text-zinc-700">
             <img src={~p"/images/hono.svg"} class="w-24 h-auto" alt="No data" />
-            <p class="text-sm font-medium text-zinc-400 dark:text-zinc-500">{gettext("No data for this period")}</p>
+            <p class="text-sm font-medium text-zinc-400 dark:text-zinc-400">{gettext("No data for this period")}</p>
           </div>
         <% else %>
           <%= for {general_group, detailed_parts} <- WorkoutMaster.muscle_groups() do %>
