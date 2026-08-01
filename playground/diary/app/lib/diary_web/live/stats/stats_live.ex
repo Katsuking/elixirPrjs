@@ -107,15 +107,19 @@ defmodule DiaryWeb.StatsLive do
             <%= gettext("Statistics") %>
           </h1>
           <div class="flex items-center gap-2">
+            <!-- Add download attribute to prevent LiveView WebSocket disconnect on file download -->
             <.link
               href={~p"/workout/export/csv"}
+              download
               class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
             >
               <.icon name="hero-arrow-down-tray" class="size-4" />
               <%= gettext("Export Detailed Logs") %>
             </.link>
+            <!-- Add download attribute to prevent LiveView WebSocket disconnect on file download -->
             <.link
               href={~p"/workout/export/daily-summary"}
+              download
               class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
             >
               <.icon name="hero-document-text" class="size-4" />
