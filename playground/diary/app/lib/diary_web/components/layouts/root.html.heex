@@ -4,7 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="Diary" suffix=" · Phoenix Framework" phx-no-format>{assigns[:page_title]}</.live_title>
+    <.live_title default="Wayup" suffix=" · Workout & Activity Diary" phx-no-format>{assigns[:page_title]}</.live_title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wayup.cc/" />
+    <meta property="og:title" content="Wayup - 筋トレ＆生活記録日記 (Workout & Activity Diary)" />
+    <meta property="og:description" content="毎日の筋トレ内容やセット数を手軽に記録し、進行状況をカレンダーやグラフで追跡できるフィットネス日記アプリです。Log your daily workouts, track your progress, and stay consistent." />
+    <meta property="og:image" content={~p"/images/power.svg"} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://wayup.cc/" />
+    <meta property="twitter:title" content="Wayup - 筋トレ＆生活記録日記 (Workout & Activity Diary)" />
+    <meta property="twitter:description" content="毎日の筋トレ内容やセット数を手軽に記録し、進行状況をカレンダーやグラフで追跡できるフィットネス日記アプリです。Log your daily workouts, track your progress, and stay consistent." />
+    <meta property="twitter:image" content={~p"/images/power.svg"} />
+
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>

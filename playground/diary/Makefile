@@ -58,4 +58,6 @@ deploy:
 		--exclude='.git/' \
 		--exclude='.envrc' \
 		--exclude='livebook_data/' \
+		--exclude='prod/ssl/' \
+		--exclude='prod/.env.prod' \
 		./ conoha:/var/www/diary
