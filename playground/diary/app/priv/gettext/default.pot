@@ -37,17 +37,17 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:123
+#: lib/diary_web/live/diary/diary_live.ex:126
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:143
+#: lib/diary_web/live/diary/diary_live.ex:146
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:148
+#: lib/diary_web/live/diary/diary_live.ex:151
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr ""
@@ -57,17 +57,17 @@ msgstr ""
 msgid "Back to Diary"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:52
+#: lib/diary_web/live/diary/calendar_component.ex:53
 #, elixir-autogen, elixir-format
 msgid "Fri"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:262
+#: lib/diary_web/live/diary/diary_live.ex:265
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:48
+#: lib/diary_web/live/diary/calendar_component.ex:49
 #, elixir-autogen, elixir-format
 msgid "Mon"
 msgstr ""
@@ -82,7 +82,7 @@ msgstr ""
 msgid "No data for this period"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:53
+#: lib/diary_web/live/diary/calendar_component.ex:54
 #, elixir-autogen, elixir-format
 msgid "Sat"
 msgstr ""
@@ -97,12 +97,12 @@ msgstr ""
 msgid "Show General"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:47
+#: lib/diary_web/live/diary/calendar_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "Sun"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:51
+#: lib/diary_web/live/diary/calendar_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Thu"
 msgstr ""
@@ -112,12 +112,12 @@ msgstr ""
 msgid "Training Volume"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:49
+#: lib/diary_web/live/diary/calendar_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "Tue"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:50
+#: lib/diary_web/live/diary/calendar_component.ex:51
 #, elixir-autogen, elixir-format
 msgid "Wed"
 msgstr ""
@@ -202,12 +202,12 @@ msgstr ""
 msgid "Workout log saved!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:363
+#: lib/diary_web/live/diary/diary_live.ex:367
 #, elixir-autogen, elixir-format
 msgid "Add Bullet"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:330
+#: lib/diary_web/live/diary/diary_live.ex:334
 #, elixir-autogen, elixir-format
 msgid "Add New Entry"
 msgstr ""
@@ -218,22 +218,17 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:318
+#: lib/diary_web/live/diary/diary_live.ex:322
 #, elixir-autogen, elixir-format
 msgid "Delete item"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:250
+#: lib/diary_web/live/diary/diary_live.ex:253
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:296
-#, elixir-autogen, elixir-format
-msgid "No entries for this day. Add one below!"
-msgstr ""
-
-#: lib/diary_web/live/diary/diary_live.ex:238
+#: lib/diary_web/live/diary/diary_live.ex:241
 #, elixir-autogen, elixir-format
 msgid "Prev"
 msgstr ""
@@ -244,22 +239,22 @@ msgstr ""
 msgid "Stats"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:289
+#: lib/diary_web/live/diary/diary_live.ex:293
 #, elixir-autogen, elixir-format
 msgid "Today's Entries"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:338
+#: lib/diary_web/live/diary/diary_live.ex:342
 #, elixir-autogen, elixir-format
 msgid "What did you do today?"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:244
+#: lib/diary_web/live/diary/diary_live.ex:247
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:271
+#: lib/diary_web/live/diary/diary_live.ex:274
 #, elixir-autogen, elixir-format
 msgid "Today's Volume"
 msgstr ""
@@ -379,7 +374,7 @@ msgstr ""
 msgid "Already registered?"
 msgstr ""
 
-#: lib/diary_web/live/user_live/registration.ex:112
+#: lib/diary_web/live/user_live/registration.ex:114
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr ""
@@ -415,24 +410,11 @@ msgstr ""
 msgid "Confirming..."
 msgstr ""
 
-#: lib/diary_web/live/user_live/registration.ex:37
-#, elixir-autogen, elixir-format
-msgid "Create an account"
-msgstr ""
-
-#: lib/diary_web/live/user_live/registration.ex:36
-#, elixir-autogen, elixir-format
-msgid "Creating account..."
-msgstr ""
-
 #: lib/diary_web/live/user_live/login.ex:18
 #, elixir-autogen, elixir-format
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:49
-#: lib/diary_web/live/user_live/login.ex:74
-#: lib/diary_web/live/user_live/registration.ex:29
 #: lib/diary_web/live/user_live/settings.ex:23
 #, elixir-autogen, elixir-format
 msgid "Email"
@@ -448,7 +430,7 @@ msgstr ""
 msgid "Email changed successfully."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:162
+#: lib/diary_web/live/user_live/login.ex:164
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr ""
@@ -469,21 +451,6 @@ msgstr ""
 #: lib/diary_web/live/user_live/registration.ex:18
 #, elixir-autogen, elixir-format
 msgid "Log in"
-msgstr ""
-
-#: lib/diary_web/live/user_live/login.ex:87
-#, elixir-autogen, elixir-format
-msgid "Log in and stay logged in"
-msgstr ""
-
-#: lib/diary_web/live/user_live/login.ex:90
-#, elixir-autogen, elixir-format
-msgid "Log in only this time"
-msgstr ""
-
-#: lib/diary_web/live/user_live/login.ex:56
-#, elixir-autogen, elixir-format
-msgid "Log in with email"
 msgstr ""
 
 #: lib/diary_web/live/user_live/confirmation.ex:62
@@ -523,11 +490,6 @@ msgstr ""
 msgid "Only you can ignite your own destiny."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:82
-#, elixir-autogen, elixir-format
-msgid "Password"
-msgstr ""
-
 #: lib/diary_web/controllers/user_session_controller.ex:59
 #, elixir-autogen, elixir-format
 msgid "Password updated successfully!"
@@ -563,11 +525,6 @@ msgstr ""
 msgid "Tip: If you prefer passwords, you can enable them in the user settings."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:33
-#, elixir-autogen, elixir-format
-msgid "To see sent emails, visit"
-msgstr ""
-
 #: lib/diary/workout_master.ex:76
 #, elixir-autogen, elixir-format
 msgid "Tバーロー"
@@ -588,18 +545,13 @@ msgstr ""
 msgid "Welcome back!"
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:31
-#, elixir-autogen, elixir-format
-msgid "You are running the local mail adapter."
-msgstr ""
-
-#: lib/diary_web/user_auth.ex:233
-#: lib/diary_web/user_auth.ex:282
+#: lib/diary_web/user_auth.ex:242
+#: lib/diary_web/user_auth.ex:295
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
 msgstr ""
 
-#: lib/diary_web/user_auth.ex:248
+#: lib/diary_web/user_auth.ex:261
 #, elixir-autogen, elixir-format
 msgid "You must re-authenticate to access this page."
 msgstr ""
@@ -612,16 +564,6 @@ msgstr ""
 #: lib/diary_web/live/user_live/login.ex:22
 #, elixir-autogen, elixir-format
 msgid "for an account now."
-msgstr ""
-
-#: lib/diary_web/live/user_live/login.ex:60
-#, elixir-autogen, elixir-format
-msgid "or"
-msgstr ""
-
-#: lib/diary_web/live/user_live/login.ex:33
-#, elixir-autogen, elixir-format
-msgid "the mailbox page"
 msgstr ""
 
 #: lib/diary_web/live/user_live/registration.ex:20
@@ -1099,22 +1041,17 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
-#: lib/diary_web/live/stats/stats_live.ex:122
+#: lib/diary_web/live/stats/stats_live.ex:126
 #, elixir-autogen, elixir-format
 msgid "Export Daily Summary"
 msgstr ""
 
-#: lib/diary_web/live/stats/stats_live.ex:115
+#: lib/diary_web/live/stats/stats_live.ex:117
 #, elixir-autogen, elixir-format
 msgid "Export Detailed Logs"
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:94
+#: lib/diary_web/live/diary/diary_live.ex:300
 #, elixir-autogen, elixir-format
-msgid "or log in with"
-msgstr ""
-
-#: lib/diary_web/live/user_live/registration.ex:41
-#, elixir-autogen, elixir-format
-msgid "or register with"
+msgid "Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle."
 msgstr ""

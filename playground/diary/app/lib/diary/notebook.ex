@@ -95,6 +95,20 @@ defmodule Diary.Notebook do
     |> MapSet.new()
   end
 
+  @doc """
+  Returns a MapSet of dates with workout logs for a given date range and user.
+  """
+  def list_workout_dates(user_id, start_date, end_date) do
+    # Fetch distinct workout dates for the user in the specified range
+    from(wl in WorkoutLog,
+      where: wl.user_id == ^user_id and wl.date >= ^start_date and wl.date <= ^end_date,
+      select: wl.date,
+      distinct: true
+    )
+    |> Repo.all()
+    |> MapSet.new()
+  end
+
   # Helper inside Diary.Notebook to broadcast database changes
   defp broadcast_change({:ok, item} = result, event) do
     # Include user_id in the pubsub topic to isolate user channels

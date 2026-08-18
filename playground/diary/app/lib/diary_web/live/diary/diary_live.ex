@@ -31,6 +31,8 @@ defmodule DiaryWeb.DiaryLive do
 
     # Fetch calendar data from DB
     calendar_entry_dates = Notebook.list_calendar_data(user_id, calendar_start_date, calendar_end_date)
+    # Fetch dates with workout logs in the displayed range
+    calendar_workout_dates = Notebook.list_workout_dates(user_id, calendar_start_date, calendar_end_date)
     total_volume = Notebook.get_workout_volume_for_date(user_id, date)
 
     {:ok,
@@ -46,6 +48,7 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(calendar_start_date: calendar_start_date)
      |> assign(calendar_end_date: calendar_end_date)
      |> assign(calendar_entry_dates: calendar_entry_dates)
+     |> assign(calendar_workout_dates: calendar_workout_dates)
      |> assign(total_volume: total_volume)
      |> stream(:diary_items, diary_items)}
   end
@@ -279,6 +282,7 @@ defmodule DiaryWeb.DiaryLive do
           current_calendar_month={@current_calendar_month}
           calendar_days={@calendar_days}
           calendar_entry_dates={@calendar_entry_dates}
+          calendar_workout_dates={@calendar_workout_dates}
           date={@date}
           locale={@locale}
         />
@@ -293,7 +297,7 @@ defmodule DiaryWeb.DiaryLive do
             <!-- Empty State -->
             <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
               <img src={~p"/images/nodata.svg"} class="w-32 h-auto mb-3" alt="No data" />
-              <p class="text-sm font-medium text-slate-400 dark:text-zinc-400">{gettext("No entries for this day. Add one below!")}</p>
+              <p class="text-sm font-medium text-slate-400 dark:text-zinc-400">{gettext("Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle.")}</p>
             </div>
 
             <!-- Stream Item Row -->
@@ -413,7 +417,12 @@ defmodule DiaryWeb.DiaryLive do
   defp assign_calendar_data(socket, start_date, end_date) do
     user_id = socket.assigns.user_id
     entry_dates = Notebook.list_calendar_data(user_id, start_date, end_date)
-    socket |> assign(:calendar_entry_dates, entry_dates)
+    # Fetch dates with workout logs in the displayed range
+    workout_dates = Notebook.list_workout_dates(user_id, start_date, end_date)
+
+    socket
+    |> assign(:calendar_entry_dates, entry_dates)
+    |> assign(:calendar_workout_dates, workout_dates)
   end
 
   defp shift_month(date, offset) do

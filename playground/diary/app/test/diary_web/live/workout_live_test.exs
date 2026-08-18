@@ -4,7 +4,9 @@ defmodule DiaryWeb.WorkoutLiveTest do
 
   alias Diary.Notebook
 
-  test "renders workout logger, filters by muscle group, and logs a workout", %{conn: conn} do
+  setup :register_and_log_in_user
+
+  test "renders workout logger, filters by muscle group, and logs a workout", %{conn: conn, user: _user} do
     date_str = "2026-07-22"
     {:ok, view, html} = live(conn, ~p"/workout/#{date_str}")
 
@@ -39,13 +41,13 @@ defmodule DiaryWeb.WorkoutLiveTest do
     assert result_html =~ "100.0 kg × 10 reps"
   end
 
-  test "displays aggregated training volume on the homepage and stats page", %{conn: conn} do
+  test "displays aggregated training volume on the homepage and stats page", %{conn: conn, user: user} do
     # Insert 3 workout logs for today (representing 3 sets of 100 kg * 10 reps = 3000 kg volume)
     # Bench Press targets Chest ("胸") at 75% -> 2250.0 kg chest volume
     today = Date.utc_today()
-    {:ok, _log1} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
-    {:ok, _log2} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
-    {:ok, _log3} = Notebook.save_workout_log(today, "ベンチプレス", 100.0, 10)
+    {:ok, _log1} = Notebook.save_workout_log(user.id, today, "ベンチプレス", 100.0, 10)
+    {:ok, _log2} = Notebook.save_workout_log(user.id, today, "ベンチプレス", 100.0, 10)
+    {:ok, _log3} = Notebook.save_workout_log(user.id, today, "ベンチプレス", 100.0, 10)
 
     # Fetch homepage (diary page) and verify today's volume is shown in English
     {:ok, _diary_view, diary_html} = live(conn, ~p"/")
@@ -87,7 +89,7 @@ defmodule DiaryWeb.WorkoutLiveTest do
 
   test "displays localized validation error when logging invalid workout values", %{conn: conn} do
     date_str = "2026-07-22"
-    
+
     # Test English locale errors
     {:ok, view_en, _html} = live(conn, ~p"/workout/#{date_str}?locale=en")
     view_en |> element("button[phx-click='select_group'][phx-value-group='胸']") |> render_click()

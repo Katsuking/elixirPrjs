@@ -37,17 +37,17 @@ msgstr "インターネットに接続できません。"
 msgid "close"
 msgstr "閉じる"
 
-#: lib/diary_web/live/diary/diary_live.ex:123
+#: lib/diary_web/live/diary/diary_live.ex:126
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr "追加されました!"
 
-#: lib/diary_web/live/diary/diary_live.ex:143
+#: lib/diary_web/live/diary/diary_live.ex:146
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr "削除されました!"
 
-#: lib/diary_web/live/diary/diary_live.ex:148
+#: lib/diary_web/live/diary/diary_live.ex:151
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr "削除に失敗しました。"
@@ -57,17 +57,17 @@ msgstr "削除に失敗しました。"
 msgid "Back to Diary"
 msgstr "日記に戻る"
 
-#: lib/diary_web/live/diary/calendar_component.ex:52
+#: lib/diary_web/live/diary/calendar_component.ex:53
 #, elixir-autogen, elixir-format
 msgid "Fri"
 msgstr "金"
 
-#: lib/diary_web/live/diary/diary_live.ex:262
+#: lib/diary_web/live/diary/diary_live.ex:265
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr "トレーニングを記録"
 
-#: lib/diary_web/live/diary/calendar_component.ex:48
+#: lib/diary_web/live/diary/calendar_component.ex:49
 #, elixir-autogen, elixir-format
 msgid "Mon"
 msgstr "月"
@@ -82,7 +82,7 @@ msgstr "月"
 msgid "No data for this period"
 msgstr "この期間のデータはありません"
 
-#: lib/diary_web/live/diary/calendar_component.ex:53
+#: lib/diary_web/live/diary/calendar_component.ex:54
 #, elixir-autogen, elixir-format
 msgid "Sat"
 msgstr "土"
@@ -97,12 +97,12 @@ msgstr "詳細を表示"
 msgid "Show General"
 msgstr "一般的な分割を表示"
 
-#: lib/diary_web/live/diary/calendar_component.ex:47
+#: lib/diary_web/live/diary/calendar_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "Sun"
 msgstr "日"
 
-#: lib/diary_web/live/diary/calendar_component.ex:51
+#: lib/diary_web/live/diary/calendar_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Thu"
 msgstr "木"
@@ -112,12 +112,12 @@ msgstr "木"
 msgid "Training Volume"
 msgstr "トレーニングボリューム"
 
-#: lib/diary_web/live/diary/calendar_component.ex:49
+#: lib/diary_web/live/diary/calendar_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "Tue"
 msgstr "火"
 
-#: lib/diary_web/live/diary/calendar_component.ex:50
+#: lib/diary_web/live/diary/calendar_component.ex:51
 #, elixir-autogen, elixir-format
 msgid "Wed"
 msgstr "水"
@@ -202,12 +202,12 @@ msgstr "記録を削除しました。"
 msgid "Workout log saved!"
 msgstr "記録を保存しました！"
 
-#: lib/diary_web/live/diary/diary_live.ex:363
+#: lib/diary_web/live/diary/diary_live.ex:367
 #, elixir-autogen, elixir-format
 msgid "Add Bullet"
 msgstr "入力を追加"
 
-#: lib/diary_web/live/diary/diary_live.ex:330
+#: lib/diary_web/live/diary/diary_live.ex:334
 #, elixir-autogen, elixir-format
 msgid "Add New Entry"
 msgstr "新しい入力を追加"
@@ -218,22 +218,17 @@ msgstr "新しい入力を追加"
 msgid "Calendar"
 msgstr "カレンダー"
 
-#: lib/diary_web/live/diary/diary_live.ex:318
+#: lib/diary_web/live/diary/diary_live.ex:322
 #, elixir-autogen, elixir-format
 msgid "Delete item"
 msgstr "項目を削除"
 
-#: lib/diary_web/live/diary/diary_live.ex:250
+#: lib/diary_web/live/diary/diary_live.ex:253
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr "翌日"
 
-#: lib/diary_web/live/diary/diary_live.ex:296
-#, elixir-autogen, elixir-format
-msgid "No entries for this day. Add one below!"
-msgstr "この日の日記はありません。下から新しく追加してください。"
-
-#: lib/diary_web/live/diary/diary_live.ex:238
+#: lib/diary_web/live/diary/diary_live.ex:241
 #, elixir-autogen, elixir-format
 msgid "Prev"
 msgstr "前日"
@@ -244,22 +239,22 @@ msgstr "前日"
 msgid "Stats"
 msgstr "統計情報"
 
-#: lib/diary_web/live/diary/diary_live.ex:289
+#: lib/diary_web/live/diary/diary_live.ex:293
 #, elixir-autogen, elixir-format
 msgid "Today's Entries"
 msgstr "本日の記録一覧"
 
-#: lib/diary_web/live/diary/diary_live.ex:338
+#: lib/diary_web/live/diary/diary_live.ex:342
 #, elixir-autogen, elixir-format
 msgid "What did you do today?"
 msgstr "今日は何をしましたか？"
 
-#: lib/diary_web/live/diary/diary_live.ex:244
+#: lib/diary_web/live/diary/diary_live.ex:247
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr "今日"
 
-#: lib/diary_web/live/diary/diary_live.ex:271
+#: lib/diary_web/live/diary/diary_live.ex:274
 #, elixir-autogen, elixir-format
 msgid "Today's Volume"
 msgstr "本日の総重量"
@@ -379,7 +374,7 @@ msgstr "アカウント設定"
 msgid "Already registered?"
 msgstr "既に登録済みですか？"
 
-#: lib/diary_web/live/user_live/registration.ex:112
+#: lib/diary_web/live/user_live/registration.ex:114
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr "%{email} にメールを送信しました。メール内のリンクからアカウントを確認してください。"
@@ -415,24 +410,11 @@ msgstr "新しいパスワードの確認"
 msgid "Confirming..."
 msgstr "確認中..."
 
-#: lib/diary_web/live/user_live/registration.ex:37
-#, elixir-autogen, elixir-format
-msgid "Create an account"
-msgstr "アカウントを作成"
-
-#: lib/diary_web/live/user_live/registration.ex:36
-#, elixir-autogen, elixir-format
-msgid "Creating account..."
-msgstr "アカウント作成中..."
-
 #: lib/diary_web/live/user_live/login.ex:18
 #, elixir-autogen, elixir-format
 msgid "Don't have an account?"
 msgstr "アカウントをお持ちでないですか？"
 
-#: lib/diary_web/live/user_live/login.ex:49
-#: lib/diary_web/live/user_live/login.ex:74
-#: lib/diary_web/live/user_live/registration.ex:29
 #: lib/diary_web/live/user_live/settings.ex:23
 #, elixir-autogen, elixir-format
 msgid "Email"
@@ -448,7 +430,7 @@ msgstr "メールアドレス変更リンクが無効か、または期限切れ
 msgid "Email changed successfully."
 msgstr "メールアドレスが正常に変更されました。"
 
-#: lib/diary_web/live/user_live/login.ex:162
+#: lib/diary_web/live/user_live/login.ex:164
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr "入力されたメールアドレスがシステムに登録されている場合、間もなくログイン方法が記載されたメールが届きます。"
@@ -470,21 +452,6 @@ msgstr "このデバイスでログイン状態を保持する"
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr "ログイン"
-
-#: lib/diary_web/live/user_live/login.ex:87
-#, elixir-autogen, elixir-format
-msgid "Log in and stay logged in"
-msgstr "ログインして状態を保持"
-
-#: lib/diary_web/live/user_live/login.ex:90
-#, elixir-autogen, elixir-format
-msgid "Log in only this time"
-msgstr "今回のみログイン"
-
-#: lib/diary_web/live/user_live/login.ex:56
-#, elixir-autogen, elixir-format
-msgid "Log in with email"
-msgstr "メールアドレスでログイン"
 
 #: lib/diary_web/live/user_live/confirmation.ex:62
 #, elixir-autogen, elixir-format
@@ -523,11 +490,6 @@ msgstr "新しいパスワード"
 msgid "Only you can ignite your own destiny."
 msgstr "己の運命に火を灯せるのは、自分自身だけだ。"
 
-#: lib/diary_web/live/user_live/login.ex:82
-#, elixir-autogen, elixir-format
-msgid "Password"
-msgstr ""
-
 #: lib/diary_web/controllers/user_session_controller.ex:59
 #, elixir-autogen, elixir-format
 msgid "Password updated successfully!"
@@ -563,11 +525,6 @@ msgstr "リンクが無効か、または期限切れです。"
 msgid "Tip: If you prefer passwords, you can enable them in the user settings."
 msgstr "ヒント: パスワードでのログインを希望する場合は、ユーザー設定から有効にできます。"
 
-#: lib/diary_web/live/user_live/login.ex:33
-#, elixir-autogen, elixir-format
-msgid "To see sent emails, visit"
-msgstr "送信されたメールを確認するには、以下にアクセスしてください:"
-
 #: lib/diary/workout_master.ex:76
 #, elixir-autogen, elixir-format
 msgid "Tバーロー"
@@ -588,18 +545,13 @@ msgstr "ようこそ %{email}"
 msgid "Welcome back!"
 msgstr "おかえりなさい！"
 
-#: lib/diary_web/live/user_live/login.ex:31
-#, elixir-autogen, elixir-format
-msgid "You are running the local mail adapter."
-msgstr "現在、ローカルメールアダプターが動作しています。"
-
-#: lib/diary_web/user_auth.ex:233
-#: lib/diary_web/user_auth.ex:282
+#: lib/diary_web/user_auth.ex:242
+#: lib/diary_web/user_auth.ex:295
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
 msgstr "このページにアクセスするにはログインが必要です。"
 
-#: lib/diary_web/user_auth.ex:248
+#: lib/diary_web/user_auth.ex:261
 #, elixir-autogen, elixir-format
 msgid "You must re-authenticate to access this page."
 msgstr "このページにアクセスするには再認証が必要です。"
@@ -613,16 +565,6 @@ msgstr "アカウントの機密性の高いアクションを実行するには
 #, elixir-autogen, elixir-format
 msgid "for an account now."
 msgstr "アカウントを今すぐ作成しましょう。"
-
-#: lib/diary_web/live/user_live/login.ex:60
-#, elixir-autogen, elixir-format
-msgid "or"
-msgstr "または"
-
-#: lib/diary_web/live/user_live/login.ex:33
-#, elixir-autogen, elixir-format
-msgid "the mailbox page"
-msgstr "メールボックス"
 
 #: lib/diary_web/live/user_live/registration.ex:20
 #, elixir-autogen, elixir-format
@@ -1099,22 +1041,17 @@ msgstr "推定1RM"
 msgid "Statistics"
 msgstr "統計"
 
-#: lib/diary_web/live/stats/stats_live.ex:122
+#: lib/diary_web/live/stats/stats_live.ex:126
 #, elixir-autogen, elixir-format
 msgid "Export Daily Summary"
 msgstr "日次サマリーを出力"
 
-#: lib/diary_web/live/stats/stats_live.ex:115
+#: lib/diary_web/live/stats/stats_live.ex:117
 #, elixir-autogen, elixir-format
 msgid "Export Detailed Logs"
 msgstr "詳細ログを出力"
 
-#: lib/diary_web/live/user_live/login.ex:94
+#: lib/diary_web/live/diary/diary_live.ex:300
 #, elixir-autogen, elixir-format
-msgid "or log in with"
-msgstr "または以下でログイン"
-
-#: lib/diary_web/live/user_live/registration.ex:41
-#, elixir-autogen, elixir-format
-msgid "or register with"
-msgstr "または以下で登録"
+msgid "Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle."
+msgstr "小さなことでも達成したことを記録して、規律ある生活ができているか確認しましょう"

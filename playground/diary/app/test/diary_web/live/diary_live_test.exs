@@ -2,6 +2,8 @@ defmodule DiaryWeb.DiaryLiveTest do
   use DiaryWeb.ConnCase
   import Phoenix.LiveViewTest
 
+  setup :register_and_log_in_user
+
   # Test layout and initial render of the calendar
   test "initial render shows calendar and active month", %{conn: conn} do
     {:ok, _view, html} = live(conn, ~p"/")
@@ -95,5 +97,17 @@ defmodule DiaryWeb.DiaryLiveTest do
       end
 
     "#{month_name} #{date.year}"
+  end
+
+  # Test that calendar displays checkmark icon for days with workout logs
+  test "displays checkmark icon on days with workout logs", %{conn: conn, user: user} do
+    today = Date.utc_today()
+    # Save a workout log using the Notebook context (5 arguments)
+    {:ok, _log} = Diary.Notebook.save_workout_log(user.id, today, "ベンチプレス", 100.0, 10)
+
+    {:ok, _view, html} = live(conn, ~p"/")
+
+    # Verify that the checkmark icon class "hero-check" is rendered on the calendar
+    assert html =~ "hero-check"
   end
 end

@@ -8,6 +8,7 @@ defmodule DiaryWeb.Diary.CalendarComponent do
   attr :current_calendar_month, Date, required: true
   attr :calendar_days, :list, required: true
   attr :calendar_entry_dates, :any, required: true # MapSet of Dates
+  attr :calendar_workout_dates, :any, default: MapSet.new() # MapSet of Dates with workout logs
   attr :date, Date, required: true
   attr :locale, :string, required: true
   attr :on_prev_month, :string, default: "prev_month"
@@ -61,6 +62,8 @@ defmodule DiaryWeb.Diary.CalendarComponent do
             is_today = Date.compare(day, Date.utc_today()) == :eq
             is_current_month = day.month == @current_calendar_month.month
             has_entries = MapSet.member?(@calendar_entry_dates, day)
+            # Check if there is any workout logged on this day
+            has_workout = MapSet.member?(@calendar_workout_dates, day)
           %>
           <!-- Responsive day buttons (h-12 and rounded-xl on mobile, h-16 and rounded-2xl on desktop) -->
           <button
@@ -86,7 +89,18 @@ defmodule DiaryWeb.Diary.CalendarComponent do
             </span>
 
             <!-- Spacer Area - Smaller min-height on mobile -->
-            <div class="flex-grow flex items-center justify-center min-h-[8px] sm:min-h-[24px]"></div>
+            <div class="flex-grow flex items-center justify-center min-h-[8px] sm:min-h-[24px]">
+              <%= if has_workout do %>
+                <.icon
+                  name="hero-check"
+                  class={[
+                    "size-4 sm:size-5 transition-colors duration-200",
+                    is_selected && "text-white dark:text-zinc-900",
+                    !is_selected && "text-emerald-500 dark:text-emerald-400"
+                  ]}
+                />
+              <% end %>
+            </div>
 
             <!-- Entries Indicator (Dot) -->
             <div class="h-1 flex items-center justify-center">
