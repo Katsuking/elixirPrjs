@@ -42,3 +42,20 @@ prod-migrate:
 .PHONY: prod-logs
 prod-logs:
 	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml logs -f
+
+# Deploy to production server using rsync with automatic .gitignore filtering
+.PHONY: deploy
+deploy:
+	rsync -avz --delete \
+		--filter=':- app/.gitignore' \
+		--exclude='*.md' \
+		--exclude='.geminiignore' \
+		--exclude='app/_build/' \
+		--exclude='app/deps/' \
+		--exclude='app/.elixir_ls/' \
+		--exclude='app/assets/node_modules/' \
+		--exclude='app/timer_live_output.html' \
+		--exclude='.git/' \
+		--exclude='.envrc' \
+		--exclude='livebook_data/' \
+		./ conoha:/var/www/diary
