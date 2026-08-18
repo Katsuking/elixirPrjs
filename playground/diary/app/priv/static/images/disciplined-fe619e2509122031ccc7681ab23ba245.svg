@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+  <defs>
+    <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8f1ff"/>
+      <stop offset="50%" stop-color="#9aa8b8"/>
+      <stop offset="100%" stop-color="#3b4655"/>
+    </linearGradient>
+
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffe27a"/>
+      <stop offset="1" stop-color="#b87800"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Cape -->
+
+<path d="M120 180 Q70 280 110 430 Q170 390 200 300Z"
+        fill="#8b1010" stroke="#300000" stroke-width="8"/>
+
+  <!-- Helmet -->
+
+<path d="M150 190
+           Q160 70 256 55
+           Q352 70 362 190
+           L330 245
+           L182 245Z"
+        fill="url(#armor)"
+        stroke="#202833"
+        stroke-width="10"/>
+
+  <!-- Helmet crest -->
+
+<path d="M256 55 L256 15 L280 60"
+        fill="url(#gold)"
+        stroke="#6b4300"
+        stroke-width="6"/>
+
+  <!-- Visor -->
+
+<path d="M160 170
+           L352 170
+           L335 225
+           L177 225Z"
+        fill="#1a222c"
+        stroke="#111"
+        stroke-width="8"/>
+
+  <!-- Visor slits -->
+  <g stroke="#dce8ff" stroke-width="5">
+    <line x1="205" y1="180" x2="205" y2="210"/>
+    <line x1="230" y1="180" x2="230" y2="210"/>
+    <line x1="256" y1="180" x2="256" y2="210"/>
+    <line x1="282" y1="180" x2="282" y2="210"/>
+    <line x1="307" y1="180" x2="307" y2="210"/>
+  </g>
+
+  <!-- Eyes -->
+  <g fill="#ffd43b">
+    <ellipse cx="220" cy="195" rx="8" ry="5"/>
+    <ellipse cx="292" cy="195" rx="8" ry="5"/>
+  </g>
+
+  <!-- Body armor -->
+
+<path d="M150 250
+           Q256 220 362 250
+           L410 440
+           L102 440Z"
+        fill="url(#armor)"
+        stroke="#202833"
+        stroke-width="10"/>
+
+  <!-- Chest emblem -->
+
+<path d="M256 280 L280 330 L256 380 L232 330Z"
+        fill="url(#gold)"
+        stroke="#704900"
+        stroke-width="5"/>
+
+  <!-- Shoulder plates -->
+
+<ellipse cx="120" cy="300" rx="55" ry="45"
+           fill="url(#armor)" stroke="#202833" stroke-width="8"/>
+<ellipse cx="392" cy="300" rx="55" ry="45"
+           fill="url(#armor)" stroke="#202833" stroke-width="8"/>
+
+  <!-- Sword -->
+
+<path d="M390 90 L430 130 L250 330"
+        stroke="#dce8ff"
+        stroke-width="18"
+        stroke-linecap="round"/>
+
+<path d="M360 130 L430 200"
+        stroke="url(#gold)"
+        stroke-width="22"
+        stroke-linecap="round"/>
+
+<circle cx="390" cy="130" r="18"
+          fill="url(#gold)" stroke="#704900" stroke-width="5"/>
+
+  <!-- Shield -->
+
+<path d="M80 250
+           Q120 230 160 250
+           L150 360
+           Q120 410 80 360Z"
+        fill="#263b70"
+        stroke="#111827"
+        stroke-width="10"/>
+
+<path d="M120 265 L120 370"
+        stroke="url(#gold)"
+        stroke-width="10"/>
+
+<path d="M90 320 L150 320"
+        stroke="url(#gold)"
+        stroke-width="10"/>
+
+  <!-- Battle stance legs -->
+
+<path d="M190 430 L150 490"
+        stroke="#303b4d"
+        stroke-width="30"
+        stroke-linecap="round"/>
+<path d="M320 430 L360 490"
+        stroke="#303b4d"
+        stroke-width="30"
+        stroke-linecap="round"/>
+
+</svg>

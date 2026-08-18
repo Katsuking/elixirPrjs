@@ -63,6 +63,17 @@ defmodule DiaryWeb.Layouts do
             {gettext("Calendar")}
           </.link>
           <.link
+            navigate={~p"/timer"}
+            class={[
+              "flex items-center gap-3 px-4 py-3 rounded-2xl font-extrabold text-sm transition-all duration-200 cursor-pointer",
+              @active_tab == "timer" && "bg-zinc-800 text-white shadow-lg shadow-zinc-850/10",
+              @active_tab != "timer" && "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800/50 hover:text-zinc-800 dark:hover:text-zinc-100"
+            ]}
+          >
+            <.icon name="hero-clock" class="size-5" />
+            {gettext("Timer")}
+          </.link>
+          <.link
             navigate={~p"/stats"}
             class={[
               "flex items-center gap-3 px-4 py-3 rounded-2xl font-extrabold text-sm transition-all duration-200 cursor-pointer",
@@ -110,6 +121,17 @@ defmodule DiaryWeb.Layouts do
         >
           <.icon name="hero-calendar" class="size-6" />
           {gettext("Calendar")}
+        </.link>
+        <.link
+          navigate={~p"/timer"}
+          class={[
+            "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
+            @active_tab == "timer" && "text-zinc-800 dark:text-zinc-100 scale-105",
+            @active_tab != "timer" && "text-slate-400 dark:text-zinc-400 hover:text-slate-600"
+          ]}
+        >
+          <.icon name="hero-clock" class="size-6" />
+          {gettext("Timer")}
         </.link>
         <.link
           navigate={~p"/stats"}

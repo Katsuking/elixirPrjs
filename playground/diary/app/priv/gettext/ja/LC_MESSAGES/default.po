@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr "Actions"
 
-#: lib/diary_web/components/layouts.ex:160
-#: lib/diary_web/components/layouts.ex:175
+#: lib/diary_web/components/layouts.ex:182
+#: lib/diary_web/components/layouts.ex:197
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "再接続を試みています。"
 
-#: lib/diary_web/components/layouts.ex:167
+#: lib/diary_web/components/layouts.ex:189
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "問題が発生しました。"
 
-#: lib/diary_web/components/layouts.ex:152
+#: lib/diary_web/components/layouts.ex:174
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "インターネットに接続できません。"
@@ -213,7 +213,7 @@ msgid "Add New Entry"
 msgstr "新しい入力を追加"
 
 #: lib/diary_web/components/layouts.ex:63
-#: lib/diary_web/components/layouts.ex:112
+#: lib/diary_web/components/layouts.ex:123
 #, elixir-autogen, elixir-format
 msgid "Calendar"
 msgstr "カレンダー"
@@ -233,8 +233,8 @@ msgstr "翌日"
 msgid "Prev"
 msgstr "前日"
 
-#: lib/diary_web/components/layouts.ex:74
-#: lib/diary_web/components/layouts.ex:123
+#: lib/diary_web/components/layouts.ex:85
+#: lib/diary_web/components/layouts.ex:145
 #, elixir-autogen, elixir-format
 msgid "Stats"
 msgstr "統計情報"
@@ -1055,3 +1055,30 @@ msgstr "詳細ログを出力"
 #, elixir-autogen, elixir-format
 msgid "Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle."
 msgstr "小さなことでも達成したことを記録して、規律ある生活ができているか確認しましょう"
+
+#: lib/diary_web/live/timer/timer_live.ex:170
+#, elixir-autogen, elixir-format
+msgid "Lap Times"
+msgstr "ラップタイム"
+
+#: lib/diary_web/live/timer/timer_live.ex:97
+#, elixir-autogen, elixir-format
+msgid "Min"
+msgstr "分"
+
+#: lib/diary_web/live/timer/timer_live.ex:106
+#, elixir-autogen, elixir-format
+msgid "Sec"
+msgstr "秒"
+
+#: lib/diary_web/live/timer/timer_live.ex:41
+#, elixir-autogen, elixir-format
+msgid "Stopwatch"
+msgstr "ストップウォッチ"
+
+#: lib/diary_web/components/layouts.ex:74
+#: lib/diary_web/components/layouts.ex:134
+#: lib/diary_web/live/timer/timer_live.ex:34
+#, elixir-autogen, elixir-format
+msgid "Timer"
+msgstr "タイマー"

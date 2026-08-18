@@ -89,6 +89,7 @@ defmodule DiaryWeb.Router do
       # Core application routes requiring login
       live "/", DiaryLive
       live "/stats", StatsLive
+      live "/timer", TimerLive
       live "/workout/:date", WorkoutLive
 
       live "/users/settings", UserLive.Settings, :edit

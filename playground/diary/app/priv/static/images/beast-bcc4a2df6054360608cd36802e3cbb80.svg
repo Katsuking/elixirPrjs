@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+  <defs>
+    <radialGradient id="mane" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#ffcc33"/>
+      <stop offset="70%" stop-color="#d47a00"/>
+      <stop offset="100%" stop-color="#6b3200"/>
+    </radialGradient>
+
+    <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#ffe0a0"/>
+      <stop offset="1" stop-color="#c98735"/>
+    </linearGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+
+  </defs>
+
+  <!-- Mane -->
+
+<path fill="url(#mane)" stroke="#3b1c00" stroke-width="10"
+    d="M256 20
+    C300 55 350 30 370 80
+    C430 70 450 130 430 170
+    C500 210 470 270 430 290
+    C470 350 420 400 370 390
+    C350 450 300 430 256 480
+    C210 430 160 450 140 390
+    C80 400 40 350 80 290
+    C30 270 10 210 80 170
+    C60 120 80 70 140 80
+    C160 30 210 55 256 20Z"/>
+
+  <!-- Face -->
+
+<ellipse cx="256" cy="260" rx="120" ry="140"
+    fill="url(#fur)" stroke="#3b1c00" stroke-width="8"/>
+
+  <!-- Dark eye sockets -->
+
+<path fill="#120800"
+    d="M140 215
+       Q205 155 250 210
+       Q200 255 140 215Z"/>
+
+<path fill="#120800"
+    d="M372 215
+       Q307 155 262 210
+       Q312 255 372 215Z"/>
+
+  <!-- Eye glow -->
+
+<ellipse cx="205" cy="210" rx="28" ry="12"
+    fill="#ff3b00" filter="url(#glow)"/>
+<ellipse cx="307" cy="210" rx="28" ry="12
+    " fill="#ff3b00" filter="url(#glow)"/>
+
+  <!-- Eyes -->
+
+<ellipse cx="205" cy="210" rx="18" ry="8"
+    fill="#ffd400"/>
+<ellipse cx="307" cy="210" rx="18" ry="8"
+    fill="#ffd400"/>
+
+  <!-- Pupils -->
+  <ellipse cx="205" cy="210" rx="4" ry="10" fill="#000"/>
+  <ellipse cx="307" cy="210" rx="4" ry="10" fill="#000"/>
+
+  <!-- Angry brows -->
+
+<path d="M140 180 L235 150"
+    stroke="#2b1300" stroke-width="18"
+    stroke-linecap="round"/>
+
+<path d="M372 180 L277 150"
+    stroke="#2b1300" stroke-width="18"
+    stroke-linecap="round"/>
+
+  <!-- Nose -->
+
+<path d="M225 300 L287 300 L256 335Z"
+    fill="#1a0900"/>
+
+  <!-- Open roaring mouth -->
+
+<path d="M185 340
+           Q256 430 327 340
+           Q256 375 185 340Z"
+    fill="#3b0000"
+    stroke="#1a0000"
+    stroke-width="8"/>
+
+  <!-- Fangs -->
+
+<polygon points="215,350 240,390 245,345"
+    fill="white"/>
+<polygon points="297,350 272,390 267,345"
+    fill="white"/>
+
+  <!-- Whiskers -->
+  <g stroke="#3b1c00" stroke-width="4">
+    <line x1="180" y1="330" x2="70" y2="300"/>
+    <line x1="180" y1="345" x2="60" y2="350"/>
+    <line x1="332" y1="330" x2="442" y2="300"/>
+    <line x1="332" y1="345" x2="452" y2="350"/>
+  </g>
+
+</svg>

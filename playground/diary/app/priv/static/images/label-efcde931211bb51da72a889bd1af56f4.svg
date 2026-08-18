@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- 六角形エンブレム -->
+
+<polygon
+    points="256,40 420,135 420,325 256,420 92,325 92,135"
+    fill="#111111"
+  />
+
+  <!-- ダンベル -->
+  <g fill="#ffffff">
+    <!-- 左プレート -->
+    <rect x="135" y="210" width="35" height="92" rx="8"/>
+    <rect x="170" y="230" width="30" height="52" rx="5"/>
+
+    <!-- 右プレート -->
+    <rect x="342" y="210" width="35" height="92" rx="8"/>
+    <rect x="312" y="230" width="30" height="52" rx="5"/>
+
+    <!-- シャフト -->
+    <rect x="200" y="245" width="112" height="22" rx="8"/>
+
+  </g>
+
+  <!-- 稲妻 -->
+
+<path
+    d="M240 150 L215 220 H260 L235 285 L300 205 H255 L280 150 Z"
+    fill="#d4af37"
+  />
+
+</svg>

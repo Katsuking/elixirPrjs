@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="flameOuter" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff5a36"/>
+      <stop offset="60%" stop-color="#ff8c1a"/>
+      <stop offset="100%" stop-color="#ffd84d"/>
+    </linearGradient>
+
+    <linearGradient id="flameInner" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#fff176"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+
+  </defs>
+
+  <!-- Outer flame -->
+
+<path fill="url(#flameOuter)"
+        d="M128 18
+           C108 42 116 64 98 86
+           C82 106 58 122 58 156
+           C58 198 89 228 128 228
+           C167 228 198 198 198 156
+           C198 122 176 98 160 78
+           C148 62 146 42 128 18Z"/>
+
+  <!-- Inner flame -->
+
+<path fill="url(#flameInner)"
+        d="M128 72
+           C118 90 124 108 114 124
+           C104 140 94 148 94 166
+           C94 188 109 206 128 206
+           C147 206 162 188 162 166
+           C162 148 152 138 143 124
+           C135 112 134 92 128 72Z"/>
+
+  <!-- Face -->
+  <g stroke="#222" stroke-width="6" stroke-linecap="round" fill="none">
+    <!-- Determined eyebrows -->
+    <path d="M95 120 L115 112"/>
+    <path d="M161 120 L141 112"/>
+
+    <!-- Eyes -->
+    <line x1="101" y1="132" x2="117" y2="132"/>
+    <line x1="139" y1="132" x2="155" y2="132"/>
+
+    <!-- Confident smile -->
+    <path d="M108 164 Q128 178 148 164"/>
+
+  </g>
+
+  <!-- Spark -->
+  <g fill="#ffd84d">
+    <polygon points="48,60 54,74 68,80 54,86 48,100 42,86 28,80 42,74"/>
+    <polygon points="208,84 212,94 222,98 212,102 208,112 204,102 194,98 204,94"/>
+  </g>
+</svg>

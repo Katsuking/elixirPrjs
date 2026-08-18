@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#4fc3f7"/>
+      <stop offset="1" stop-color="#1565c0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Badge -->
+
+<circle cx="128" cy="128" r="110"
+          fill="url(#blue)"
+          stroke="#0d47a1"
+          stroke-width="8"/>
+
+  <!-- Thumb up -->
+
+<path d="
+    M92 210
+    L92 120
+    L125 120
+    L140 55
+    Q145 35 165 45
+    Q175 52 170 75
+    L160 120
+    L190 120
+    Q215 120 215 145
+    L200 190
+    Q195 210 170 210
+    Z"
+    fill="#ffffff"
+    stroke="#0b2d5c"
+    stroke-width="8"
+    stroke-linejoin="round"/>
+
+  <!-- Cuff -->
+
+<rect x="65" y="120" width="35" height="90"
+        rx="8"
+        fill="#ffffff"
+        stroke="#0b2d5c"
+        stroke-width="8"/>
+
+</svg>
