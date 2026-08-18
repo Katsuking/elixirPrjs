@@ -37,7 +37,7 @@ prod-down:
 
 .PHONY: prod-migrate
 prod-migrate:
-	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml exec web /app/bin/migrate
+	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml run --rm web /app/bin/migrate
 
 .PHONY: prod-logs
 prod-logs:

@@ -3,7 +3,10 @@ FROM elixir:1.19-alpine
 
 
 # Install necessary build tools and git
-RUN apk add --no-cache build-base inotify-tools git
+RUN apk add --no-cache \
+    build-base \
+    inotify-tools \
+    git
 
 WORKDIR /app
 
