@@ -58,9 +58,10 @@
       <!-- Render locale selector as a direct li menu item to prevent dead hover zones in the nav bar -->
       <.locale_select current_locale={Gettext.get_locale(DiaryWeb.Gettext)} class="mr-2 border-r border-slate-200 dark:border-zinc-800 pr-4" />
       <%= if @current_scope do %>
-        <li>
+        <!-- Temporarily disabled settings link -->
+        <!-- <li>
           <.link href={~p"/users/settings"}><%= gettext("Settings") %></.link>
-        </li>
+        </li> -->
         <li>
           <.link href={~p"/users/log-out"} method="delete"><%= gettext("Log out") %></.link>
         </li>

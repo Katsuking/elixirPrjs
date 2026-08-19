@@ -293,36 +293,38 @@ defmodule DiaryWeb.DiaryLive do
             {gettext("Today's Entries")}
           </h2>
 
-          <div id="diary-items" phx-update="stream" class="space-y-3.5 min-h-[160px]">
-            <!-- Empty State -->
-            <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
-              <img src={~p"/images/nodata.svg"} class="w-32 h-auto mb-3" alt="No data" />
-              <p class="text-sm font-medium text-slate-400 dark:text-zinc-400">{gettext("Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle.")}</p>
-            </div>
-
-            <!-- Stream Item Row -->
-            <div
-              :for={{id, item} <- @streams.diary_items}
-              id={id}
-              class="group flex items-center justify-between p-4 bg-slate-50/60 hover:bg-zinc-50/50 dark:bg-zinc-800/40 dark:hover:bg-zinc-800/80 border border-slate-100 dark:border-zinc-850 hover:border-zinc-300 dark:hover:border-zinc-700 rounded-2xl transition-all duration-200"
-            >
-              <div class="flex items-start gap-3.5 pr-4">
-                <span class="flex-shrink-0 text-lg select-none text-zinc-500 group-hover:scale-110 transition-transform duration-200">•</span>
-                <p class="text-slate-700 dark:text-zinc-300 font-medium break-all leading-relaxed">{item.content}</p>
+          <!-- Scrollable container for the list of entries -->
+          <div class="max-h-[320px] overflow-y-auto pr-1">
+            <!-- Spacing between items reduced for a more compact list layout -->
+            <div id="diary-items" phx-update="stream" class="space-y-2 min-h-[160px]">
+              <!-- Empty State -->
+              <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
+                <img src={~p"/images/nodata.svg"} class="w-32 h-auto mb-3" alt="No data" />
+                <p class="text-sm font-medium text-slate-400 dark:text-zinc-400">{gettext("Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle.")}</p>
               </div>
 
-              <!-- Actions (Delete button) -->
-              <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                <button
-                  type="button"
-                  phx-click="delete"
-                  phx-value-id={item.id}
-                  id={"delete-item-#{item.id}"}
-                  class="p-1.5 text-slate-400 hover:text-rose-500 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all duration-200 cursor-pointer"
-                  title={gettext("Delete item")}
-                >
-                  <.icon name="hero-trash" class="size-4" />
-                </button>
+              <div
+                :for={{id, item} <- @streams.diary_items}
+                id={id}
+                class="group flex items-center justify-between px-4 bg-slate-50/60 hover:bg-zinc-50/50 dark:bg-zinc-800/40 dark:hover:bg-zinc-800/80 border border-slate-100 dark:border-zinc-850 hover:border-zinc-300 dark:hover:border-zinc-700 rounded-xl transition-all duration-200"
+              >
+                <div class="flex items-start gap-1 pr-4">
+                  <span class="flex-shrink-0 text-lg select-none text-zinc-500 group-hover:scale-110 transition-transform duration-200">•</span>
+                  <p class="text-slate-700 dark:text-zinc-300 font-medium break-all leading-relaxed">{item.content}</p>
+                </div>
+
+                <div class="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0">
+                  <button
+                    type="button"
+                    phx-click="delete"
+                    phx-value-id={item.id}
+                    id={"delete-item-#{item.id}"}
+                    class="p-1.5 text-slate-400 hover:text-rose-500 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all duration-200 cursor-pointer"
+                    title={gettext("Delete item")}
+                  >
+                    <.icon name="hero-trash" class="size-4" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
