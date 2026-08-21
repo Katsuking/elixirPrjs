@@ -9,7 +9,6 @@ defmodule DiaryWeb.DiaryLive do
   import DiaryWeb.DatePickerComponent
 
   alias Diary.Notebook
-  alias Diary.DiaryItem
 
   @impl true
   def mount(_params, session, socket) do
@@ -19,8 +18,6 @@ defmodule DiaryWeb.DiaryLive do
     Gettext.put_locale(DiaryWeb.Gettext, locale)
 
     date = Date.utc_today()
-    diary_items = Notebook.list_diary_items(user_id, date)
-    changeset = Notebook.change_diary_item(%DiaryItem{date: date})
 
     # Initialize calendar states
     current_calendar_month = Date.beginning_of_month(date)
@@ -40,8 +37,6 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(user_id: user_id)
      |> subscribe_to_date(date)
      |> assign(date: date)
-     |> assign(content_length: 0)
-     |> assign(form: to_form(changeset))
      |> assign(:locale, locale)
      |> assign(current_calendar_month: current_calendar_month)
      |> assign(calendar_days: calendar_days)
@@ -49,8 +44,7 @@ defmodule DiaryWeb.DiaryLive do
      |> assign(calendar_end_date: calendar_end_date)
      |> assign(calendar_entry_dates: calendar_entry_dates)
      |> assign(calendar_workout_dates: calendar_workout_dates)
-     |> assign(total_volume: total_volume)
-     |> stream(:diary_items, diary_items)}
+     |> assign(total_volume: total_volume)}
   end
 
   @impl true
@@ -97,60 +91,7 @@ defmodule DiaryWeb.DiaryLive do
     {:noreply, update_calendar_month(socket, new_month)}
   end
 
-  # Handle inline form validation to track characters count
-  def handle_event("validate", %{"diary_item" => %{"content" => content}}, socket) do
-    changeset =
-      %DiaryItem{date: socket.assigns.date}
-      |> Notebook.change_diary_item(%{"content" => content})
-      |> Map.put(:action, :validate)
 
-    {:noreply,
-     socket
-     |> assign(form: to_form(changeset))
-     |> assign(content_length: String.length(content))}
-  end
-
-  # Handle saving new diary item
-  def handle_event("save", %{"diary_item" => %{"content" => content}}, socket) do
-    user_id = socket.assigns.user_id
-    case Notebook.create_diary_item(user_id, %{"date" => socket.assigns.date, "content" => content}) do
-      {:ok, diary_item} ->
-        # Clear input on success
-        changeset = Notebook.change_diary_item(%DiaryItem{date: socket.assigns.date})
-
-        {:noreply,
-         socket
-         |> stream_insert(:diary_items, diary_item)
-         |> assign(form: to_form(changeset))
-         |> assign(content_length: 0)
-         |> put_flash(:info, gettext("Successfully added!"))}
-
-      {:error, changeset} ->
-        # Display validation errors
-        {:noreply,
-         socket
-         |> assign(form: to_form(changeset))}
-    end
-  end
-
-  # Handle deletion of a diary item
-  def handle_event("delete", %{"id" => id}, socket) do
-    user_id = socket.assigns.user_id
-    diary_item = Notebook.get_diary_item!(user_id, id)
-
-    case Notebook.delete_diary_item(diary_item) do
-      {:ok, deleted_item} ->
-        {:noreply,
-         socket
-         |> stream_delete(:diary_items, deleted_item)
-         |> put_flash(:info, gettext("Deleted!"))}
-
-      {:error, _changeset} ->
-        {:noreply,
-         socket
-         |> put_flash(:error, gettext("Failed to delete item."))}
-    end
-  end
 
   defp subscribe_to_date(socket, new_date) do
     user_id = socket.assigns.user_id
@@ -166,12 +107,8 @@ defmodule DiaryWeb.DiaryLive do
   @impl true
   # Handle PubSub messages for item creation
   def handle_info({:diary_item_created, diary_item}, socket) do
-    socket =
-      if diary_item.date == socket.assigns.date do
-        stream_insert(socket, :diary_items, diary_item)
-      else
-        socket
-      end
+    # Forward the event to the LiveComponent
+    send_update(DiaryWeb.Diary.DiaryComponent, id: "diary-component", diary_item_created: diary_item)
 
     # Refresh calendar data if the item falls in the currently displayed range
     socket =
@@ -188,7 +125,8 @@ defmodule DiaryWeb.DiaryLive do
   @impl true
   # Handle PubSub messages for item deletion
   def handle_info({:diary_item_deleted, diary_item}, socket) do
-    socket = stream_delete(socket, :diary_items, diary_item)
+    # Forward the event to the LiveComponent
+    send_update(DiaryWeb.Diary.DiaryComponent, id: "diary-component", diary_item_deleted: diary_item)
 
     # Refresh calendar data if the item falls in the currently displayed range
     socket =
@@ -287,90 +225,14 @@ defmodule DiaryWeb.DiaryLive do
           locale={@locale}
         />
 
-        <!-- Diary Bullet Points List -->
-        <div class="p-8">
-          <h2 class="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest mb-4">
-            {gettext("Today's Entries")}
-          </h2>
-
-          <!-- Scrollable container for the list of entries -->
-          <div class="max-h-[320px] overflow-y-auto pr-1">
-            <!-- Spacing between items reduced for a more compact list layout -->
-            <div id="diary-items" phx-update="stream" class="space-y-2 min-h-[160px]">
-              <!-- Empty State -->
-              <div id="diary-empty-state" class="hidden only:flex flex-col items-center justify-center py-10 text-slate-300 dark:text-zinc-700">
-                <img src={~p"/images/nodata.svg"} class="w-32 h-auto mb-3" alt="No data" />
-                <p class="text-sm font-medium text-slate-400 dark:text-zinc-400">{gettext("Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle.")}</p>
-              </div>
-
-              <div
-                :for={{id, item} <- @streams.diary_items}
-                id={id}
-                class="group flex items-center justify-between px-4 bg-slate-50/60 hover:bg-zinc-50/50 dark:bg-zinc-800/40 dark:hover:bg-zinc-800/80 border border-slate-100 dark:border-zinc-850 hover:border-zinc-300 dark:hover:border-zinc-700 rounded-xl transition-all duration-200"
-              >
-                <div class="flex items-start gap-1 pr-4">
-                  <span class="flex-shrink-0 text-lg select-none text-zinc-500 group-hover:scale-110 transition-transform duration-200">•</span>
-                  <p class="text-slate-700 dark:text-zinc-300 font-medium break-all leading-relaxed">{item.content}</p>
-                </div>
-
-                <div class="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0">
-                  <button
-                    type="button"
-                    phx-click="delete"
-                    phx-value-id={item.id}
-                    id={"delete-item-#{item.id}"}
-                    class="p-1.5 text-slate-400 hover:text-rose-500 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all duration-200 cursor-pointer"
-                    title={gettext("Delete item")}
-                  >
-                    <.icon name="hero-trash" class="size-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Add Entry Form Area -->
-        <div class="p-8 bg-slate-50/80 dark:bg-zinc-800/20 border-t border-slate-100 dark:border-zinc-800">
-          <h2 class="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest mb-4">
-            {gettext("Add New Entry")}
-          </h2>
-
-          <.form for={@form} id="new-diary-item-form" phx-change="validate" phx-submit="save" class="space-y-4">
-            <div class="relative">
-              <.input
-                field={@form[:content]}
-                type="text"
-                placeholder={gettext("What did you do today?")}
-                autocomplete="off"
-                id="diary-item-content-input"
-                class="w-full pl-4 pr-20 py-3.5 text-slate-700 dark:text-zinc-50 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl focus:ring-2 focus:ring-zinc-800/10 focus:border-zinc-800 outline-none transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-zinc-600 shadow-sm"
-                error_class="border-rose-500 focus:ring-rose-500/20 focus:border-rose-500"
-              />
-
-              <!-- Length character counter overlay -->
-              <div class={[
-                "absolute right-3.5 top-3.5 text-xs font-bold px-2 py-1 rounded-lg select-none pointer-events-none transition-colors duration-200",
-                @content_length > 50 && "text-rose-600 bg-rose-50 dark:bg-rose-950/20",
-                @content_length in 41..50 && "text-amber-600 bg-amber-50 dark:bg-amber-950/20",
-                @content_length <= 40 && "text-slate-400 dark:text-zinc-400 bg-slate-100 dark:bg-zinc-800"
-              ]}>
-                {@content_length}/50
-              </div>
-            </div>
-
-            <div class="flex items-center justify-end">
-              <button
-                type="submit"
-                id="submit-item-btn"
-                disabled={@content_length == 0 or @content_length > 50}
-                class="flex items-center gap-2 px-6 py-3 bg-zinc-800 hover:bg-zinc-900 disabled:bg-slate-200 dark:disabled:bg-zinc-800 text-white disabled:text-slate-400 dark:disabled:text-zinc-600 font-bold rounded-2xl shadow-lg shadow-zinc-850/10 hover:shadow-zinc-850/20 disabled:shadow-none transition-all duration-200 transform active:scale-[0.98] disabled:transform-none cursor-pointer disabled:cursor-not-allowed"
-              >
-                <.icon name="hero-plus" class="size-4" /> {gettext("Add Bullet")}
-              </button>
-            </div>
-          </.form>
-        </div>
+        <!-- Diary Section (reusable LiveComponent) -->
+        <.live_component
+          module={DiaryWeb.Diary.DiaryComponent}
+          id="diary-component"
+          user_id={@user_id}
+          date={@date}
+          locale={@locale}
+        />
       </div>
     </Layouts.app>
     """
@@ -380,18 +242,13 @@ defmodule DiaryWeb.DiaryLive do
 
   defp select_date_helper(socket, date) do
     user_id = socket.assigns.user_id
-    diary_items = Notebook.list_diary_items(user_id, date)
-    changeset = Notebook.change_diary_item(%DiaryItem{date: date})
     total_volume = Notebook.get_workout_volume_for_date(user_id, date)
 
     socket =
       socket
       |> subscribe_to_date(date)
       |> assign(date: date)
-      |> assign(content_length: 0)
-      |> assign(form: to_form(changeset))
       |> assign(total_volume: total_volume)
-      |> stream(:diary_items, diary_items, reset: true)
 
     target_month = Date.beginning_of_month(date)
 

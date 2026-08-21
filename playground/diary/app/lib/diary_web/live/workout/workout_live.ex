@@ -154,6 +154,20 @@ defmodule DiaryWeb.WorkoutLive do
     end
   end
 
+  @impl true
+  # Forward diary item creation from PubSub to LiveComponent
+  def handle_info({:diary_item_created, diary_item}, socket) do
+    send_update(DiaryWeb.Diary.DiaryComponent, id: "diary-component", diary_item_created: diary_item)
+    {:noreply, socket}
+  end
+
+  @impl true
+  # Forward diary item deletion from PubSub to LiveComponent
+  def handle_info({:diary_item_deleted, diary_item}, socket) do
+    send_update(DiaryWeb.Diary.DiaryComponent, id: "diary-component", diary_item_deleted: diary_item)
+    {:noreply, socket}
+  end
+
   def handle_info(_other, socket) do
     {:noreply, socket}
   end
@@ -316,6 +330,17 @@ defmodule DiaryWeb.WorkoutLive do
                   <% end %>
                 <% end %>
               </div>
+            </div>
+
+            <!-- Diary Section -->
+            <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-md border border-slate-100 dark:border-zinc-850 overflow-hidden">
+              <.live_component
+                module={DiaryWeb.Diary.DiaryComponent}
+                id="diary-component"
+                user_id={@user_id}
+                date={@date}
+                locale={@locale}
+              />
             </div>
           </div>
 
