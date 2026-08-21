@@ -51,6 +51,22 @@
         });
       })();
     </script>
+    <%= if gtag_id = System.get_env("GTAG_ID") do %>
+      <!-- Google tag (gtag.js) -->
+      <script async src={"https://www.googletagmanager.com/gtag/js?id=" <> gtag_id}></script>
+      <script>
+        // Initialize the global dataLayer for Google Analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        // Configure initial page view with the dynamic measurement ID
+        gtag('config', '<%= gtag_id %>');
+        
+        // Expose the measurement ID globally so that assets/js/app.js can reference it for LiveView navigation tracking
+        window.gtagId = '<%= gtag_id %>';
+      </script>
+    <% end %>
   </head>
   <body>
     <!-- Align header items to the end (right) and remove user email display for a cleaner layout. Increase z-index to z-50 to make sure the dropdown shows on top of other content. -->

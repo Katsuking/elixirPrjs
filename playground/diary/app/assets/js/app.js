@@ -35,7 +35,16 @@ const liveSocket = new LiveSocket("/live", Socket, {
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
 window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
-window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
+window.addEventListener("phx:page-loading-stop", _info => {
+  topbar.hide()
+
+  // Track page view event on LiveView navigation if Google Analytics is enabled
+  if (typeof window.gtag === "function" && window.gtagId) {
+    window.gtag("config", window.gtagId, {
+      page_path: window.location.pathname
+    })
+  }
+})
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
