@@ -28,6 +28,13 @@ config :diary,
   ecto_repos: [Diary.Repo],
   generators: [timestamp_type: :utc_datetime]
 
+# Whitelist of allowed hosts to prevent access from unhandled subdomains/domains
+config :diary, :allowed_hosts, [
+  "localhost",
+  "127.0.0.1",
+  "wayup.cc"
+]
+
 # Configure the endpoint
 config :diary, DiaryWeb.Endpoint,
   url: [host: "localhost"],

@@ -69,7 +69,17 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("PHX_HOST") || "wayup.cc"
+
+  # Configure allowed hosts in production.
+  # Defaults to the PHX_HOST, but can be customized with ALLOWED_HOSTS env var (comma-separated).
+  allowed_hosts =
+    case System.get_env("ALLOWED_HOSTS") do
+      nil -> [host]
+      hosts -> String.split(hosts, ",", trim: true)
+    end
+
+  config :diary, :allowed_hosts, allowed_hosts
 
   config :diary, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 

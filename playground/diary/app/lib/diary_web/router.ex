@@ -12,6 +12,8 @@ defmodule DiaryWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+    # Guard against unregistered hosts or subdomains
+    plug DiaryWeb.Plugs.HostGuard
     plug :fetch_session
     plug :fetch_live_flash
     plug :fetch_query_params
