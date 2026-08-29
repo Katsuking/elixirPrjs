@@ -12,9 +12,53 @@ defmodule DiaryWeb.UserLive.Settings do
       <div class="text-center">
         <.header>
           <%= gettext("Account Settings") %>
-          <:subtitle><%= gettext("Manage your account email address and password settings") %></:subtitle>
+          <:subtitle><%= gettext("Manage your account email address, password, and avatar settings") %></:subtitle>
         </.header>
       </div>
+
+      <!-- Avatar Upload Section -->
+      <div class="my-6 p-4 border border-slate-200 dark:border-zinc-800 rounded-lg max-w-xl mx-auto">
+        <h3 class="text-lg font-semibold mb-3"><%= gettext("Profile Picture") %></h3>
+        <div class="flex items-center gap-6 mb-4">
+          <!-- Current Avatar Preview using Core Component -->
+          <.user_avatar email={@current_email} size={:xl} />
+          <div class="text-sm text-slate-600 dark:text-zinc-400">
+            <p><%= gettext("Upload a new avatar image.") %></p>
+            <p class="text-xs text-slate-400"><%= gettext("JPG, PNG, WebP up to 5MB.") %></p>
+          </div>
+        </div>
+
+        <form id="avatar_form" phx-change="validate_avatar" phx-submit="save_avatar">
+          <div class="mb-4">
+            <.live_file_input upload={@uploads.avatar} class="file-input file-input-bordered w-full max-w-xs" />
+          </div>
+
+          <!-- Selected entry preview -->
+          <%= for entry <- @uploads.avatar.entries do %>
+            <div class="flex items-center gap-3 my-2 text-sm">
+              <.live_img_preview entry={entry} class="w-12 h-12 rounded-full object-cover" />
+              <span>{entry.client_name}</span>
+              <button type="button" phx-click="cancel_avatar" phx-value-ref={entry.ref} class="text-red-500 hover:underline">
+                <%= gettext("Cancel") %>
+              </button>
+            </div>
+            <%= for err <- upload_errors(@uploads.avatar, entry) do %>
+              <p class="text-red-500 text-xs">{error_to_string(err)}</p>
+            <% end %>
+          <% end %>
+
+          <%= for err <- upload_errors(@uploads.avatar) do %>
+            <p class="text-red-500 text-xs">{error_to_string(err)}</p>
+          <% end %>
+
+          <.button variant="primary" disabled={@uploads.avatar.entries == []} phx-disable-with={gettext("Uploading...")}>
+            <%= gettext("Upload Avatar") %>
+          </.button>
+        </form>
+      </div>
+
+    <!--
+      <div class="divider" />
 
       <.form for={@email_form} id="email_form" phx-submit="update_email" phx-change="validate_email">
         <.input
@@ -65,6 +109,7 @@ defmodule DiaryWeb.UserLive.Settings do
           <%= gettext("Save Password") %>
         </.button>
       </.form>
+    -->
     </Layouts.app>
     """
   end
@@ -98,11 +143,55 @@ defmodule DiaryWeb.UserLive.Settings do
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
+      # Configure LiveView upload for user avatar images
+      |> allow_upload(:avatar,
+        accept: ~w(.jpg .jpeg .png .webp),
+        max_entries: 1,
+        max_file_size: 5_000_000
+      )
 
     {:ok, socket}
   end
 
   @impl true
+  def handle_event("validate_avatar", _params, socket) do
+    {:noreply, socket}
+  end
+
+  def handle_event("cancel_avatar", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :avatar, ref)}
+  end
+
+  def handle_event("save_avatar", _params, socket) do
+    user = socket.assigns.current_scope.user
+    s3_key = Diary.Accounts.Avatar.s3_key(user.email)
+
+    results =
+      consume_uploaded_entries(socket, :avatar, fn %{path: path}, entry ->
+        case File.read(path) do
+          {:ok, binary} ->
+            # Upload binary to S3 using Diary.Storage helper
+            case Diary.Storage.put_object(s3_key, binary, headers: [{"content-type", entry.client_type}]) do
+              {:ok, _url} -> {:ok, :uploaded}
+              {:error, reason} -> {:post_error, reason}
+            end
+
+          {:error, reason} ->
+            {:post_error, reason}
+        end
+      end)
+
+    case results do
+      [:uploaded] ->
+        info = gettext("Avatar updated successfully.")
+        {:noreply, socket |> put_flash(:info, info)}
+
+      _ ->
+        error = gettext("Failed to upload avatar image.")
+        {:noreply, socket |> put_flash(:error, error)}
+    end
+  end
+
   def handle_event("validate_email", params, socket) do
     %{"user" => user_params} = params
 
@@ -161,4 +250,8 @@ defmodule DiaryWeb.UserLive.Settings do
         {:noreply, assign(socket, password_form: to_form(changeset, action: :insert))}
     end
   end
+
+  defp error_to_string(:too_large), do: "File is too large (max 5MB)"
+  defp error_to_string(:too_many_files), do: "You have selected too many files"
+  defp error_to_string(:not_accepted), do: "Unacceptable file type"
 end

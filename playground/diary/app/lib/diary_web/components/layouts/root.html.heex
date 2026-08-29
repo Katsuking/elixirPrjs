@@ -73,11 +73,16 @@
     <ul class="menu menu-horizontal w-full relative z-50 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
       <!-- Render locale selector as a direct li menu item to prevent dead hover zones in the nav bar -->
       <.locale_select current_locale={Gettext.get_locale(DiaryWeb.Gettext)} class="mr-2 border-r border-slate-200 dark:border-zinc-800 pr-4" />
-      <%= if @current_scope do %>
-        <!-- Temporarily disabled settings link -->
-        <!-- <li>
+      <%= if @current_scope && @current_scope.user do %>
+        <!-- User avatar icon linking to settings -->
+        <li class="flex items-center">
+          <.link href={~p"/users/settings"} title={gettext("Settings")}>
+            <.user_avatar email={@current_scope.user.email} size={:md} />
+          </.link>
+        </li>
+        <li>
           <.link href={~p"/users/settings"}><%= gettext("Settings") %></.link>
-        </li> -->
+        </li>
         <li>
           <.link href={~p"/users/log-out"} method="delete"><%= gettext("Log out") %></.link>
         </li>

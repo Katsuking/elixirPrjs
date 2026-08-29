@@ -56,6 +56,9 @@ defmodule DiaryWeb.Router do
   scope "/", DiaryWeb do
     pipe_through :browser
 
+    # Route for serving media files (avatars, images) from S3 storage
+    get "/uploads/*path", MediaController, :show
+
     # Root live routes have been moved to the authenticated live_session below
   end
 

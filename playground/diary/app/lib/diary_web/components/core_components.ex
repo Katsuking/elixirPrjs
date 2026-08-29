@@ -550,4 +550,42 @@ defmodule DiaryWeb.CoreComponents do
     </li>
     """
   end
+
+  @doc """
+  Renders a user avatar image with automated S3 URL generation and SVG fallback.
+
+  ## Examples
+
+      <.user_avatar email={@user.email} />
+      <.user_avatar email={@user.email} size={:lg} class="my-custom-class" />
+  """
+  attr :email, :string, required: true, doc: "the user's email address"
+  attr :size, :atom, default: :md, values: [:sm, :md, :lg, :xl], doc: "preset size for avatar"
+  attr :class, :string, default: nil, doc: "additional CSS classes"
+  attr :alt, :string, default: "User Avatar"
+
+  def user_avatar(assigns) do
+    size_class =
+      case assigns.size do
+        :sm -> "w-6 h-6"
+        :md -> "w-8 h-8"
+        :lg -> "w-12 h-12"
+        :xl -> "w-20 h-20"
+      end
+
+    assigns = assign(assigns, :size_class, size_class)
+
+    ~H"""
+    <img
+      src={Diary.Accounts.Avatar.url(@email)}
+      alt={@alt}
+      class={[
+        @size_class,
+        "rounded-full object-cover border border-slate-200 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800",
+        @class
+      ]}
+      onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%23888\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z\'/></svg>'"
+    />
+    """
+  end
 end
