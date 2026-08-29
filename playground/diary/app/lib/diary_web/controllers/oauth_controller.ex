@@ -65,88 +65,106 @@ defmodule DiaryWeb.OAuthController do
       |> Keyword.put(:redirect_uri, redirect_uri)
       |> Keyword.put(:session_params, session_params)
 
-    # Verify callback code and fetch user profile via Assent
     strategy = config[:strategy]
-    case strategy.callback(config, params) do
-      {:ok, %{user: user_profile}} ->
-        # user_profile contains uid, email, etc.
-        uid = to_string(user_profile["sub"] || user_profile["id"])
-        email = user_profile["email"]
 
-        case login_or_create_oauth_user(conn, provider, uid, email) do
-          {:ok, user} ->
-            conn
-            |> delete_session(:oauth_session_params)
-            |> put_flash(:info, "Successfully authenticated with #{String.capitalize(provider)}.")
-            |> UserAuth.log_in_user(user)
+    # Handle Assent callback with exception protection
+    try do
+      case strategy.callback(config, params) do
+        {:ok, %{user: user_profile}} ->
+          raw_uid = user_profile["sub"] || user_profile["id"]
+          uid = if raw_uid, do: to_string(raw_uid), else: nil
+          email = user_profile["email"]
 
-          {:error, reason} ->
-            conn
-            |> put_flash(:error, "OAuth authentication failed: #{reason}")
-            |> redirect(to: ~p"/users/log-in")
-        end
+          case login_or_create_oauth_user(conn, provider, uid, email) do
+            {:ok, user} ->
+              conn
+              |> delete_session(:oauth_session_params)
+              |> put_flash(:info, "Successfully authenticated with #{String.capitalize(provider)}.")
+              |> UserAuth.log_in_user(user)
 
-      {:error, reason} ->
+            {:error, reason} ->
+              conn
+              |> delete_session(:oauth_session_params)
+              |> put_flash(:error, "OAuth authentication failed: #{reason}")
+              |> redirect(to: ~p"/users/log-in")
+          end
+
+        {:error, reason} ->
+          conn
+          |> delete_session(:oauth_session_params)
+          |> put_flash(:error, "Failed to authenticate with provider: #{inspect(reason)}")
+          |> redirect(to: ~p"/users/log-in")
+      end
+    rescue
+      e ->
         conn
-        |> put_flash(:error, "Failed to authenticate with provider: #{inspect(reason)}")
+        |> delete_session(:oauth_session_params)
+        |> put_flash(:error, "An error occurred during authentication: #{Exception.message(e)}")
         |> redirect(to: ~p"/users/log-in")
     end
   end
 
   # Helper to resolve user matching or registration for OAuth identities
   defp login_or_create_oauth_user(_conn, provider, uid, email) do
-    # 1. Check if identity already exists
-    identity_query = 
-      from(ui in UserIdentity, 
-        where: ui.provider == ^provider and ui.uid == ^uid,
-        preload: [:user]
-      )
+    # Verify that email and uid are valid strings
+    if is_nil(email) or email == "" or is_nil(uid) or uid == "" do
+      {:error, "Provider did not return a valid email address or user ID. Please check your provider account settings."}
+    else
+      identity_query = 
+        from(ui in UserIdentity, 
+          where: ui.provider == ^provider and ui.uid == ^uid,
+          preload: [:user]
+        )
 
-    case Repo.one(identity_query) do
-      %UserIdentity{user: user} ->
-        {:ok, user}
+      case Repo.one(identity_query) do
+        %UserIdentity{user: user} when not is_nil(user) ->
+          {:ok, user}
 
-      nil ->
-        # 2. Check if a user with the same email exists
-        case Accounts.get_user_by_email(email) do
-          %User{} = existing_user ->
-            # Link existing account with new identity
-            changeset = UserIdentity.changeset(%UserIdentity{}, %{
-              provider: provider,
-              uid: uid,
-              user_id: existing_user.id
-            })
+        _ ->
+          case Accounts.get_user_by_email(email) do
+            %User{} = existing_user ->
+              # Link existing user account with the OAuth identity safely
+              changeset = 
+                UserIdentity.changeset(%UserIdentity{}, %{
+                  provider: provider,
+                  uid: uid,
+                  user_id: existing_user.id
+                })
 
-            case Repo.insert(changeset) do
-              {:ok, _} -> {:ok, existing_user}
-              {:error, _} -> {:error, "Could not link account"}
-            end
+              case Repo.insert(changeset) do
+                {:ok, _} -> {:ok, existing_user}
+                {:error, _changeset} -> {:error, "Could not link OAuth identity to existing account."}
+              end
 
-          nil ->
-            # 3. Create a new user with confirmed status and no password
-            Repo.transaction(fn ->
-              user_params = %{
-                email: email,
-                confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)
-              }
+            nil ->
+              # Safely create new user and identity without raising exceptions
+              result = 
+                Repo.transaction(fn ->
+                  user_params = %{
+                    email: email,
+                    confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)
+                  }
 
-              user = 
-                %User{}
-                |> Ecto.Changeset.change(user_params)
-                |> Repo.insert!()
+                  user_changeset = 
+                    %User{}
+                    |> Ecto.Changeset.change(user_params)
+                    |> Ecto.Changeset.validate_required([:email])
 
-              # Create associated UserIdentity
-              %UserIdentity{}
-              |> UserIdentity.changeset(%{
-                provider: provider,
-                uid: uid,
-                user_id: user.id
-              })
-              |> Repo.insert!()
+                  with {:ok, user} <- Repo.insert(user_changeset),
+                       identity_changeset <- UserIdentity.changeset(%UserIdentity{}, %{provider: provider, uid: uid, user_id: user.id}),
+                       {:ok, _identity} <- Repo.insert(identity_changeset) do
+                    user
+                  else
+                    {:error, changeset} -> Repo.rollback(changeset)
+                  end
+                end)
 
-              user
-            end)
-        end
+              case result do
+                {:ok, user} -> {:ok, user}
+                {:error, _reason} -> {:error, "Failed to create account from OAuth."}
+              end
+          end
+      end
     end
   end
 end
