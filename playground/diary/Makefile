@@ -23,21 +23,32 @@ locale:
 
 # --- Production Environment Command Targets ---
 
+# Production Compose Command Base
+PROD_COMPOSE := docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml
+
 .PHONY: prod-build
 prod-build:
-	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml build
+	$(PROD_COMPOSE) build
 
 .PHONY: prod-up
 prod-up:
-	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml up -d
+	$(PROD_COMPOSE) up -d
 
 .PHONY: prod-down
 prod-down:
-	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml down
+	$(PROD_COMPOSE) down
+
+.PHONY: prod-exec
+prod-exec:
+	$(PROD_COMPOSE) exec web $(RUN_ARGS)
 
 .PHONY: prod-migrate
 prod-migrate:
-	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml run --rm web /app/bin/migrate
+	$(PROD_COMPOSE) run --rm web /app/bin/migrate
+
+.PHONY: prod-test-s3
+prod-test-s3:
+	$(PROD_COMPOSE) exec web /app/bin/diary eval "$$(cat app/test_s3_upload.exs)"
 
 .PHONY: prod-logs
 prod-logs:

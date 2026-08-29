@@ -77,7 +77,9 @@ defmodule Diary.MixProject do
       {:kino, "~> 0.12", only: :dev},
       {:assent, "~> 0.3.0"},
       {:jose, "~> 1.11"},
-      {:oban, "~> 2.19"}
+      {:oban, "~> 2.19"},
+      # Modern plugin for interacting with AWS S3 using the Req client
+      {:req_s3, "~> 0.2.3"}
     ]
   end
 

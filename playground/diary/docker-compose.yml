@@ -15,6 +15,11 @@ services:
       - GOOGLE_CLIENT_SECRET
       - DISCORD_CLIENT_ID
       - DISCORD_CLIENT_SECRET
+      - S3_ACCESS_KEY_ID
+      - S3_SECRET_ACCESS_KEY
+      - S3_ENDPOINT
+      - S3_BUCKET
+      - S3_REGION
     # The existing DB container is already up, so depends_on is not needed
     # Start the Phoenix web server as a named Erlang node with FQDN
     command: elixir --name diary@web.local --cookie my_secret_cookie -S mix phx.server

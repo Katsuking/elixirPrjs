@@ -1,3 +1,5 @@
 .*
 !.gitignore
 
+.secret_key.txt
+
