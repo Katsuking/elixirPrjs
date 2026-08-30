@@ -20,8 +20,8 @@ defmodule DiaryWeb.UserLive.Settings do
       <div class="my-6 p-4 border border-slate-200 dark:border-zinc-800 rounded-lg max-w-xl mx-auto">
         <h3 class="text-lg font-semibold mb-3"><%= gettext("Profile Picture") %></h3>
         <div class="flex items-center gap-6 mb-4">
-          <!-- Current Avatar Preview using Core Component -->
-          <.user_avatar email={@current_email} size={:xl} />
+          <!-- Current Avatar Preview using Core Component with version timestamp for cache busting -->
+          <.user_avatar email={@current_email} version={@avatar_version} size={:xl} />
           <div class="text-sm text-slate-600 dark:text-zinc-400">
             <p><%= gettext("Upload a new avatar image.") %></p>
             <p class="text-xs text-slate-400"><%= gettext("JPG, PNG, WebP up to 5MB.") %></p>
@@ -140,6 +140,7 @@ defmodule DiaryWeb.UserLive.Settings do
     socket =
       socket
       |> assign(:current_email, user.email)
+      |> assign(:avatar_version, System.system_time(:second))
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
@@ -184,7 +185,13 @@ defmodule DiaryWeb.UserLive.Settings do
     case results do
       [:uploaded] ->
         info = gettext("Avatar updated successfully.")
-        {:noreply, socket |> put_flash(:info, info)}
+
+        socket =
+          socket
+          |> assign(:avatar_version, System.system_time(:second))
+          |> put_flash(:info, info)
+
+        {:noreply, socket}
 
       _ ->
         error = gettext("Failed to upload avatar image.")
@@ -251,7 +258,8 @@ defmodule DiaryWeb.UserLive.Settings do
     end
   end
 
-  defp error_to_string(:too_large), do: "File is too large (max 5MB)"
-  defp error_to_string(:too_many_files), do: "You have selected too many files"
-  defp error_to_string(:not_accepted), do: "Unacceptable file type"
+  # Localized error messages for LiveView uploads
+  defp error_to_string(:too_large), do: gettext("File is too large (max 5MB)")
+  defp error_to_string(:too_many_files), do: gettext("You have selected too many files")
+  defp error_to_string(:not_accepted), do: gettext("Unacceptable file type")
 end

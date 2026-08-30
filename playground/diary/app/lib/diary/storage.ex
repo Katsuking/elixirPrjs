@@ -36,13 +36,19 @@ defmodule Diary.Storage do
           etag = get_header(headers, "etag")
           {:ok, %{body: body, content_type: content_type, etag: etag}}
 
-        {:ok, %Req.Response{status: 404}} ->
+        {:ok, %Req.Response{status: 404, body: body}} ->
+          require Logger
+          Logger.warning("[Storage] S3 404 Not Found for url #{s3_url}, body: #{inspect(body)}")
           {:error, :not_found}
 
         {:ok, %Req.Response{status: status, body: body}} ->
+          require Logger
+          Logger.error("[Storage] S3 Error #{status} for url #{s3_url}, body: #{inspect(body)}")
           {:error, {:s3_error, status, body}}
 
         {:error, reason} ->
+          require Logger
+          Logger.error("[Storage] Req Error for url #{s3_url}: #{inspect(reason)}")
           {:error, reason}
       end
     end

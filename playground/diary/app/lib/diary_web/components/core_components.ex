@@ -560,6 +560,7 @@ defmodule DiaryWeb.CoreComponents do
       <.user_avatar email={@user.email} size={:lg} class="my-custom-class" />
   """
   attr :email, :string, required: true, doc: "the user's email address"
+  attr :version, :any, default: nil, doc: "optional version/timestamp for cache busting"
   attr :size, :atom, default: :md, values: [:sm, :md, :lg, :xl], doc: "preset size for avatar"
   attr :class, :string, default: nil, doc: "additional CSS classes"
   attr :alt, :string, default: "User Avatar"
@@ -577,7 +578,7 @@ defmodule DiaryWeb.CoreComponents do
 
     ~H"""
     <img
-      src={Diary.Accounts.Avatar.url(@email)}
+      src={Diary.Accounts.Avatar.url(@email, @version)}
       alt={@alt}
       class={[
         @size_class,

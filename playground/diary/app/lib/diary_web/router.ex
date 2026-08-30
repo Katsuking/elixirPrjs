@@ -53,8 +53,13 @@ defmodule DiaryWeb.Router do
     conn
   end
 
+  pipeline :imgs do
+    # Restrict allowed formats to images and video files to prevent XSS / malicious file execution
+    plug :accepts, ~w(jpg jpeg png webp gif svg mp4 webm)
+  end
+
   scope "/", DiaryWeb do
-    pipe_through :browser
+    pipe_through :imgs
 
     # Route for serving media files (avatars, images) from S3 storage
     get "/uploads/*path", MediaController, :show
