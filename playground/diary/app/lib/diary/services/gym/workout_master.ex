@@ -129,8 +129,8 @@ defmodule Diary.WorkoutMaster do
     gettext("バードドッグ")
   end
 
-  # Path to the JSON configuration file
-  @external_resource json_path = Path.join([__DIR__, "../../config/workout_master.json"])
+  # Path to the JSON configuration file (adjusted for new directory depth)
+  @external_resource json_path = Path.join([__DIR__, "../../../../config/workout_master.json"])
   @master Jason.decode!(File.read!(json_path))
 
   @doc """

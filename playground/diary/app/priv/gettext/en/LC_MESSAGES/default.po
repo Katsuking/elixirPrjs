@@ -37,178 +37,178 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_component.ex:89
+#: lib/diary_web/live/gym/diary/diary_component.ex:89
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_component.ex:108
+#: lib/diary_web/live/gym/diary/diary_component.ex:108
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_component.ex:113
+#: lib/diary_web/live/gym/diary/diary_component.ex:113
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:197
+#: lib/diary_web/live/gym/workout/workout_live.ex:197
 #, elixir-autogen, elixir-format
 msgid "Back to Diary"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:53
+#: lib/diary_web/live/gym/diary/calendar_component.ex:53
 #, elixir-autogen, elixir-format
 msgid "Fri"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:203
+#: lib/diary_web/live/gym/diary/diary_live.ex:203
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:49
+#: lib/diary_web/live/gym/diary/calendar_component.ex:49
 #, elixir-autogen, elixir-format
 msgid "Mon"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:88
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:88
 #, elixir-autogen, elixir-format
 msgid "Monthly"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:103
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:103
 #, elixir-autogen, elixir-format
 msgid "No data for this period"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:54
+#: lib/diary_web/live/gym/diary/calendar_component.ex:54
 #, elixir-autogen, elixir-format
 msgid "Sat"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:63
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:63
 #, elixir-autogen, elixir-format
 msgid "Show Details"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:63
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:63
 #, elixir-autogen, elixir-format
 msgid "Show General"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:48
+#: lib/diary_web/live/gym/diary/calendar_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "Sun"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:52
+#: lib/diary_web/live/gym/diary/calendar_component.ex:52
 #, elixir-autogen, elixir-format
 msgid "Thu"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:47
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:47
 #, elixir-autogen, elixir-format
 msgid "Training Volume"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:50
+#: lib/diary_web/live/gym/diary/calendar_component.ex:50
 #, elixir-autogen, elixir-format
 msgid "Tue"
 msgstr ""
 
-#: lib/diary_web/live/diary/calendar_component.ex:51
+#: lib/diary_web/live/gym/diary/calendar_component.ex:51
 #, elixir-autogen, elixir-format
 msgid "Wed"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:87
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:87
 #, elixir-autogen, elixir-format
 msgid "Weekly"
 msgstr ""
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:89
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:89
 #, elixir-autogen, elixir-format
 msgid "Yearly"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:42
-#: lib/diary_web/live/workout/workout_live.ex:288
+#: lib/diary_web/live/gym/workout/workout_live.ex:288
+#: lib/diary_web/live/shared/user_live/settings.ex:42
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:304
+#: lib/diary_web/live/gym/workout/workout_live.ex:304
 #, elixir-autogen, elixir-format
 msgid "Choose a muscle group and an exercise to start logging your workout."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:127
+#: lib/diary_web/live/gym/workout/workout_live.ex:127
 #, elixir-autogen, elixir-format
 msgid "Failed to save log. Please check your inputs."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:302
+#: lib/diary_web/live/gym/workout/workout_live.ex:302
 #, elixir-autogen, elixir-format
 msgid "No Exercise Selected"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:274
+#: lib/diary_web/live/gym/workout/workout_live.ex:274
 #, elixir-autogen, elixir-format
 msgid "Reps"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:295
+#: lib/diary_web/live/gym/workout/workout_live.ex:295
 #, elixir-autogen, elixir-format
 msgid "Save Entry"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:225
+#: lib/diary_web/live/gym/workout/workout_live.ex:225
 #, elixir-autogen, elixir-format
 msgid "Select Exercise"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:208
+#: lib/diary_web/live/gym/workout/workout_live.ex:208
 #, elixir-autogen, elixir-format
 msgid "Select Target Muscle"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:317
+#: lib/diary_web/live/gym/workout/workout_live.ex:317
 #, elixir-autogen, elixir-format
 msgid "Sets"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:314
+#: lib/diary_web/live/gym/workout/workout_live.ex:314
 #, elixir-autogen, elixir-format
 msgid "Today's Workouts"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:262
+#: lib/diary_web/live/gym/workout/workout_live.ex:262
 #, elixir-autogen, elixir-format
 msgid "Weight (kg)"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:186
+#: lib/diary_web/live/gym/workout/workout_live.ex:186
 #, elixir-autogen, elixir-format
 msgid "Workout Logger"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:142
+#: lib/diary_web/live/gym/workout/workout_live.ex:142
 #, elixir-autogen, elixir-format
 msgid "Workout log deleted."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:121
+#: lib/diary_web/live/gym/workout/workout_live.ex:121
 #, elixir-autogen, elixir-format
 msgid "Workout log saved!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_component.ex:203
+#: lib/diary_web/live/gym/diary/diary_component.ex:203
 #, elixir-autogen, elixir-format
 msgid "Add Bullet"
 msgstr "Add Bullet"
 
-#: lib/diary_web/live/diary/diary_component.ex:170
+#: lib/diary_web/live/gym/diary/diary_component.ex:170
 #, elixir-autogen, elixir-format
 msgid "Add New Entry"
 msgstr "Add New Entry"
@@ -219,17 +219,17 @@ msgstr "Add New Entry"
 msgid "Calendar"
 msgstr "Calendar"
 
-#: lib/diary_web/live/diary/diary_component.ex:157
+#: lib/diary_web/live/gym/diary/diary_component.ex:157
 #, elixir-autogen, elixir-format
 msgid "Delete item"
 msgstr "Delete item"
 
-#: lib/diary_web/live/diary/diary_live.ex:191
+#: lib/diary_web/live/gym/diary/diary_live.ex:191
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr "Next"
 
-#: lib/diary_web/live/diary/diary_live.ex:179
+#: lib/diary_web/live/gym/diary/diary_live.ex:179
 #, elixir-autogen, elixir-format
 msgid "Prev"
 msgstr "Prev"
@@ -240,183 +240,183 @@ msgstr "Prev"
 msgid "Stats"
 msgstr "Stats"
 
-#: lib/diary_web/live/diary/diary_component.ex:124
+#: lib/diary_web/live/gym/diary/diary_component.ex:124
 #, elixir-autogen, elixir-format
 msgid "Today's Entries"
 msgstr "Today's Entries"
 
-#: lib/diary_web/live/diary/diary_component.ex:178
+#: lib/diary_web/live/gym/diary/diary_component.ex:178
 #, elixir-autogen, elixir-format
 msgid "What did you do today?"
 msgstr "What did you do today?"
 
-#: lib/diary_web/live/diary/diary_live.ex:185
+#: lib/diary_web/live/gym/diary/diary_live.ex:185
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr "today"
 
-#: lib/diary_web/live/diary/diary_live.ex:212
+#: lib/diary_web/live/gym/diary/diary_live.ex:212
 #, elixir-autogen, elixir-format
 msgid "Today's Volume"
 msgstr "Today's Volume"
 
-#: lib/diary/workout_master.ex:32
+#: lib/diary/services/gym/workout_master.ex:32
 #, elixir-autogen, elixir-format
 msgid "ふくらはぎ"
 msgstr "Calves"
 
-#: lib/diary/workout_master.ex:29
+#: lib/diary/services/gym/workout_master.ex:29
 #, elixir-autogen, elixir-format
 msgid "ハムストリングス"
 msgstr "Hamstrings"
 
-#: lib/diary/workout_master.ex:19
+#: lib/diary/services/gym/workout_master.ex:19
 #, elixir-autogen, elixir-format
 msgid "上部"
 msgstr "Upper"
 
-#: lib/diary/workout_master.ex:21
+#: lib/diary/services/gym/workout_master.ex:21
 #, elixir-autogen, elixir-format
 msgid "下部"
 msgstr "Lower"
 
-#: lib/diary/workout_master.ex:20
+#: lib/diary/services/gym/workout_master.ex:20
 #, elixir-autogen, elixir-format
 msgid "中部"
 msgstr "Middle"
 
-#: lib/diary/workout_master.ex:23
+#: lib/diary/services/gym/workout_master.ex:23
 #, elixir-autogen, elixir-format
 msgid "中部（側部）"
 msgstr "Side"
 
-#: lib/diary/workout_master.ex:26
+#: lib/diary/services/gym/workout_master.ex:26
 #, elixir-autogen, elixir-format
 msgid "僧帽筋"
 msgstr "Traps"
 
-#: lib/diary/workout_master.ex:31
+#: lib/diary/services/gym/workout_master.ex:31
 #, elixir-autogen, elixir-format
 msgid "内転筋"
 msgstr "Adductors"
 
-#: lib/diary/workout_master.ex:22
+#: lib/diary/services/gym/workout_master.ex:22
 #, elixir-autogen, elixir-format
 msgid "前部"
 msgstr "Front"
 
-#: lib/diary/workout_master.ex:28
+#: lib/diary/services/gym/workout_master.ex:28
 #, elixir-autogen, elixir-format
 msgid "大腿四頭筋"
 msgstr "Quads"
 
-#: lib/diary/workout_master.ex:25
+#: lib/diary/services/gym/workout_master.ex:25
 #, elixir-autogen, elixir-format
 msgid "広背筋"
 msgstr "Lats"
 
-#: lib/diary/workout_master.ex:24
+#: lib/diary/services/gym/workout_master.ex:24
 #, elixir-autogen, elixir-format
 msgid "後部"
 msgstr "Rear"
 
-#: lib/diary/workout_master.ex:13
+#: lib/diary/services/gym/workout_master.ex:13
 #, elixir-autogen, elixir-format
 msgid "肩"
 msgstr "Shoulders"
 
-#: lib/diary/workout_master.ex:12
+#: lib/diary/services/gym/workout_master.ex:12
 #, elixir-autogen, elixir-format
 msgid "背中"
 msgstr "Back"
 
-#: lib/diary/workout_master.ex:11
+#: lib/diary/services/gym/workout_master.ex:11
 #, elixir-autogen, elixir-format
 msgid "胸"
 msgstr "Chest"
 
-#: lib/diary/workout_master.ex:27
+#: lib/diary/services/gym/workout_master.ex:27
 #, elixir-autogen, elixir-format
 msgid "脊柱起立筋"
 msgstr "Erectors"
 
-#: lib/diary/workout_master.ex:14
+#: lib/diary/services/gym/workout_master.ex:14
 #, elixir-autogen, elixir-format
 msgid "脚"
 msgstr "Legs"
 
-#: lib/diary/workout_master.ex:16
+#: lib/diary/services/gym/workout_master.ex:16
 #, elixir-autogen, elixir-format
 msgid "腹"
 msgstr "Abs"
 
-#: lib/diary/workout_master.ex:30
+#: lib/diary/services/gym/workout_master.ex:30
 #, elixir-autogen, elixir-format
 msgid "臀筋"
 msgstr "Glutes"
 
-#: lib/diary_web/live/stats/workout_stats_component.ex:86
+#: lib/diary_web/live/gym/stats/workout_stats_component.ex:86
 #, elixir-autogen, elixir-format
 msgid "Daily"
 msgstr "Daily"
 
-#: lib/diary_web/live/user_live/settings.ex:227
+#: lib/diary_web/live/shared/user_live/settings.ex:227
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:14
+#: lib/diary_web/live/shared/user_live/settings.ex:14
 #, elixir-autogen, elixir-format
 msgid "Account Settings"
 msgstr ""
 
-#: lib/diary_web/live/user_live/registration.ex:16
+#: lib/diary_web/live/shared/user_live/registration.ex:16
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
 msgstr ""
 
-#: lib/diary_web/live/user_live/registration.ex:114
+#: lib/diary_web/live/shared/user_live/registration.ex:114
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:72
+#: lib/diary_web/live/shared/user_live/settings.ex:72
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:34
+#: lib/diary_web/live/shared/user_live/confirmation.ex:34
 #, elixir-autogen, elixir-format
 msgid "Confirm and log in only this time"
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:31
+#: lib/diary_web/live/shared/user_live/confirmation.ex:31
 #, elixir-autogen, elixir-format
 msgid "Confirm and stay logged in"
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:28
-#: lib/diary_web/live/user_live/confirmation.ex:33
+#: lib/diary_web/live/shared/user_live/confirmation.ex:28
+#: lib/diary_web/live/shared/user_live/confirmation.ex:33
 #, elixir-autogen, elixir-format
 msgid "Confirming..."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:18
+#: lib/diary_web/live/shared/user_live/login.ex:18
 #, elixir-autogen, elixir-format
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:127
+#: lib/diary_web/live/shared/user_live/settings.ex:127
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:124
+#: lib/diary_web/live/shared/user_live/settings.ex:124
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:164
+#: lib/diary_web/live/shared/user_live/login.ex:164
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
 msgstr ""
@@ -426,20 +426,20 @@ msgstr ""
 msgid "Invalid email or password"
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:59
+#: lib/diary_web/live/shared/user_live/confirmation.ex:59
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in on this device"
 msgstr ""
 
 #: lib/diary_web/components/layouts/root.html.heex:94
-#: lib/diary_web/live/user_live/confirmation.ex:50
-#: lib/diary_web/live/user_live/login.ex:13
-#: lib/diary_web/live/user_live/registration.ex:18
+#: lib/diary_web/live/shared/user_live/confirmation.ex:50
+#: lib/diary_web/live/shared/user_live/login.ex:13
+#: lib/diary_web/live/shared/user_live/registration.ex:18
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:62
+#: lib/diary_web/live/shared/user_live/confirmation.ex:62
 #, elixir-autogen, elixir-format
 msgid "Log me in only this time"
 msgstr ""
@@ -449,19 +449,19 @@ msgstr ""
 msgid "Logged out successfully."
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:49
-#: lib/diary_web/live/user_live/confirmation.ex:56
-#: lib/diary_web/live/user_live/confirmation.ex:61
+#: lib/diary_web/live/shared/user_live/confirmation.ex:49
+#: lib/diary_web/live/shared/user_live/confirmation.ex:56
+#: lib/diary_web/live/shared/user_live/confirmation.ex:61
 #, elixir-autogen, elixir-format
 msgid "Logging in..."
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:87
+#: lib/diary_web/live/shared/user_live/confirmation.ex:87
 #, elixir-autogen, elixir-format
 msgid "Magic link is invalid or it has expired."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:325
+#: lib/diary_web/live/gym/workout/workout_live.ex:325
 #, elixir-autogen, elixir-format
 msgid "Only you can ignite your own destiny."
 msgstr "Only you can ignite your own destiny."
@@ -471,17 +471,17 @@ msgstr "Only you can ignite your own destiny."
 msgid "Password updated successfully!"
 msgstr ""
 
-#: lib/diary_web/live/user_live/registration.ex:14
+#: lib/diary_web/live/shared/user_live/registration.ex:14
 #, elixir-autogen, elixir-format
 msgid "Register for an account"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:109
+#: lib/diary_web/live/shared/user_live/settings.ex:109
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:22
+#: lib/diary_web/live/shared/user_live/login.ex:22
 #, elixir-autogen, elixir-format
 msgid "Sign up"
 msgstr ""
@@ -491,12 +491,12 @@ msgstr ""
 msgid "The link is invalid or it has expired."
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:68
+#: lib/diary_web/live/shared/user_live/confirmation.ex:68
 #, elixir-autogen, elixir-format
 msgid "Tip: If you prefer passwords, you can enable them in the user settings."
 msgstr ""
 
-#: lib/diary/workout_master.ex:76
+#: lib/diary/services/gym/workout_master.ex:76
 #, elixir-autogen, elixir-format
 msgid "Tバーロー"
 msgstr "T-Bar Row"
@@ -506,7 +506,7 @@ msgstr "T-Bar Row"
 msgid "User confirmed successfully."
 msgstr ""
 
-#: lib/diary_web/live/user_live/confirmation.ex:12
+#: lib/diary_web/live/shared/user_live/confirmation.ex:12
 #, elixir-autogen, elixir-format
 msgid "Welcome %{email}"
 msgstr ""
@@ -527,462 +527,462 @@ msgstr ""
 msgid "You must re-authenticate to access this page."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:16
+#: lib/diary_web/live/shared/user_live/login.ex:16
 #, elixir-autogen, elixir-format
 msgid "You need to reauthenticate to perform sensitive actions on your account."
 msgstr ""
 
-#: lib/diary_web/live/user_live/login.ex:22
+#: lib/diary_web/live/shared/user_live/login.ex:22
 #, elixir-autogen, elixir-format
 msgid "for an account now."
 msgstr ""
 
-#: lib/diary_web/live/user_live/registration.ex:20
+#: lib/diary_web/live/shared/user_live/registration.ex:20
 #, elixir-autogen, elixir-format
 msgid "to your account now."
 msgstr ""
 
-#: lib/diary/workout_master.ex:96
+#: lib/diary/services/gym/workout_master.ex:96
 #, elixir-autogen, elixir-format
 msgid "アップライトロウ"
 msgstr "Upright Row"
 
-#: lib/diary/workout_master.ex:128
+#: lib/diary/services/gym/workout_master.ex:128
 #, elixir-autogen, elixir-format
 msgid "アブローラー"
 msgstr "Ab Roller"
 
-#: lib/diary/workout_master.ex:59
+#: lib/diary/services/gym/workout_master.ex:59
 #, elixir-autogen, elixir-format
 msgid "インクラインダンベルフライ"
 msgstr "Incline Dumbbell Fly"
 
-#: lib/diary/workout_master.ex:54
+#: lib/diary/services/gym/workout_master.ex:54
 #, elixir-autogen, elixir-format
 msgid "インクラインダンベルプレス"
 msgstr "Incline Dumbbell Press"
 
-#: lib/diary/workout_master.ex:51
+#: lib/diary/services/gym/workout_master.ex:51
 #, elixir-autogen, elixir-format
 msgid "インクラインベンチプレス"
 msgstr "Incline Bench Press"
 
-#: lib/diary/workout_master.ex:81
+#: lib/diary/services/gym/workout_master.ex:81
 #, elixir-autogen, elixir-format
 msgid "インバーテッドロー"
 msgstr "Inverted Row"
 
-#: lib/diary/workout_master.ex:66
+#: lib/diary/services/gym/workout_master.ex:66
 #, elixir-autogen, elixir-format
 msgid "ウェイトプッシュアップ"
 msgstr "Weighted Push-up"
 
-#: lib/diary/workout_master.ex:117
+#: lib/diary/services/gym/workout_master.ex:117
 #, elixir-autogen, elixir-format
 msgid "オーバーヘッドエクステンション"
 msgstr "Overhead Extension"
 
-#: lib/diary/workout_master.ex:108
+#: lib/diary/services/gym/workout_master.ex:108
 #, elixir-autogen, elixir-format
 msgid "カーフレイズ"
 msgstr "Calf Raise"
 
-#: lib/diary/workout_master.ex:118
+#: lib/diary/services/gym/workout_master.ex:118
 #, elixir-autogen, elixir-format
 msgid "キックバック"
 msgstr "Kickback"
 
-#: lib/diary/workout_master.ex:122
+#: lib/diary/services/gym/workout_master.ex:122
 #, elixir-autogen, elixir-format
 msgid "クランチ"
 msgstr "Crunch"
 
-#: lib/diary/workout_master.ex:40
+#: lib/diary/services/gym/workout_master.ex:40
 #, elixir-autogen, elixir-format
 msgid "クランチ系"
 msgstr "Crunch Variations"
 
-#: lib/diary/workout_master.ex:113
+#: lib/diary/services/gym/workout_master.ex:113
 #, elixir-autogen, elixir-format
 msgid "ケーブルカール"
 msgstr "Cable Curl"
 
-#: lib/diary/workout_master.ex:93
+#: lib/diary/services/gym/workout_master.ex:93
 #, elixir-autogen, elixir-format
 msgid "ケーブルサイドレイズ"
 msgstr "Cable Side Raise"
 
-#: lib/diary/workout_master.ex:60
+#: lib/diary/services/gym/workout_master.ex:60
 #, elixir-autogen, elixir-format
 msgid "ケーブルフライ"
 msgstr "Cable Fly"
 
-#: lib/diary/workout_master.ex:82
+#: lib/diary/services/gym/workout_master.ex:82
 #, elixir-autogen, elixir-format
 msgid "ケーブルプルオーバー"
 msgstr "Cable Pullover"
 
-#: lib/diary/workout_master.ex:87
+#: lib/diary/services/gym/workout_master.ex:87
 #, elixir-autogen, elixir-format
 msgid "ケーブルロー（ナローグリップ）"
 msgstr "Cable Row (Narrow Grip)"
 
-#: lib/diary/workout_master.ex:86
+#: lib/diary/services/gym/workout_master.ex:86
 #, elixir-autogen, elixir-format
 msgid "ケーブルロー（ワイドグリップ）"
 msgstr "Cable Row (Wide Grip)"
 
-#: lib/diary/workout_master.ex:92
+#: lib/diary/services/gym/workout_master.ex:92
 #, elixir-autogen, elixir-format
 msgid "サイドレイズ"
 msgstr "Side Raise"
 
-#: lib/diary/workout_master.ex:123
+#: lib/diary/services/gym/workout_master.ex:123
 #, elixir-autogen, elixir-format
 msgid "シットアップ"
 msgstr "Sit-up"
 
-#: lib/diary/workout_master.ex:41
+#: lib/diary/services/gym/workout_master.ex:41
 #, elixir-autogen, elixir-format
 msgid "シットアップ系"
 msgstr "Sit-up Variations"
 
-#: lib/diary/workout_master.ex:89
+#: lib/diary/services/gym/workout_master.ex:89
 #, elixir-autogen, elixir-format
 msgid "ショルダープレス"
 msgstr "Shoulder Press"
 
-#: lib/diary/workout_master.ex:78
+#: lib/diary/services/gym/workout_master.ex:78
 #, elixir-autogen, elixir-format
 msgid "シーテッドケーブルロー"
 msgstr "Seated Cable Row"
 
-#: lib/diary/workout_master.ex:103
+#: lib/diary/services/gym/workout_master.ex:103
 #, elixir-autogen, elixir-format
 msgid "シーテッドレッグカール"
 msgstr "Seated Leg Curl"
 
-#: lib/diary/workout_master.ex:116
+#: lib/diary/services/gym/workout_master.ex:116
 #, elixir-autogen, elixir-format
 msgid "スカルクラッシャー"
 msgstr "Skull Crusher"
 
-#: lib/diary/workout_master.ex:97
+#: lib/diary/services/gym/workout_master.ex:97
 #, elixir-autogen, elixir-format
 msgid "スクワット"
 msgstr "Squat"
 
-#: lib/diary/workout_master.ex:73
+#: lib/diary/services/gym/workout_master.ex:73
 #, elixir-autogen, elixir-format
 msgid "ストレートアームプルダウン"
 msgstr "Straight-Arm Pulldown"
 
-#: lib/diary/workout_master.ex:99
+#: lib/diary/services/gym/workout_master.ex:99
 #, elixir-autogen, elixir-format
 msgid "スミススクワット"
 msgstr "Smith Machine Squat"
 
-#: lib/diary/workout_master.ex:57
+#: lib/diary/services/gym/workout_master.ex:57
 #, elixir-autogen, elixir-format
 msgid "スミスマシンベンチプレス"
 msgstr "Smith Machine Bench Press"
 
-#: lib/diary/workout_master.ex:84
+#: lib/diary/services/gym/workout_master.ex:84
 #, elixir-autogen, elixir-format
 msgid "スミスマシンロー"
 msgstr "Smith Machine Row"
 
-#: lib/diary/workout_master.ex:67
+#: lib/diary/services/gym/workout_master.ex:67
 #, elixir-autogen, elixir-format
 msgid "スヴェンプレス（プレートスクイーズプレス）"
 msgstr "Svend Press"
 
-#: lib/diary/workout_master.ex:110
+#: lib/diary/services/gym/workout_master.ex:110
 #, elixir-autogen, elixir-format
 msgid "ダンベルカール"
 msgstr "Dumbbell Curl"
 
-#: lib/diary/workout_master.ex:91
+#: lib/diary/services/gym/workout_master.ex:91
 #, elixir-autogen, elixir-format
 msgid "ダンベルショルダープレス"
 msgstr "Dumbbell Shoulder Press"
 
-#: lib/diary/workout_master.ex:58
+#: lib/diary/services/gym/workout_master.ex:58
 #, elixir-autogen, elixir-format
 msgid "ダンベルフライ"
 msgstr "Dumbbell Fly"
 
-#: lib/diary/workout_master.ex:83
+#: lib/diary/services/gym/workout_master.ex:83
 #, elixir-autogen, elixir-format
 msgid "ダンベルプルオーバー"
 msgstr "Dumbbell Pullover"
 
-#: lib/diary/workout_master.ex:53
+#: lib/diary/services/gym/workout_master.ex:53
 #, elixir-autogen, elixir-format
 msgid "ダンベルベンチプレス"
 msgstr "Dumbbell Bench Press"
 
-#: lib/diary/workout_master.ex:77
+#: lib/diary/services/gym/workout_master.ex:77
 #, elixir-autogen, elixir-format
 msgid "ダンベルロー（ワンハンドロー）"
 msgstr "Dumbbell Row"
 
-#: lib/diary/workout_master.ex:79
+#: lib/diary/services/gym/workout_master.ex:79
 #, elixir-autogen, elixir-format
 msgid "チェストサポートロー"
 msgstr "Chest-Supported Row"
 
-#: lib/diary/workout_master.ex:56
+#: lib/diary/services/gym/workout_master.ex:56
 #, elixir-autogen, elixir-format
 msgid "チェストプレス（マシン）"
 msgstr "Machine Chest Press"
 
-#: lib/diary/workout_master.ex:45
+#: lib/diary/services/gym/workout_master.ex:45
 #, elixir-autogen, elixir-format
 msgid "ツイスト・腹斜筋系"
 msgstr "Twist & Oblique Variations"
 
-#: lib/diary/workout_master.ex:64
+#: lib/diary/services/gym/workout_master.ex:64
 #, elixir-autogen, elixir-format
 msgid "ディップス（胸狙い）"
 msgstr "Chest Dips"
 
-#: lib/diary/workout_master.ex:55
+#: lib/diary/services/gym/workout_master.ex:55
 #, elixir-autogen, elixir-format
 msgid "デクラインダンベルプレス"
 msgstr "Decline Dumbbell Press"
 
-#: lib/diary/workout_master.ex:52
+#: lib/diary/services/gym/workout_master.ex:52
 #, elixir-autogen, elixir-format
 msgid "デクラインベンチプレス"
 msgstr "Decline Bench Press"
 
-#: lib/diary/workout_master.ex:69
+#: lib/diary/services/gym/workout_master.ex:69
 #, elixir-autogen, elixir-format
 msgid "デッドリフト"
 msgstr "Deadlift"
 
-#: lib/diary/workout_master.ex:62
+#: lib/diary/services/gym/workout_master.ex:62
 #, elixir-autogen, elixir-format
 msgid "ハイ・トゥ・ロー ケーブルフライ"
 msgstr "High-to-Low Cable Fly"
 
-#: lib/diary/workout_master.ex:98
+#: lib/diary/services/gym/workout_master.ex:98
 #, elixir-autogen, elixir-format
 msgid "ハックスクワット"
 msgstr "Hack Squat"
 
-#: lib/diary/workout_master.ex:125
+#: lib/diary/services/gym/workout_master.ex:125
 #, elixir-autogen, elixir-format
 msgid "ハンギングレッグレイズ"
 msgstr "Hanging Leg Raise"
 
-#: lib/diary/workout_master.ex:43
+#: lib/diary/services/gym/workout_master.ex:43
 #, elixir-autogen, elixir-format
 msgid "ハンギング系"
 msgstr "Hanging Variations"
 
-#: lib/diary/workout_master.ex:121
+#: lib/diary/services/gym/workout_master.ex:121
 #, elixir-autogen, elixir-format
 msgid "ハンドグリッパー"
 msgstr "Hand Gripper"
 
-#: lib/diary/workout_master.ex:111
+#: lib/diary/services/gym/workout_master.ex:111
 #, elixir-autogen, elixir-format
 msgid "ハンマーカール"
 msgstr "Hammer Curl"
 
-#: lib/diary/workout_master.ex:129
+#: lib/diary/services/gym/workout_master.ex:129
 #, elixir-autogen, elixir-format
 msgid "バードドッグ"
 msgstr "Bird Dog"
 
-#: lib/diary/workout_master.ex:109
+#: lib/diary/services/gym/workout_master.ex:109
 #, elixir-autogen, elixir-format
 msgid "バーベルカール"
 msgstr "Barbell Curl"
 
-#: lib/diary/workout_master.ex:90
+#: lib/diary/services/gym/workout_master.ex:90
 #, elixir-autogen, elixir-format
 msgid "バーベルショルダープレス"
 msgstr "Barbell Shoulder Press"
 
-#: lib/diary/workout_master.ex:74
+#: lib/diary/services/gym/workout_master.ex:74
 #, elixir-autogen, elixir-format
 msgid "バーベルロー"
 msgstr "Barbell Row"
 
-#: lib/diary/workout_master.ex:95
+#: lib/diary/services/gym/workout_master.ex:95
 #, elixir-autogen, elixir-format
 msgid "フェイスプル"
 msgstr "Face Pull"
 
-#: lib/diary/workout_master.ex:106
+#: lib/diary/services/gym/workout_master.ex:106
 #, elixir-autogen, elixir-format
 msgid "ブルガリアンスクワット"
 msgstr "Bulgarian Split Squat"
 
-#: lib/diary/workout_master.ex:65
+#: lib/diary/services/gym/workout_master.ex:65
 #, elixir-autogen, elixir-format
 msgid "プッシュアップ"
 msgstr "Push-up"
 
-#: lib/diary/workout_master.ex:126
+#: lib/diary/services/gym/workout_master.ex:126
 #, elixir-autogen, elixir-format
 msgid "プランク"
 msgstr "Plank"
 
-#: lib/diary/workout_master.ex:44
+#: lib/diary/services/gym/workout_master.ex:44
 #, elixir-autogen, elixir-format
 msgid "プランク系"
 msgstr "Plank Variations"
 
-#: lib/diary/workout_master.ex:112
+#: lib/diary/services/gym/workout_master.ex:112
 #, elixir-autogen, elixir-format
 msgid "プリーチャーカール"
 msgstr "Preacher Curl"
 
-#: lib/diary/workout_master.ex:114
+#: lib/diary/services/gym/workout_master.ex:114
 #, elixir-autogen, elixir-format
 msgid "プレスダウン"
 msgstr "Triceps Pressdown"
 
-#: lib/diary/workout_master.ex:50
+#: lib/diary/services/gym/workout_master.ex:50
 #, elixir-autogen, elixir-format
 msgid "ベンチプレス"
 msgstr "Bench Press"
 
-#: lib/diary/workout_master.ex:63
+#: lib/diary/services/gym/workout_master.ex:63
 #, elixir-autogen, elixir-format
 msgid "ペックデック（マシンフライ）"
 msgstr "Pec Deck Fly"
 
-#: lib/diary/workout_master.ex:75
+#: lib/diary/services/gym/workout_master.ex:75
 #, elixir-autogen, elixir-format
 msgid "ペンドレイロー"
 msgstr "Pendlay Row"
 
-#: lib/diary/workout_master.ex:80
+#: lib/diary/services/gym/workout_master.ex:80
 #, elixir-autogen, elixir-format
 msgid "マシンロー"
 msgstr "Machine Row"
 
-#: lib/diary/workout_master.ex:85
+#: lib/diary/services/gym/workout_master.ex:85
 #, elixir-autogen, elixir-format
 msgid "メドウズロー"
 msgstr "Meadows Row"
 
-#: lib/diary/workout_master.ex:102
+#: lib/diary/services/gym/workout_master.ex:102
 #, elixir-autogen, elixir-format
 msgid "ライイングレッグカール"
 msgstr "Lying Leg Curl"
 
-#: lib/diary/workout_master.ex:70
+#: lib/diary/services/gym/workout_master.ex:70
 #, elixir-autogen, elixir-format
 msgid "ラックプル"
 msgstr "Rack Pull"
 
-#: lib/diary/workout_master.ex:72
+#: lib/diary/services/gym/workout_master.ex:72
 #, elixir-autogen, elixir-format
 msgid "ラットプルダウン"
 msgstr "Lat Pulldown"
 
-#: lib/diary/workout_master.ex:107
+#: lib/diary/services/gym/workout_master.ex:107
 #, elixir-autogen, elixir-format
 msgid "ランジ"
 msgstr "Lunge"
 
-#: lib/diary/workout_master.ex:88
+#: lib/diary/services/gym/workout_master.ex:88
 #, elixir-autogen, elixir-format
 msgid "リアデルトロー（背中・後肩狙い）"
 msgstr "Rear Delt Row"
 
-#: lib/diary/workout_master.ex:94
+#: lib/diary/services/gym/workout_master.ex:94
 #, elixir-autogen, elixir-format
 msgid "リアレイズ"
 msgstr "Rear Delt Raise"
 
-#: lib/diary/workout_master.ex:119
+#: lib/diary/services/gym/workout_master.ex:119
 #, elixir-autogen, elixir-format
 msgid "リストカール"
 msgstr "Wrist Curl"
 
-#: lib/diary/workout_master.ex:120
+#: lib/diary/services/gym/workout_master.ex:120
 #, elixir-autogen, elixir-format
 msgid "リバースリストカール"
 msgstr "Reverse Wrist Curl"
 
-#: lib/diary/workout_master.ex:105
+#: lib/diary/services/gym/workout_master.ex:105
 #, elixir-autogen, elixir-format
 msgid "ルーマニアンデッドリフト"
 msgstr "Romanian Deadlift"
 
-#: lib/diary/workout_master.ex:101
+#: lib/diary/services/gym/workout_master.ex:101
 #, elixir-autogen, elixir-format
 msgid "レッグエクステンション"
 msgstr "Leg Extension"
 
-#: lib/diary/workout_master.ex:100
+#: lib/diary/services/gym/workout_master.ex:100
 #, elixir-autogen, elixir-format
 msgid "レッグプレス"
 msgstr "Leg Press"
 
-#: lib/diary/workout_master.ex:124
+#: lib/diary/services/gym/workout_master.ex:124
 #, elixir-autogen, elixir-format
 msgid "レッグレイズ"
 msgstr "Leg Raise"
 
-#: lib/diary/workout_master.ex:42
+#: lib/diary/services/gym/workout_master.ex:42
 #, elixir-autogen, elixir-format
 msgid "レッグレイズ系"
 msgstr "Leg Raise Variations"
 
-#: lib/diary/workout_master.ex:127
+#: lib/diary/services/gym/workout_master.ex:127
 #, elixir-autogen, elixir-format
 msgid "ロシアツイスト"
 msgstr "Russian Twist"
 
-#: lib/diary/workout_master.ex:115
+#: lib/diary/services/gym/workout_master.ex:115
 #, elixir-autogen, elixir-format
 msgid "ローププレスダウン"
 msgstr "Rope Pressdown"
 
-#: lib/diary/workout_master.ex:46
+#: lib/diary/services/gym/workout_master.ex:46
 #, elixir-autogen, elixir-format
 msgid "ロールアウト系"
 msgstr "Rollout Variations"
 
-#: lib/diary/workout_master.ex:61
+#: lib/diary/services/gym/workout_master.ex:61
 #, elixir-autogen, elixir-format
 msgid "ロー・トゥ・ハイ ケーブルフライ"
 msgstr "Low-to-High Cable Fly"
 
-#: lib/diary/workout_master.ex:36
+#: lib/diary/services/gym/workout_master.ex:36
 #, elixir-autogen, elixir-format
 msgid "三頭筋"
 msgstr "Triceps"
 
-#: lib/diary/workout_master.ex:35
+#: lib/diary/services/gym/workout_master.ex:35
 #, elixir-autogen, elixir-format
 msgid "二頭筋"
 msgstr "Biceps"
 
-#: lib/diary/workout_master.ex:47
+#: lib/diary/services/gym/workout_master.ex:47
 #, elixir-autogen, elixir-format
 msgid "体幹・スタビリティ系"
 msgstr "Core & Stability Variations"
 
-#: lib/diary/workout_master.ex:37
+#: lib/diary/services/gym/workout_master.ex:37
 #, elixir-autogen, elixir-format
 msgid "前腕"
 msgstr "Forearms"
 
-#: lib/diary/workout_master.ex:71
+#: lib/diary/services/gym/workout_master.ex:71
 #, elixir-autogen, elixir-format
 msgid "懸垂（プルアップ）"
 msgstr "Pull-up"
 
-#: lib/diary/workout_master.ex:15
+#: lib/diary/services/gym/workout_master.ex:15
 #, elixir-autogen, elixir-format
 msgid "腕"
 msgstr "Arms"
@@ -1003,109 +1003,109 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:410
+#: lib/diary_web/live/gym/workout/workout_live.ex:410
 #, elixir-autogen, elixir-format
 msgid "Est. 1RM"
 msgstr ""
 
-#: lib/diary_web/live/stats/stats_live.ex:107
+#: lib/diary_web/live/gym/stats/stats_live.ex:107
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Statistics"
 msgstr "Stats"
 
-#: lib/diary_web/live/stats/stats_live.ex:126
+#: lib/diary_web/live/gym/stats/stats_live.ex:126
 #, elixir-autogen, elixir-format
 msgid "Export Daily Summary"
 msgstr ""
 
-#: lib/diary_web/live/stats/stats_live.ex:117
+#: lib/diary_web/live/gym/stats/stats_live.ex:117
 #, elixir-autogen, elixir-format
 msgid "Export Detailed Logs"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_component.ex:134
+#: lib/diary_web/live/gym/diary/diary_component.ex:134
 #, elixir-autogen, elixir-format
 msgid "Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle."
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:174
+#: lib/diary_web/live/gym/timer/timer_live.ex:174
 #, elixir-autogen, elixir-format
 msgid "Lap Times"
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:101
+#: lib/diary_web/live/gym/timer/timer_live.ex:101
 #, elixir-autogen, elixir-format
 msgid "Min"
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:110
+#: lib/diary_web/live/gym/timer/timer_live.ex:110
 #, elixir-autogen, elixir-format
 msgid "Sec"
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:45
+#: lib/diary_web/live/gym/timer/timer_live.ex:45
 #, elixir-autogen, elixir-format
 msgid "Stopwatch"
 msgstr ""
 
 #: lib/diary_web/components/layouts.ex:74
 #: lib/diary_web/components/layouts.ex:134
-#: lib/diary_web/live/timer/timer_live.ex:38
+#: lib/diary_web/live/gym/timer/timer_live.ex:38
 #, elixir-autogen, elixir-format
 msgid "Timer"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:187
+#: lib/diary_web/live/shared/user_live/settings.ex:187
 #, elixir-autogen, elixir-format
 msgid "Avatar updated successfully."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:197
+#: lib/diary_web/live/shared/user_live/settings.ex:197
 #, elixir-autogen, elixir-format
 msgid "Failed to upload avatar image."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:262
+#: lib/diary_web/live/shared/user_live/settings.ex:262
 #, elixir-autogen, elixir-format
 msgid "File is too large (max 5MB)"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:27
+#: lib/diary_web/live/shared/user_live/settings.ex:27
 #, elixir-autogen, elixir-format
 msgid "JPG, PNG, WebP up to 5MB."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:15
+#: lib/diary_web/live/shared/user_live/settings.ex:15
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Manage your account email address, password, and avatar settings"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:21
+#: lib/diary_web/live/shared/user_live/settings.ex:21
 #, elixir-autogen, elixir-format
 msgid "Profile Picture"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:264
+#: lib/diary_web/live/shared/user_live/settings.ex:264
 #, elixir-autogen, elixir-format
 msgid "Unacceptable file type"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:55
+#: lib/diary_web/live/shared/user_live/settings.ex:55
 #, elixir-autogen, elixir-format
 msgid "Upload Avatar"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:26
+#: lib/diary_web/live/shared/user_live/settings.ex:26
 #, elixir-autogen, elixir-format
 msgid "Upload a new avatar image."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:54
+#: lib/diary_web/live/shared/user_live/settings.ex:54
 #, elixir-autogen, elixir-format
 msgid "Uploading..."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:263
+#: lib/diary_web/live/shared/user_live/settings.ex:263
 #, elixir-autogen, elixir-format
 msgid "You have selected too many files"
 msgstr ""
