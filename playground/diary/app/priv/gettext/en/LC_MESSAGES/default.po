@@ -360,7 +360,7 @@ msgstr "Glutes"
 msgid "Daily"
 msgstr "Daily"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:227
+#: lib/diary_web/live/shared/user_live/settings.ex:234
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
@@ -1060,12 +1060,12 @@ msgstr ""
 msgid "Avatar updated successfully."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:197
+#: lib/diary_web/live/shared/user_live/settings.ex:204
 #, elixir-autogen, elixir-format
 msgid "Failed to upload avatar image."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:262
+#: lib/diary_web/live/shared/user_live/settings.ex:269
 #, elixir-autogen, elixir-format
 msgid "File is too large (max 5MB)"
 msgstr ""
@@ -1085,7 +1085,7 @@ msgstr ""
 msgid "Profile Picture"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:264
+#: lib/diary_web/live/shared/user_live/settings.ex:271
 #, elixir-autogen, elixir-format
 msgid "Unacceptable file type"
 msgstr ""
@@ -1105,7 +1105,7 @@ msgstr ""
 msgid "Uploading..."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:263
+#: lib/diary_web/live/shared/user_live/settings.ex:270
 #, elixir-autogen, elixir-format
 msgid "You have selected too many files"
 msgstr ""

@@ -77,7 +77,7 @@
         <!-- User avatar icon linking to settings -->
         <li class="flex items-center">
           <.link href={~p"/users/settings"} title={gettext("Settings")}>
-            <.user_avatar email={@current_scope.user.email} size={:md} />
+            <.user_avatar user={@current_scope.user} size={:md} />
           </.link>
         </li>
         <li>

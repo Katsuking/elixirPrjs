@@ -557,15 +557,23 @@ defmodule DiaryWeb.CoreComponents do
   ## Examples
 
       <.user_avatar email={@user.email} />
+      <.user_avatar user={@user} />
       <.user_avatar email={@user.email} size={:lg} class="my-custom-class" />
   """
-  attr :email, :string, required: true, doc: "the user's email address"
+  attr :user, Diary.Accounts.User, default: nil, doc: "the user struct"
+  attr :email, :string, default: nil, doc: "the user's email address"
   attr :version, :any, default: nil, doc: "optional version/timestamp for cache busting"
   attr :size, :atom, default: :md, values: [:sm, :md, :lg, :xl], doc: "preset size for avatar"
   attr :class, :string, default: nil, doc: "additional CSS classes"
   attr :alt, :string, default: "User Avatar"
 
   def user_avatar(assigns) do
+    user = assigns[:user]
+    email = assigns[:email] || (user && user.email)
+    version =
+      assigns[:version] ||
+        (user && user.updated_at && DateTime.to_unix(user.updated_at))
+
     size_class =
       case assigns.size do
         :sm -> "w-6 h-6"
@@ -574,7 +582,11 @@ defmodule DiaryWeb.CoreComponents do
         :xl -> "w-20 h-20"
       end
 
-    assigns = assign(assigns, :size_class, size_class)
+    assigns =
+      assigns
+      |> assign(:email, email)
+      |> assign(:version, version)
+      |> assign(:size_class, size_class)
 
     ~H"""
     <img

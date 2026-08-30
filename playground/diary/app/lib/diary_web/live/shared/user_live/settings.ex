@@ -21,7 +21,7 @@ defmodule DiaryWeb.UserLive.Settings do
         <h3 class="text-lg font-semibold mb-3"><%= gettext("Profile Picture") %></h3>
         <div class="flex items-center gap-6 mb-4">
           <!-- Current Avatar Preview using Core Component with version timestamp for cache busting -->
-          <.user_avatar email={@current_email} version={@avatar_version} size={:xl} />
+          <.user_avatar user={@current_scope.user} version={@avatar_version} size={:xl} />
           <div class="text-sm text-slate-600 dark:text-zinc-400">
             <p><%= gettext("Upload a new avatar image.") %></p>
             <p class="text-xs text-slate-400"><%= gettext("JPG, PNG, WebP up to 5MB.") %></p>
@@ -186,9 +186,16 @@ defmodule DiaryWeb.UserLive.Settings do
       [:uploaded] ->
         info = gettext("Avatar updated successfully.")
 
+        # Touch user updated_at to ensure cache-busting timestamp propagates to current_scope and navigation bar
+        {:ok, updated_user} = Accounts.touch_user(user)
+
+        updated_scope = %{socket.assigns.current_scope | user: updated_user}
+        new_version = System.system_time(:second)
+
         socket =
           socket
-          |> assign(:avatar_version, System.system_time(:second))
+          |> assign(:current_scope, updated_scope)
+          |> assign(:avatar_version, new_version)
           |> put_flash(:info, info)
 
         {:noreply, socket}

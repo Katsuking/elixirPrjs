@@ -169,6 +169,16 @@ defmodule Diary.Accounts do
     |> update_user_and_delete_all_tokens()
   end
 
+  @doc """
+  Updates the user's updated_at timestamp to refresh cache-busted assets like avatars.
+  """
+  def touch_user(%User{} = user) do
+    now = DateTime.utc_now() |> DateTime.truncate(:second)
+    user
+    |> Ecto.Changeset.change(updated_at: now)
+    |> Repo.update()
+  end
+
   ## Session
 
   @doc """

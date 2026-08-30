@@ -360,7 +360,7 @@ msgstr ""
 msgid "Daily"
 msgstr "日"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:227
+#: lib/diary_web/live/shared/user_live/settings.ex:234
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "メールアドレス変更の確認リンクが新しいアドレスに送信されました。"
@@ -1060,12 +1060,12 @@ msgstr "タイマー"
 msgid "Avatar updated successfully."
 msgstr "アバターを正常に更新しました。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:197
+#: lib/diary_web/live/shared/user_live/settings.ex:204
 #, elixir-autogen, elixir-format
 msgid "Failed to upload avatar image."
 msgstr "アバター画像のアップロードに失敗しました。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:262
+#: lib/diary_web/live/shared/user_live/settings.ex:269
 #, elixir-autogen, elixir-format
 msgid "File is too large (max 5MB)"
 msgstr "ファイルサイズが大きすぎます (最大5MB)"
@@ -1085,7 +1085,7 @@ msgstr "アカウントのメールアドレス、パスワード、およびア
 msgid "Profile Picture"
 msgstr "プロフィール画像"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:264
+#: lib/diary_web/live/shared/user_live/settings.ex:271
 #, elixir-autogen, elixir-format
 msgid "Unacceptable file type"
 msgstr "許可されていないファイル形式です"
@@ -1105,7 +1105,7 @@ msgstr "新しいアバター画像をアップロードします。"
 msgid "Uploading..."
 msgstr "アップロード中..."
 
-#: lib/diary_web/live/shared/user_live/settings.ex:263
+#: lib/diary_web/live/shared/user_live/settings.ex:270
 #, elixir-autogen, elixir-format
 msgid "You have selected too many files"
 msgstr "選択したファイル数が多すぎます"
