@@ -37,22 +37,22 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:126
+#: lib/diary_web/live/diary/diary_component.ex:89
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:146
+#: lib/diary_web/live/diary/diary_component.ex:108
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:151
+#: lib/diary_web/live/diary/diary_component.ex:113
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:183
+#: lib/diary_web/live/workout/workout_live.ex:197
 #, elixir-autogen, elixir-format
 msgid "Back to Diary"
 msgstr ""
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Fri"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:265
+#: lib/diary_web/live/diary/diary_live.ex:203
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr ""
@@ -132,12 +132,13 @@ msgstr ""
 msgid "Yearly"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:274
+#: lib/diary_web/live/user_live/settings.ex:42
+#: lib/diary_web/live/workout/workout_live.ex:288
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:290
+#: lib/diary_web/live/workout/workout_live.ex:304
 #, elixir-autogen, elixir-format
 msgid "Choose a muscle group and an exercise to start logging your workout."
 msgstr ""
@@ -147,47 +148,47 @@ msgstr ""
 msgid "Failed to save log. Please check your inputs."
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:288
+#: lib/diary_web/live/workout/workout_live.ex:302
 #, elixir-autogen, elixir-format
 msgid "No Exercise Selected"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:260
+#: lib/diary_web/live/workout/workout_live.ex:274
 #, elixir-autogen, elixir-format
 msgid "Reps"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:281
+#: lib/diary_web/live/workout/workout_live.ex:295
 #, elixir-autogen, elixir-format
 msgid "Save Entry"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:211
+#: lib/diary_web/live/workout/workout_live.ex:225
 #, elixir-autogen, elixir-format
 msgid "Select Exercise"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:194
+#: lib/diary_web/live/workout/workout_live.ex:208
 #, elixir-autogen, elixir-format
 msgid "Select Target Muscle"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:303
+#: lib/diary_web/live/workout/workout_live.ex:317
 #, elixir-autogen, elixir-format
 msgid "Sets"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:300
+#: lib/diary_web/live/workout/workout_live.ex:314
 #, elixir-autogen, elixir-format
 msgid "Today's Workouts"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:248
+#: lib/diary_web/live/workout/workout_live.ex:262
 #, elixir-autogen, elixir-format
 msgid "Weight (kg)"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:172
+#: lib/diary_web/live/workout/workout_live.ex:186
 #, elixir-autogen, elixir-format
 msgid "Workout Logger"
 msgstr ""
@@ -202,12 +203,12 @@ msgstr ""
 msgid "Workout log saved!"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:367
+#: lib/diary_web/live/diary/diary_component.ex:203
 #, elixir-autogen, elixir-format
 msgid "Add Bullet"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:334
+#: lib/diary_web/live/diary/diary_component.ex:170
 #, elixir-autogen, elixir-format
 msgid "Add New Entry"
 msgstr ""
@@ -218,17 +219,17 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:322
+#: lib/diary_web/live/diary/diary_component.ex:157
 #, elixir-autogen, elixir-format
 msgid "Delete item"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:253
+#: lib/diary_web/live/diary/diary_live.ex:191
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:241
+#: lib/diary_web/live/diary/diary_live.ex:179
 #, elixir-autogen, elixir-format
 msgid "Prev"
 msgstr ""
@@ -239,22 +240,22 @@ msgstr ""
 msgid "Stats"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:293
+#: lib/diary_web/live/diary/diary_component.ex:124
 #, elixir-autogen, elixir-format
 msgid "Today's Entries"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:342
+#: lib/diary_web/live/diary/diary_component.ex:178
 #, elixir-autogen, elixir-format
 msgid "What did you do today?"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:247
+#: lib/diary_web/live/diary/diary_live.ex:185
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:274
+#: lib/diary_web/live/diary/diary_live.ex:212
 #, elixir-autogen, elixir-format
 msgid "Today's Volume"
 msgstr ""
@@ -359,7 +360,7 @@ msgstr ""
 msgid "Daily"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:131
+#: lib/diary_web/live/user_live/settings.ex:227
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
@@ -379,14 +380,9 @@ msgstr ""
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:28
+#: lib/diary_web/live/user_live/settings.ex:72
 #, elixir-autogen, elixir-format
 msgid "Change Email"
-msgstr ""
-
-#: lib/diary_web/live/user_live/settings.ex:28
-#, elixir-autogen, elixir-format
-msgid "Changing..."
 msgstr ""
 
 #: lib/diary_web/live/user_live/confirmation.ex:34
@@ -397,11 +393,6 @@ msgstr ""
 #: lib/diary_web/live/user_live/confirmation.ex:31
 #, elixir-autogen, elixir-format
 msgid "Confirm and stay logged in"
-msgstr ""
-
-#: lib/diary_web/live/user_live/settings.ex:60
-#, elixir-autogen, elixir-format
-msgid "Confirm new password"
 msgstr ""
 
 #: lib/diary_web/live/user_live/confirmation.ex:28
@@ -415,17 +406,12 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:23
-#, elixir-autogen, elixir-format
-msgid "Email"
-msgstr ""
-
-#: lib/diary_web/live/user_live/settings.ex:82
+#: lib/diary_web/live/user_live/settings.ex:127
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:79
+#: lib/diary_web/live/user_live/settings.ex:124
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr ""
@@ -445,7 +431,7 @@ msgstr ""
 msgid "Keep me logged in on this device"
 msgstr ""
 
-#: lib/diary_web/components/layouts/root.html.heex:57
+#: lib/diary_web/components/layouts/root.html.heex:94
 #: lib/diary_web/live/user_live/confirmation.ex:50
 #: lib/diary_web/live/user_live/login.ex:13
 #: lib/diary_web/live/user_live/registration.ex:18
@@ -475,17 +461,7 @@ msgstr ""
 msgid "Magic link is invalid or it has expired."
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:15
-#, elixir-autogen, elixir-format
-msgid "Manage your account email address and password settings"
-msgstr ""
-
-#: lib/diary_web/live/user_live/settings.ex:52
-#, elixir-autogen, elixir-format
-msgid "New password"
-msgstr ""
-
-#: lib/diary_web/live/workout/workout_live.ex:311
+#: lib/diary_web/live/workout/workout_live.ex:325
 #, elixir-autogen, elixir-format
 msgid "Only you can ignite your own destiny."
 msgstr ""
@@ -500,14 +476,9 @@ msgstr ""
 msgid "Register for an account"
 msgstr ""
 
-#: lib/diary_web/live/user_live/settings.ex:65
+#: lib/diary_web/live/user_live/settings.ex:109
 #, elixir-autogen, elixir-format
 msgid "Save Password"
-msgstr ""
-
-#: lib/diary_web/live/user_live/settings.ex:64
-#, elixir-autogen, elixir-format
-msgid "Saving..."
 msgstr ""
 
 #: lib/diary_web/live/user_live/login.ex:22
@@ -1016,22 +987,23 @@ msgstr ""
 msgid "腕"
 msgstr ""
 
-#: lib/diary_web/components/layouts/root.html.heex:50
+#: lib/diary_web/components/layouts/root.html.heex:87
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr ""
 
-#: lib/diary_web/components/layouts/root.html.heex:54
+#: lib/diary_web/components/layouts/root.html.heex:91
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
 
-#: lib/diary_web/components/layouts/root.html.heex:47
+#: lib/diary_web/components/layouts/root.html.heex:79
+#: lib/diary_web/components/layouts/root.html.heex:84
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr ""
 
-#: lib/diary_web/live/workout/workout_live.ex:385
+#: lib/diary_web/live/workout/workout_live.ex:410
 #, elixir-autogen, elixir-format
 msgid "Est. 1RM"
 msgstr ""
@@ -1051,34 +1023,89 @@ msgstr ""
 msgid "Export Detailed Logs"
 msgstr ""
 
-#: lib/diary_web/live/diary/diary_live.ex:300
+#: lib/diary_web/live/diary/diary_component.ex:134
 #, elixir-autogen, elixir-format
 msgid "Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle."
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:170
+#: lib/diary_web/live/timer/timer_live.ex:174
 #, elixir-autogen, elixir-format
 msgid "Lap Times"
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:97
+#: lib/diary_web/live/timer/timer_live.ex:101
 #, elixir-autogen, elixir-format
 msgid "Min"
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:106
+#: lib/diary_web/live/timer/timer_live.ex:110
 #, elixir-autogen, elixir-format
 msgid "Sec"
 msgstr ""
 
-#: lib/diary_web/live/timer/timer_live.ex:41
+#: lib/diary_web/live/timer/timer_live.ex:45
 #, elixir-autogen, elixir-format
 msgid "Stopwatch"
 msgstr ""
 
 #: lib/diary_web/components/layouts.ex:74
 #: lib/diary_web/components/layouts.ex:134
-#: lib/diary_web/live/timer/timer_live.ex:34
+#: lib/diary_web/live/timer/timer_live.ex:38
 #, elixir-autogen, elixir-format
 msgid "Timer"
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:187
+#, elixir-autogen, elixir-format
+msgid "Avatar updated successfully."
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:197
+#, elixir-autogen, elixir-format
+msgid "Failed to upload avatar image."
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:262
+#, elixir-autogen, elixir-format
+msgid "File is too large (max 5MB)"
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:27
+#, elixir-autogen, elixir-format
+msgid "JPG, PNG, WebP up to 5MB."
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:15
+#, elixir-autogen, elixir-format
+msgid "Manage your account email address, password, and avatar settings"
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:21
+#, elixir-autogen, elixir-format
+msgid "Profile Picture"
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:264
+#, elixir-autogen, elixir-format
+msgid "Unacceptable file type"
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:55
+#, elixir-autogen, elixir-format
+msgid "Upload Avatar"
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:26
+#, elixir-autogen, elixir-format
+msgid "Upload a new avatar image."
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:54
+#, elixir-autogen, elixir-format
+msgid "Uploading..."
+msgstr ""
+
+#: lib/diary_web/live/user_live/settings.ex:263
+#, elixir-autogen, elixir-format
+msgid "You have selected too many files"
 msgstr ""

@@ -37,22 +37,22 @@ msgstr "インターネットに接続できません。"
 msgid "close"
 msgstr "閉じる"
 
-#: lib/diary_web/live/diary/diary_live.ex:126
+#: lib/diary_web/live/diary/diary_component.ex:89
 #, elixir-autogen, elixir-format
 msgid "Successfully added!"
 msgstr "追加されました!"
 
-#: lib/diary_web/live/diary/diary_live.ex:146
+#: lib/diary_web/live/diary/diary_component.ex:108
 #, elixir-autogen, elixir-format
 msgid "Deleted!"
 msgstr "削除されました!"
 
-#: lib/diary_web/live/diary/diary_live.ex:151
+#: lib/diary_web/live/diary/diary_component.ex:113
 #, elixir-autogen, elixir-format
 msgid "Failed to delete item."
 msgstr "削除に失敗しました。"
 
-#: lib/diary_web/live/workout/workout_live.ex:183
+#: lib/diary_web/live/workout/workout_live.ex:197
 #, elixir-autogen, elixir-format
 msgid "Back to Diary"
 msgstr "日記に戻る"
@@ -62,7 +62,7 @@ msgstr "日記に戻る"
 msgid "Fri"
 msgstr "金"
 
-#: lib/diary_web/live/diary/diary_live.ex:265
+#: lib/diary_web/live/diary/diary_live.ex:203
 #, elixir-autogen, elixir-format
 msgid "Log Workouts"
 msgstr "トレーニングを記録"
@@ -132,12 +132,13 @@ msgstr "週"
 msgid "Yearly"
 msgstr "年"
 
-#: lib/diary_web/live/workout/workout_live.ex:274
+#: lib/diary_web/live/user_live/settings.ex:42
+#: lib/diary_web/live/workout/workout_live.ex:288
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: lib/diary_web/live/workout/workout_live.ex:290
+#: lib/diary_web/live/workout/workout_live.ex:304
 #, elixir-autogen, elixir-format
 msgid "Choose a muscle group and an exercise to start logging your workout."
 msgstr "部位と種目を選択して、トレーニングの記録を開始してください。"
@@ -147,47 +148,47 @@ msgstr "部位と種目を選択して、トレーニングの記録を開始し
 msgid "Failed to save log. Please check your inputs."
 msgstr "記録の保存に失敗しました。入力内容を確認してください。"
 
-#: lib/diary_web/live/workout/workout_live.ex:288
+#: lib/diary_web/live/workout/workout_live.ex:302
 #, elixir-autogen, elixir-format
 msgid "No Exercise Selected"
 msgstr "種目が選択されていません"
 
-#: lib/diary_web/live/workout/workout_live.ex:260
+#: lib/diary_web/live/workout/workout_live.ex:274
 #, elixir-autogen, elixir-format
 msgid "Reps"
 msgstr "レップ数"
 
-#: lib/diary_web/live/workout/workout_live.ex:281
+#: lib/diary_web/live/workout/workout_live.ex:295
 #, elixir-autogen, elixir-format
 msgid "Save Entry"
 msgstr "記録を保存"
 
-#: lib/diary_web/live/workout/workout_live.ex:211
+#: lib/diary_web/live/workout/workout_live.ex:225
 #, elixir-autogen, elixir-format
 msgid "Select Exercise"
 msgstr "種目の選択"
 
-#: lib/diary_web/live/workout/workout_live.ex:194
+#: lib/diary_web/live/workout/workout_live.ex:208
 #, elixir-autogen, elixir-format
 msgid "Select Target Muscle"
 msgstr "ターゲット部位の選択"
 
-#: lib/diary_web/live/workout/workout_live.ex:303
+#: lib/diary_web/live/workout/workout_live.ex:317
 #, elixir-autogen, elixir-format
 msgid "Sets"
 msgstr "セット数"
 
-#: lib/diary_web/live/workout/workout_live.ex:300
+#: lib/diary_web/live/workout/workout_live.ex:314
 #, elixir-autogen, elixir-format
 msgid "Today's Workouts"
 msgstr "本日のトレーニング履歴"
 
-#: lib/diary_web/live/workout/workout_live.ex:248
+#: lib/diary_web/live/workout/workout_live.ex:262
 #, elixir-autogen, elixir-format
 msgid "Weight (kg)"
 msgstr "重量 (kg)"
 
-#: lib/diary_web/live/workout/workout_live.ex:172
+#: lib/diary_web/live/workout/workout_live.ex:186
 #, elixir-autogen, elixir-format
 msgid "Workout Logger"
 msgstr "筋トレ記録"
@@ -202,12 +203,12 @@ msgstr "記録を削除しました。"
 msgid "Workout log saved!"
 msgstr "記録を保存しました！"
 
-#: lib/diary_web/live/diary/diary_live.ex:367
+#: lib/diary_web/live/diary/diary_component.ex:203
 #, elixir-autogen, elixir-format
 msgid "Add Bullet"
 msgstr "入力を追加"
 
-#: lib/diary_web/live/diary/diary_live.ex:334
+#: lib/diary_web/live/diary/diary_component.ex:170
 #, elixir-autogen, elixir-format
 msgid "Add New Entry"
 msgstr "新しい入力を追加"
@@ -218,17 +219,17 @@ msgstr "新しい入力を追加"
 msgid "Calendar"
 msgstr "カレンダー"
 
-#: lib/diary_web/live/diary/diary_live.ex:322
+#: lib/diary_web/live/diary/diary_component.ex:157
 #, elixir-autogen, elixir-format
 msgid "Delete item"
 msgstr "項目を削除"
 
-#: lib/diary_web/live/diary/diary_live.ex:253
+#: lib/diary_web/live/diary/diary_live.ex:191
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr "翌日"
 
-#: lib/diary_web/live/diary/diary_live.ex:241
+#: lib/diary_web/live/diary/diary_live.ex:179
 #, elixir-autogen, elixir-format
 msgid "Prev"
 msgstr "前日"
@@ -239,22 +240,22 @@ msgstr "前日"
 msgid "Stats"
 msgstr "統計情報"
 
-#: lib/diary_web/live/diary/diary_live.ex:293
+#: lib/diary_web/live/diary/diary_component.ex:124
 #, elixir-autogen, elixir-format
 msgid "Today's Entries"
 msgstr "本日の記録一覧"
 
-#: lib/diary_web/live/diary/diary_live.ex:342
+#: lib/diary_web/live/diary/diary_component.ex:178
 #, elixir-autogen, elixir-format
 msgid "What did you do today?"
 msgstr "今日は何をしましたか？"
 
-#: lib/diary_web/live/diary/diary_live.ex:247
+#: lib/diary_web/live/diary/diary_live.ex:185
 #, elixir-autogen, elixir-format
 msgid "today"
 msgstr "今日"
 
-#: lib/diary_web/live/diary/diary_live.ex:274
+#: lib/diary_web/live/diary/diary_live.ex:212
 #, elixir-autogen, elixir-format
 msgid "Today's Volume"
 msgstr "本日の総重量"
@@ -359,7 +360,7 @@ msgstr ""
 msgid "Daily"
 msgstr "日"
 
-#: lib/diary_web/live/user_live/settings.ex:131
+#: lib/diary_web/live/user_live/settings.ex:227
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "メールアドレス変更の確認リンクが新しいアドレスに送信されました。"
@@ -379,15 +380,10 @@ msgstr "既に登録済みですか？"
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr "%{email} にメールを送信しました。メール内のリンクからアカウントを確認してください。"
 
-#: lib/diary_web/live/user_live/settings.ex:28
+#: lib/diary_web/live/user_live/settings.ex:72
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr "メールアドレスを変更"
-
-#: lib/diary_web/live/user_live/settings.ex:28
-#, elixir-autogen, elixir-format
-msgid "Changing..."
-msgstr "変更中..."
 
 #: lib/diary_web/live/user_live/confirmation.ex:34
 #, elixir-autogen, elixir-format
@@ -398,11 +394,6 @@ msgstr "今回だけログインして確認"
 #, elixir-autogen, elixir-format
 msgid "Confirm and stay logged in"
 msgstr "確認してログイン状態を保持"
-
-#: lib/diary_web/live/user_live/settings.ex:60
-#, elixir-autogen, elixir-format
-msgid "Confirm new password"
-msgstr "新しいパスワードの確認"
 
 #: lib/diary_web/live/user_live/confirmation.ex:28
 #: lib/diary_web/live/user_live/confirmation.ex:33
@@ -415,17 +406,12 @@ msgstr "確認中..."
 msgid "Don't have an account?"
 msgstr "アカウントをお持ちでないですか？"
 
-#: lib/diary_web/live/user_live/settings.ex:23
-#, elixir-autogen, elixir-format
-msgid "Email"
-msgstr "メールアドレス"
-
-#: lib/diary_web/live/user_live/settings.ex:82
+#: lib/diary_web/live/user_live/settings.ex:127
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr "メールアドレス変更リンクが無効か、または期限切れです。"
 
-#: lib/diary_web/live/user_live/settings.ex:79
+#: lib/diary_web/live/user_live/settings.ex:124
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "メールアドレスが正常に変更されました。"
@@ -445,7 +431,7 @@ msgstr "メールアドレスまたはパスワードが正しくありません
 msgid "Keep me logged in on this device"
 msgstr "このデバイスでログイン状態を保持する"
 
-#: lib/diary_web/components/layouts/root.html.heex:57
+#: lib/diary_web/components/layouts/root.html.heex:94
 #: lib/diary_web/live/user_live/confirmation.ex:50
 #: lib/diary_web/live/user_live/login.ex:13
 #: lib/diary_web/live/user_live/registration.ex:18
@@ -475,17 +461,7 @@ msgstr "ログイン中..."
 msgid "Magic link is invalid or it has expired."
 msgstr "マジックリンクが無効か、または期限切れです。"
 
-#: lib/diary_web/live/user_live/settings.ex:15
-#, elixir-autogen, elixir-format
-msgid "Manage your account email address and password settings"
-msgstr "メールアドレスとパスワードの設定を変更します"
-
-#: lib/diary_web/live/user_live/settings.ex:52
-#, elixir-autogen, elixir-format
-msgid "New password"
-msgstr "新しいパスワード"
-
-#: lib/diary_web/live/workout/workout_live.ex:311
+#: lib/diary_web/live/workout/workout_live.ex:325
 #, elixir-autogen, elixir-format
 msgid "Only you can ignite your own destiny."
 msgstr "己の運命に火を灯せるのは、自分自身だけだ。"
@@ -500,15 +476,10 @@ msgstr "パスワードが正常に更新されました！"
 msgid "Register for an account"
 msgstr "新規登録"
 
-#: lib/diary_web/live/user_live/settings.ex:65
+#: lib/diary_web/live/user_live/settings.ex:109
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr "パスワードを保存"
-
-#: lib/diary_web/live/user_live/settings.ex:64
-#, elixir-autogen, elixir-format
-msgid "Saving..."
-msgstr "保存中..."
 
 #: lib/diary_web/live/user_live/login.ex:22
 #, elixir-autogen, elixir-format
@@ -1016,22 +987,23 @@ msgstr ""
 msgid "腕"
 msgstr ""
 
-#: lib/diary_web/components/layouts/root.html.heex:50
+#: lib/diary_web/components/layouts/root.html.heex:87
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr "ログアウト"
 
-#: lib/diary_web/components/layouts/root.html.heex:54
+#: lib/diary_web/components/layouts/root.html.heex:91
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr "新規登録"
 
-#: lib/diary_web/components/layouts/root.html.heex:47
+#: lib/diary_web/components/layouts/root.html.heex:79
+#: lib/diary_web/components/layouts/root.html.heex:84
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr "設定"
 
-#: lib/diary_web/live/workout/workout_live.ex:385
+#: lib/diary_web/live/workout/workout_live.ex:410
 #, elixir-autogen, elixir-format
 msgid "Est. 1RM"
 msgstr "推定1RM"
@@ -1051,34 +1023,89 @@ msgstr "日次サマリーを出力"
 msgid "Export Detailed Logs"
 msgstr "詳細ログを出力"
 
-#: lib/diary_web/live/diary/diary_live.ex:300
+#: lib/diary_web/live/diary/diary_component.ex:134
 #, elixir-autogen, elixir-format
 msgid "Record even the small things you’ve accomplished, and use them to check that you’re maintaining a disciplined lifestyle."
 msgstr "小さなことでも達成したことを記録して、規律ある生活ができているか確認しましょう"
 
-#: lib/diary_web/live/timer/timer_live.ex:170
+#: lib/diary_web/live/timer/timer_live.ex:174
 #, elixir-autogen, elixir-format
 msgid "Lap Times"
 msgstr "ラップタイム"
 
-#: lib/diary_web/live/timer/timer_live.ex:97
+#: lib/diary_web/live/timer/timer_live.ex:101
 #, elixir-autogen, elixir-format
 msgid "Min"
 msgstr "分"
 
-#: lib/diary_web/live/timer/timer_live.ex:106
+#: lib/diary_web/live/timer/timer_live.ex:110
 #, elixir-autogen, elixir-format
 msgid "Sec"
 msgstr "秒"
 
-#: lib/diary_web/live/timer/timer_live.ex:41
+#: lib/diary_web/live/timer/timer_live.ex:45
 #, elixir-autogen, elixir-format
 msgid "Stopwatch"
 msgstr "ストップウォッチ"
 
 #: lib/diary_web/components/layouts.ex:74
 #: lib/diary_web/components/layouts.ex:134
-#: lib/diary_web/live/timer/timer_live.ex:34
+#: lib/diary_web/live/timer/timer_live.ex:38
 #, elixir-autogen, elixir-format
 msgid "Timer"
 msgstr "タイマー"
+
+#: lib/diary_web/live/user_live/settings.ex:187
+#, elixir-autogen, elixir-format
+msgid "Avatar updated successfully."
+msgstr "アバターを正常に更新しました。"
+
+#: lib/diary_web/live/user_live/settings.ex:197
+#, elixir-autogen, elixir-format
+msgid "Failed to upload avatar image."
+msgstr "アバター画像のアップロードに失敗しました。"
+
+#: lib/diary_web/live/user_live/settings.ex:262
+#, elixir-autogen, elixir-format
+msgid "File is too large (max 5MB)"
+msgstr "ファイルサイズが大きすぎます (最大5MB)"
+
+#: lib/diary_web/live/user_live/settings.ex:27
+#, elixir-autogen, elixir-format
+msgid "JPG, PNG, WebP up to 5MB."
+msgstr "JPG, PNG, WebP (最大5MB)"
+
+#: lib/diary_web/live/user_live/settings.ex:15
+#, elixir-autogen, elixir-format
+msgid "Manage your account email address, password, and avatar settings"
+msgstr "アカウントのメールアドレス、パスワード、およびアバター画像の設定を管理します"
+
+#: lib/diary_web/live/user_live/settings.ex:21
+#, elixir-autogen, elixir-format
+msgid "Profile Picture"
+msgstr "プロフィール画像"
+
+#: lib/diary_web/live/user_live/settings.ex:264
+#, elixir-autogen, elixir-format
+msgid "Unacceptable file type"
+msgstr "許可されていないファイル形式です"
+
+#: lib/diary_web/live/user_live/settings.ex:55
+#, elixir-autogen, elixir-format
+msgid "Upload Avatar"
+msgstr "アバターをアップロード"
+
+#: lib/diary_web/live/user_live/settings.ex:26
+#, elixir-autogen, elixir-format
+msgid "Upload a new avatar image."
+msgstr "新しいアバター画像をアップロードします。"
+
+#: lib/diary_web/live/user_live/settings.ex:54
+#, elixir-autogen, elixir-format
+msgid "Uploading..."
+msgstr "アップロード中..."
+
+#: lib/diary_web/live/user_live/settings.ex:263
+#, elixir-autogen, elixir-format
+msgid "You have selected too many files"
+msgstr "選択したファイル数が多すぎます"
