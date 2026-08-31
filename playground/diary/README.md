@@ -116,9 +116,25 @@ Phoenix / LiveView (`.heex`, `.html.heex`) テンプレートでコメントを�
 
 ---
 
+## ⚡️ JS Hook ディレクトリ分割ルール (`assets/js/hooks/`)
+
+Phoenix LiveView の `phx-hook` で使用する JS Hook は、`app.js` に直書きせず、`assets/js/hooks/` 配下にモジュール分割して作成・インポートします。
+
+```text
+assets/js/
+├── app.js                 # エントリポイント & Hooks の集約インポート
+└── hooks/
+    ├── index.js           # 全 Hooks をエクスポートする集約ファイル
+    ├── shared/            # 共通 Hook (例: geolocation.js, theme.js 等)
+    └── services/          # サービス固有 Hook (例: gym/timer.js 等)
+```
+
+---
+
 ## 🤖 AI アシスタントへの指示 (Instructions for AI)
 
 - コード生成やディレクトリ作成を行う際は、上記の `services/<service_name>` 境界を必ず遵守してください。
 - サービス固有のロジックやUIを `shared` や `core_components.ex` に直接混入させないでください。
 - コンポーネントを作成する際は、再利用性（`shared/`）とサービス固有性（`services/<service_name>/`）を常に判断して適切なディレクトリに配置してください。
 - HEEx テンプレート (`.heex`, `.html.heex`) 内のコメントアウトには、非推奨の `<%# ... %>` ではなく、必ず **`<%!-- ... --%>`** 構文を使用してください。
+- LiveView の JS Hook を作成する際は `app.js` に直接定義せず、必ず `assets/js/hooks/shared/` または `assets/js/hooks/services/<service_name>/` 配下に分割作成し、`assets/js/hooks/index.js` からインポートしてください。

@@ -4,6 +4,7 @@ defmodule DiaryWeb.UserLive.Settings do
   on_mount {DiaryWeb.UserAuth, :require_sudo_mode}
 
   alias Diary.Accounts
+  alias DiaryWeb.Services.Gym.LocationSettingsComponent
 
   @impl true
   def render(assigns) do
@@ -56,6 +57,13 @@ defmodule DiaryWeb.UserLive.Settings do
           </.button>
         </form>
       </div>
+
+      <!-- Render Gym-specific LocationSettingsComponent -->
+      <LocationSettingsComponent.location_settings
+        location_enabled={@location_enabled}
+        location={@location}
+        location_error={@location_error}
+      />
 
     <!--
       <div class="divider" />
@@ -137,6 +145,27 @@ defmodule DiaryWeb.UserLive.Settings do
     email_changeset = Accounts.change_user_email(user, %{}, validate_unique: false)
     password_changeset = Accounts.change_user_password(user, %{}, hash_password: false)
 
+    # Fetch service-specific location setting for "gym" from DB
+    gym_setting = Accounts.get_user_service_setting(user, "gym")
+    location =
+      if gym_setting.latitude && gym_setting.longitude do
+        last_updated =
+          if gym_setting.updated_at do
+            Calendar.strftime(gym_setting.updated_at, "%Y-%m-%d %H:%M:%S UTC")
+          else
+            nil
+          end
+
+        %{
+          latitude: gym_setting.latitude,
+          longitude: gym_setting.longitude,
+          accuracy: gym_setting.accuracy,
+          last_updated_at: last_updated
+        }
+      else
+        nil
+      end
+
     socket =
       socket
       |> assign(:current_email, user.email)
@@ -144,6 +173,10 @@ defmodule DiaryWeb.UserLive.Settings do
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
+      # Assign service-specific location state variables from DB
+      |> assign(:location_enabled, gym_setting.location_enabled)
+      |> assign(:location, location)
+      |> assign(:location_error, nil)
       # Configure LiveView upload for user avatar images
       |> allow_upload(:avatar,
         accept: ~w(.jpg .jpeg .png .webp),
@@ -155,6 +188,77 @@ defmodule DiaryWeb.UserLive.Settings do
   end
 
   @impl true
+  # Toggle location tracking ON/OFF for "gym" service and persist to DB
+  def handle_event("toggle_location", _params, socket) do
+    user = socket.assigns.current_scope.user
+
+    if socket.assigns.location_enabled do
+      # Disable tracking in DB and notify JS hook to stop 5-minute timer
+      {:ok, _setting} = Accounts.update_user_service_setting(user, "gym", %{location_enabled: false})
+
+      socket =
+        socket
+        |> assign(:location_enabled, false)
+        |> assign(:location, nil)
+        |> assign(:location_error, nil)
+        |> put_flash(:info, gettext("Location tracking disabled."))
+
+      {:noreply, push_event(socket, "stop_periodic_geolocation", %{})}
+    else
+      # Enable tracking in DB and notify JS hook to start 5-minute timer
+      {:ok, _setting} = Accounts.update_user_service_setting(user, "gym", %{location_enabled: true})
+
+      socket =
+        socket
+        |> assign(:location_enabled, true)
+        |> assign(:location_error, nil)
+        |> put_flash(:info, gettext("Location tracking enabled (5-min interval)."))
+
+      {:noreply, push_event(socket, "start_periodic_geolocation", %{})}
+    end
+  end
+
+  # Receive periodic location data from JS Hook and persist coordinates to DB
+  def handle_event("geolocation_success", %{"latitude" => lat, "longitude" => lng, "accuracy" => acc}, socket) do
+    user = socket.assigns.current_scope.user
+
+    {:ok, updated_setting} =
+      Accounts.update_user_service_setting(user, "gym", %{
+        location_enabled: true,
+        latitude: lat,
+        longitude: lng,
+        accuracy: acc
+      })
+
+    last_updated = Calendar.strftime(updated_setting.updated_at, "%Y-%m-%d %H:%M:%S UTC")
+
+    location = %{
+      latitude: updated_setting.latitude,
+      longitude: updated_setting.longitude,
+      accuracy: updated_setting.accuracy,
+      last_updated_at: last_updated
+    }
+
+    socket =
+      socket
+      |> assign(:location, location)
+      |> assign(:location_error, nil)
+
+    {:noreply, socket}
+  end
+
+  # Receive geolocation error or permission denial from JS Hook
+  def handle_event("geolocation_error", %{"message" => msg}, socket) do
+    error_msg = gettext("Location access failed: %{message}", message: msg)
+
+    socket =
+      socket
+      |> assign(:location_error, msg)
+      |> put_flash(:error, error_msg)
+
+    {:noreply, socket}
+  end
+
   def handle_event("validate_avatar", _params, socket) do
     {:noreply, socket}
   end

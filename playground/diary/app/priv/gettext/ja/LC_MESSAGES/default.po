@@ -133,7 +133,7 @@ msgid "Yearly"
 msgstr "年"
 
 #: lib/diary_web/live/gym/workout/workout_live.ex:288
-#: lib/diary_web/live/shared/user_live/settings.ex:42
+#: lib/diary_web/live/shared/user_live/settings.ex:43
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr "キャンセル"
@@ -360,12 +360,12 @@ msgstr ""
 msgid "Daily"
 msgstr "日"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:234
+#: lib/diary_web/live/shared/user_live/settings.ex:338
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr "メールアドレス変更の確認リンクが新しいアドレスに送信されました。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:14
+#: lib/diary_web/live/shared/user_live/settings.ex:15
 #, elixir-autogen, elixir-format
 msgid "Account Settings"
 msgstr "アカウント設定"
@@ -380,7 +380,7 @@ msgstr "既に登録済みですか？"
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr "%{email} にメールを送信しました。メール内のリンクからアカウントを確認してください。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:72
+#: lib/diary_web/live/shared/user_live/settings.ex:80
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr "メールアドレスを変更"
@@ -406,12 +406,12 @@ msgstr "確認中..."
 msgid "Don't have an account?"
 msgstr "アカウントをお持ちでないですか？"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:127
+#: lib/diary_web/live/shared/user_live/settings.ex:135
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr "メールアドレス変更リンクが無効か、または期限切れです。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:124
+#: lib/diary_web/live/shared/user_live/settings.ex:132
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "メールアドレスが正常に変更されました。"
@@ -476,7 +476,7 @@ msgstr "パスワードが正常に更新されました！"
 msgid "Register for an account"
 msgstr "新規登録"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:109
+#: lib/diary_web/live/shared/user_live/settings.ex:117
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr "パスワードを保存"
@@ -1055,57 +1055,97 @@ msgstr "ストップウォッチ"
 msgid "Timer"
 msgstr "タイマー"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:187
+#: lib/diary_web/live/shared/user_live/settings.ex:291
 #, elixir-autogen, elixir-format
 msgid "Avatar updated successfully."
 msgstr "アバターを正常に更新しました。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:204
+#: lib/diary_web/live/shared/user_live/settings.ex:308
 #, elixir-autogen, elixir-format
 msgid "Failed to upload avatar image."
 msgstr "アバター画像のアップロードに失敗しました。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:269
+#: lib/diary_web/live/shared/user_live/settings.ex:373
 #, elixir-autogen, elixir-format
 msgid "File is too large (max 5MB)"
 msgstr "ファイルサイズが大きすぎます (最大5MB)"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:27
+#: lib/diary_web/live/shared/user_live/settings.ex:28
 #, elixir-autogen, elixir-format
 msgid "JPG, PNG, WebP up to 5MB."
 msgstr "JPG, PNG, WebP (最大5MB)"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:15
+#: lib/diary_web/live/shared/user_live/settings.ex:16
 #, elixir-autogen, elixir-format
 msgid "Manage your account email address, password, and avatar settings"
 msgstr "アカウントのメールアドレス、パスワード、およびアバター画像の設定を管理します"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:21
+#: lib/diary_web/live/shared/user_live/settings.ex:22
 #, elixir-autogen, elixir-format
 msgid "Profile Picture"
 msgstr "プロフィール画像"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:271
+#: lib/diary_web/live/shared/user_live/settings.ex:375
 #, elixir-autogen, elixir-format
 msgid "Unacceptable file type"
 msgstr "許可されていないファイル形式です"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:55
+#: lib/diary_web/live/shared/user_live/settings.ex:56
 #, elixir-autogen, elixir-format
 msgid "Upload Avatar"
 msgstr "アバターをアップロード"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:26
+#: lib/diary_web/live/shared/user_live/settings.ex:27
 #, elixir-autogen, elixir-format
 msgid "Upload a new avatar image."
 msgstr "新しいアバター画像をアップロードします。"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:54
+#: lib/diary_web/live/shared/user_live/settings.ex:55
 #, elixir-autogen, elixir-format
 msgid "Uploading..."
 msgstr "アップロード中..."
 
-#: lib/diary_web/live/shared/user_live/settings.ex:270
+#: lib/diary_web/live/shared/user_live/settings.ex:374
 #, elixir-autogen, elixir-format
 msgid "You have selected too many files"
 msgstr "選択したファイル数が多すぎます"
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:20
+#, elixir-autogen, elixir-format
+msgid "Location Settings"
+msgstr "位置情報設定"
+
+#: lib/diary_web/live/shared/user_live/settings.ex:252
+#, elixir-autogen, elixir-format
+msgid "Location access failed: %{message}"
+msgstr "位置情報の取得に失敗しました: %{message}"
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:43
+#, elixir-autogen, elixir-format
+msgid "Active"
+msgstr "有効"
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:22
+#, elixir-autogen, elixir-format
+msgid "Allow location access to enable periodic location updates (every 5 mins)."
+msgstr "位置情報を許可して、定期的な位置情報の自動更新 (5分間隔) を有効にします。"
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:51
+#, elixir-autogen, elixir-format
+msgid "Last updated:"
+msgstr "最終更新日時:"
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:41
+#, elixir-autogen, elixir-format
+msgid "Location Tracking Active (Every 5 mins)"
+msgstr "位置追跡が有効です (5分間隔)"
+
+#: lib/diary_web/live/shared/user_live/settings.ex:204
+#, elixir-autogen, elixir-format
+msgid "Location tracking disabled."
+msgstr "位置追跡を無効にしました。"
+
+#: lib/diary_web/live/shared/user_live/settings.ex:215
+#, elixir-autogen, elixir-format
+msgid "Location tracking enabled (5-min interval)."
+msgstr "位置追跡を有効にしました (5分間隔)。"

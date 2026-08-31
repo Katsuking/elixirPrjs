@@ -6,7 +6,7 @@ defmodule Diary.Accounts do
   import Ecto.Query, warn: false
   alias Diary.Repo
 
-  alias Diary.Accounts.{User, UserToken, UserNotifier}
+  alias Diary.Accounts.{User, UserToken, UserNotifier, UserServiceSetting}
 
   ## Database getters
 
@@ -305,5 +305,29 @@ defmodule Diary.Accounts do
         {:ok, {user, tokens_to_expire}}
       end
     end)
+  end
+
+  ## User Service Settings
+
+  @doc """
+  Gets the user service setting for a specific service (e.g. "gym").
+  Returns a new struct with default values if no setting exists yet.
+  """
+  def get_user_service_setting(%User{id: user_id}, service_name) when is_binary(service_name) do
+    case Repo.get_by(UserServiceSetting, user_id: user_id, service_name: service_name) do
+      nil -> %UserServiceSetting{user_id: user_id, service_name: service_name, location_enabled: false}
+      setting -> setting
+    end
+  end
+
+  @doc """
+  Updates or inserts a user service setting record for a specific service.
+  """
+  def update_user_service_setting(%User{} = user, service_name, attrs) when is_binary(service_name) do
+    setting = get_user_service_setting(user, service_name)
+
+    setting
+    |> UserServiceSetting.changeset(attrs)
+    |> Repo.insert_or_update()
   end
 end

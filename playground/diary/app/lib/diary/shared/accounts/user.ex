@@ -12,6 +12,7 @@ defmodule Diary.Accounts.User do
 
     timestamps(type: :utc_datetime)
     has_many :user_identities, Diary.Accounts.UserIdentity
+    has_many :user_service_settings, Diary.Accounts.UserServiceSetting
   end
 
   @doc """
