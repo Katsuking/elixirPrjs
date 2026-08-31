@@ -1,23 +1,25 @@
-# Use Elixir 1.19 to match the Livebook runtime compatibility requirement (~> 1.19.0)
-FROM elixir:1.19-alpine
+# Use Debian-based Elixir image to match the production environment
+FROM hexpm/elixir:1.19.5-erlang-28.5.0.2-debian-trixie-20260623-slim
 
+# Install build dependencies, git, SSL certs, and utilities for Bun
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends build-essential git curl unzip ca-certificates inotify-tools \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install necessary build tools and git
-RUN apk add --no-cache \
-    build-base \
-    inotify-tools \
-    git
+# Install Bun directly using official installer
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
 
 WORKDIR /app
 
-# Mixのホームディレクトリを明示的に指定（環境変数の追加）
+# Set Mix home directory
 ENV MIX_HOME=/root/.mix
 
-# HexとRebar（Elixirのパッケージ管理ツール）をインストール
+# Install Hex and Rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-# Phoenixのインストーラーを取得
+# Install Phoenix installer archive
 RUN mix archive.install hex phx_new --force
 
 CMD ["mix", "phx.server"]

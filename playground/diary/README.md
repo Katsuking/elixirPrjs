@@ -99,6 +99,7 @@ make locale
 ## 📝 テンプレート書き方・コーディング規約 (HEEx Template Rules)
 
 ### HEEx テンプレートにおけるコメント構文
+
 Phoenix / LiveView (`.heex`, `.html.heex`) テンプレートでコメントを記述する場合は、最新の **`<%!-- ... --%>`** 構文を使用してください。
 
 ```heex
@@ -123,11 +124,32 @@ Phoenix LiveView の `phx-hook` で使用する JS Hook は、`app.js` に直書
 ```text
 assets/js/
 ├── app.js                 # エントリポイント & Hooks の集約インポート
+├── utils/                 # ユーティリティモジュール (例: h3_calculator.js)
 └── hooks/
     ├── index.js           # 全 Hooks をエクスポートする集約ファイル
     ├── shared/            # 共通 Hook (例: geolocation.js, theme.js 等)
     └── services/          # サービス固有 Hook (例: gym/timer.js 等)
 ```
+
+---
+
+## 🗺 位置情報・H3 空間インデックス仕様 (`h3-js` / Bun)
+
+位置情報の取得およびプライバシー配慮のため、Uber の **H3 Spatial Indexing Library (`h3-js`)** を導入しています。
+
+### フロントエンドパッケージ管理 (Bun)
+
+- アセットディレクトリ (`app/assets`) 内のパッケージ管理には **Bun** を採用しています (`package.json`, `bun.lock`)。
+- JS の単体テストは `cd app/assets && bun test` で実行可能です。
+
+### 位置情報の粗視化（プライバシー保護とマルチ解像度）
+
+ブラウザの Geolocation API で取得した正確な緯度・経度は、`assets/js/utils/h3_calculator.js` 内で H3 セルインデックスに変換され、粗視化（おおよその位置情報）された上で Phoenix LiveView サーバーへ送信されます。
+
+- **Resolution 8（近隣レベル / 一辺 約460m, 面積 約0.73 km²）**: 近隣施設のマッチングや精度の高いチェックイン判定に使用。
+- **Resolution 7（広域レベル / 一辺 約1.2km, 面積 約5.16 km²）**: プライバシーを配慮したおおよその地域表示や広域集計に使用。
+
+正確な座標に加えて H3 インデックスおよびセル中心の概算座標を扱うことで、ユーザーのプライバシーに考慮した「おおよその位置情報」の保持・活用が可能です。
 
 ---
 
@@ -138,3 +160,4 @@ assets/js/
 - コンポーネントを作成する際は、再利用性（`shared/`）とサービス固有性（`services/<service_name>/`）を常に判断して適切なディレクトリに配置してください。
 - HEEx テンプレート (`.heex`, `.html.heex`) 内のコメントアウトには、非推奨の `<%# ... %>` ではなく、必ず **`<%!-- ... --%>`** 構文を使用してください。
 - LiveView の JS Hook を作成する際は `app.js` に直接定義せず、必ず `assets/js/hooks/shared/` または `assets/js/hooks/services/<service_name>/` 配下に分割作成し、`assets/js/hooks/index.js` からインポートしてください。
+- JS パッケージを追加・利用する際は `app/assets` 配下で **Bun (`bun`)** を使用してください。

@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "test": "bun test"
+  },
+  "dependencies": {
+    "h3-js": "^4.5.0",
+    "phoenix": "../deps/phoenix",
+    "phoenix_html": "../deps/phoenix_html",
+    "phoenix_live_view": "../deps/phoenix_live_view"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.0",
+    "@types/phoenix": "^1.6.7",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1149,3 +1149,12 @@ msgstr "位置追跡を無効にしました。"
 #, elixir-autogen, elixir-format
 msgid "Location tracking enabled (5-min interval)."
 msgstr "位置追跡を有効にしました (5分間隔)。"
+
+msgid "Privacy-Protected"
+msgstr "プライバシー保護済み"
+
+msgid "Allow location access for periodic area updates. Your exact GPS coordinates are never sent or stored on our servers — only approximate area data (~460m grid) is preserved."
+msgstr "定期的なエリア更新のために位置情報のアクセスを許可します。正確なピンポイントのGPS座標はサーバーに送信・保存されません。約460mグリッドのおおよそのエリア情報のみが安全に保護されます。"
+
+msgid "Approx Area (Res 8):"
+msgstr "概算エリア (Res 8):"

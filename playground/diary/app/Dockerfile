@@ -26,12 +26,16 @@ ARG RUNNER_IMAGE="docker.io/debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} AS builder
 
-# install build dependencies
+# install build dependencies and tools for Bun
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends build-essential git \
+  && apt-get install -y --no-install-recommends build-essential git curl unzip ca-certificates \
   && rm -rf /var/lib/apt/lists/* \
   && git config --global http.postBuffer 524288000 \
   && git config --global http.version HTTP/1.1
+
+# Install Bun JS runtime and package manager
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
 
 # prepare build dir
 WORKDIR /app
@@ -64,6 +68,9 @@ COPY lib lib
 RUN mix compile
 
 COPY assets assets
+
+# Install JS packages using Bun before compiling assets
+RUN cd assets && bun install --frozen-lockfile
 
 # compile assets
 RUN mix assets.deploy

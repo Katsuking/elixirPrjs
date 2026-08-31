@@ -209,4 +209,41 @@ defmodule DiaryWeb.UserLive.SettingsTest do
       assert message == "You must log in to access this page."
     end
   end
+
+  describe "geolocation and H3 index handling" do
+    setup %{conn: conn} do
+      user = user_fixture()
+      %{conn: log_in_user(conn, user), user: user}
+    end
+
+    test "handles geolocation_success event with H3 index and approximate coordinates", %{conn: conn} do
+      {:ok, lv, _html} = live(conn, ~p"/users/settings")
+
+      # Simulate privacy-first geolocation_success event without exact raw coordinates
+      h3_payload = %{
+        "accuracy" => 15,
+        "h3_index_res8" => "882f5a32bffffff",
+        "approx_latitude_res8" => 35.6811,
+        "approx_longitude_res8" => 139.7670,
+        "h3_index_res7" => "872f5a32bffffff",
+        "approx_latitude_res7" => 35.6810,
+        "approx_longitude_res7" => 139.7669
+      }
+
+      render_hook(lv, "geolocation_success", h3_payload)
+
+      # Verify socket assigns contain approximate H3 locations and DB receives approx coordinates
+      state = :sys.get_state(lv.pid)
+      location = state.socket.assigns.location
+
+      assert location.latitude == 35.6811
+      assert location.longitude == 139.7670
+      assert location.h3_index_res8 == "882f5a32bffffff"
+      assert location.approx_latitude_res8 == 35.6811
+      assert location.approx_longitude_res8 == 139.7670
+      assert location.h3_index_res7 == "872f5a32bffffff"
+      assert location.approx_latitude_res7 == 35.6810
+      assert location.approx_longitude_res7 == 139.7669
+    end
+  end
 end

@@ -1,5 +1,6 @@
 defmodule DiaryWeb.UserLive.Settings do
   use DiaryWeb, :live_view
+  require Logger
 
   on_mount {DiaryWeb.UserAuth, :require_sudo_mode}
 
@@ -219,32 +220,62 @@ defmodule DiaryWeb.UserLive.Settings do
   end
 
   # Receive periodic location data from JS Hook and persist coordinates to DB
-  def handle_event("geolocation_success", %{"latitude" => lat, "longitude" => lng, "accuracy" => acc}, socket) do
+  def handle_event("geolocation_success", params, socket) do
     user = socket.assigns.current_scope.user
+    lat = Map.get(params, "latitude")
+    lng = Map.get(params, "longitude")
+    acc = Map.get(params, "accuracy")
+    h3_index_res8 = Map.get(params, "h3_index_res8") || Map.get(params, "h3_index")
+    approx_lat_res8 = Map.get(params, "approx_latitude_res8") || Map.get(params, "approx_latitude")
+    approx_lng_res8 = Map.get(params, "approx_longitude_res8") || Map.get(params, "approx_longitude")
+    h3_index_res7 = Map.get(params, "h3_index_res7")
+    approx_lat_res7 = Map.get(params, "approx_latitude_res7")
+    approx_lng_res7 = Map.get(params, "approx_longitude_res7")
 
-    {:ok, updated_setting} =
-      Accounts.update_user_service_setting(user, "gym", %{
-        location_enabled: true,
-        latitude: lat,
-        longitude: lng,
-        accuracy: acc
-      })
+    # Use approximate H3 coordinates (Res 8 center) for DB storage to enforce server-side privacy
+    save_lat = approx_lat_res8 || Map.get(params, "latitude")
+    save_lng = approx_lng_res8 || Map.get(params, "longitude")
 
-    last_updated = Calendar.strftime(updated_setting.updated_at, "%Y-%m-%d %H:%M:%S UTC")
+    case Accounts.update_user_service_setting(user, "gym", %{
+           location_enabled: true,
+           latitude: save_lat,
+           longitude: save_lng,
+           accuracy: acc
+         }) do
+      {:ok, updated_setting} ->
+        last_updated = Calendar.strftime(updated_setting.updated_at, "%Y-%m-%d %H:%M:%S UTC")
 
-    location = %{
-      latitude: updated_setting.latitude,
-      longitude: updated_setting.longitude,
-      accuracy: updated_setting.accuracy,
-      last_updated_at: last_updated
-    }
+        location = %{
+          latitude: updated_setting.latitude,
+          longitude: updated_setting.longitude,
+          accuracy: updated_setting.accuracy,
+          h3_index_res8: h3_index_res8,
+          approx_latitude_res8: approx_lat_res8,
+          approx_longitude_res8: approx_lng_res8,
+          h3_index_res7: h3_index_res7,
+          approx_latitude_res7: approx_lat_res7,
+          approx_longitude_res7: approx_lng_res7,
+          last_updated_at: last_updated
+        }
 
-    socket =
-      socket
-      |> assign(:location, location)
-      |> assign(:location_error, nil)
+        socket =
+          socket
+          |> assign(:location, location)
+          |> assign(:location_error, nil)
 
-    {:noreply, socket}
+        {:noreply, socket}
+
+      {:error, changeset} ->
+        # Log sanitized errors (field names and reasons only) to prevent leaking raw location PII into server logs
+        Logger.error("Failed to update location for user #{user.id}: #{inspect(changeset.errors)}")
+
+        socket =
+          socket
+          |> put_flash(:error, gettext("Failed to update location settings."))
+          |> assign(:location_error, gettext("Could not save location data."))
+
+        {:noreply, socket}
+    end
   end
 
   # Receive geolocation error or permission denial from JS Hook

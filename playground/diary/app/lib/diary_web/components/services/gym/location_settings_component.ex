@@ -17,9 +17,14 @@ defmodule DiaryWeb.Services.Gym.LocationSettingsComponent do
     <div id="location-settings" phx-hook="Geolocation" class="my-6 p-4 border border-slate-200 dark:border-zinc-800 rounded-lg max-w-xl mx-auto">
       <div class="flex items-center justify-between">
         <div>
-          <h3 class="text-lg font-semibold"><%= gettext("Location Settings") %></h3>
-          <p class="text-sm text-slate-600 dark:text-zinc-400">
-            <%= gettext("Allow location access to enable periodic location updates (every 5 mins).") %>
+          <h3 class="text-lg font-semibold flex items-center gap-2">
+            <%= gettext("Location Settings") %>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-normal bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300">
+              <%= gettext("Privacy-Protected") %>
+            </span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-zinc-400 mt-1">
+            <%= gettext("Allow location access for periodic area updates. Your exact GPS coordinates are never sent or stored on our servers — only approximate area data (~460m grid) is preserved.") %>
           </p>
         </div>
 
@@ -43,11 +48,14 @@ defmodule DiaryWeb.Services.Gym.LocationSettingsComponent do
               <%= gettext("Active") %>
             </span>
           </div>
-          <p class="text-xs font-mono mt-1">
-            Lat: {@location.latitude}, Lng: {@location.longitude} (±{@location.accuracy}m)
-          </p>
+          <div class="text-xs font-mono mt-2 space-y-0.5">
+            <p><%= gettext("Approx Area (Res 8):") %> {@location.latitude}, {@location.longitude}</p>
+            <%= if @location[:h3_index_res8] do %>
+              <p class="text-slate-500 dark:text-zinc-400">H3 Cell: {@location.h3_index_res8}</p>
+            <% end %>
+          </div>
           <%= if @location[:last_updated_at] do %>
-            <p class="text-xs text-slate-400 mt-1">
+            <p class="text-xs text-slate-400 mt-2">
               <%= gettext("Last updated:") %> {@location.last_updated_at}
             </p>
           <% end %>
