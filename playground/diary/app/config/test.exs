@@ -49,3 +49,6 @@ config :diary, Oban, testing: :manual
 
 # Configure Notifier Req options for mocking in test environment
 config :diary, :notifier_req_options, plug: {Req.Test, Diary.Workers.Notifier}
+
+# Allow default test host www.example.com in test environment
+config :diary, :allowed_hosts, ["localhost", "127.0.0.1", "www.example.com"]

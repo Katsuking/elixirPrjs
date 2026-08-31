@@ -98,6 +98,7 @@ defmodule DiaryWeb.Router do
       on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
       # Core application routes requiring login
       live "/", DiaryLive
+      live "/menu", MenuLive
       live "/stats", StatsLive
       live "/timer", TimerLive
       live "/workout/:date", WorkoutLive

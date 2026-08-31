@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/diary_web/components/layouts.ex:182
-#: lib/diary_web/components/layouts.ex:197
+#: lib/diary_web/components/layouts.ex:169
+#: lib/diary_web/components/layouts.ex:184
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/diary_web/components/layouts.ex:189
+#: lib/diary_web/components/layouts.ex:176
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/diary_web/components/layouts.ex:174
+#: lib/diary_web/components/layouts.ex:161
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -133,7 +133,7 @@ msgid "Yearly"
 msgstr ""
 
 #: lib/diary_web/live/gym/workout/workout_live.ex:288
-#: lib/diary_web/live/shared/user_live/settings.ex:43
+#: lib/diary_web/live/shared/user_live/settings.ex:44
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
@@ -214,7 +214,7 @@ msgid "Add New Entry"
 msgstr "Add New Entry"
 
 #: lib/diary_web/components/layouts.ex:63
-#: lib/diary_web/components/layouts.ex:123
+#: lib/diary_web/live/shared/menu_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "Calendar"
 msgstr "Calendar"
@@ -235,7 +235,7 @@ msgid "Prev"
 msgstr "Prev"
 
 #: lib/diary_web/components/layouts.ex:85
-#: lib/diary_web/components/layouts.ex:145
+#: lib/diary_web/live/shared/menu_live.ex:96
 #, elixir-autogen, elixir-format
 msgid "Stats"
 msgstr "Stats"
@@ -360,12 +360,12 @@ msgstr "Glutes"
 msgid "Daily"
 msgstr "Daily"
 
-#: lib/diary_web/live/shared/user_live/settings.ex:338
+#: lib/diary_web/live/shared/user_live/settings.ex:369
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:15
+#: lib/diary_web/live/shared/user_live/settings.ex:16
 #, elixir-autogen, elixir-format
 msgid "Account Settings"
 msgstr ""
@@ -380,7 +380,7 @@ msgstr ""
 msgid "An email was sent to %{email}, please access it to confirm your account."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:80
+#: lib/diary_web/live/shared/user_live/settings.ex:81
 #, elixir-autogen, elixir-format
 msgid "Change Email"
 msgstr ""
@@ -406,12 +406,12 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:135
+#: lib/diary_web/live/shared/user_live/settings.ex:136
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:132
+#: lib/diary_web/live/shared/user_live/settings.ex:133
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr ""
@@ -476,7 +476,7 @@ msgstr ""
 msgid "Register for an account"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:117
+#: lib/diary_web/live/shared/user_live/settings.ex:118
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr ""
@@ -988,6 +988,7 @@ msgid "腕"
 msgstr "Arms"
 
 #: lib/diary_web/components/layouts/root.html.heex:87
+#: lib/diary_web/live/shared/menu_live.ex:135
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Log out"
 msgstr ""
@@ -999,6 +1000,7 @@ msgstr ""
 
 #: lib/diary_web/components/layouts/root.html.heex:79
 #: lib/diary_web/components/layouts/root.html.heex:84
+#: lib/diary_web/live/shared/menu_live.ex:114
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr ""
@@ -1049,103 +1051,165 @@ msgid "Stopwatch"
 msgstr ""
 
 #: lib/diary_web/components/layouts.ex:74
-#: lib/diary_web/components/layouts.ex:134
 #: lib/diary_web/live/gym/timer/timer_live.ex:38
+#: lib/diary_web/live/shared/menu_live.ex:78
 #, elixir-autogen, elixir-format
 msgid "Timer"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:291
+#: lib/diary_web/live/shared/user_live/settings.ex:322
 #, elixir-autogen, elixir-format
 msgid "Avatar updated successfully."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:308
+#: lib/diary_web/live/shared/user_live/settings.ex:339
 #, elixir-autogen, elixir-format
 msgid "Failed to upload avatar image."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:373
+#: lib/diary_web/live/shared/user_live/settings.ex:404
 #, elixir-autogen, elixir-format
 msgid "File is too large (max 5MB)"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:28
+#: lib/diary_web/live/shared/user_live/settings.ex:29
 #, elixir-autogen, elixir-format
 msgid "JPG, PNG, WebP up to 5MB."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:16
+#: lib/diary_web/live/shared/user_live/settings.ex:17
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Manage your account email address, password, and avatar settings"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:22
+#: lib/diary_web/live/shared/user_live/settings.ex:23
 #, elixir-autogen, elixir-format
 msgid "Profile Picture"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:375
+#: lib/diary_web/live/shared/user_live/settings.ex:406
 #, elixir-autogen, elixir-format
 msgid "Unacceptable file type"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:56
+#: lib/diary_web/live/shared/user_live/settings.ex:57
 #, elixir-autogen, elixir-format
 msgid "Upload Avatar"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:27
+#: lib/diary_web/live/shared/user_live/settings.ex:28
 #, elixir-autogen, elixir-format
 msgid "Upload a new avatar image."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:55
+#: lib/diary_web/live/shared/user_live/settings.ex:56
 #, elixir-autogen, elixir-format
 msgid "Uploading..."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:374
+#: lib/diary_web/live/shared/user_live/settings.ex:405
 #, elixir-autogen, elixir-format
 msgid "You have selected too many files"
 msgstr ""
 
-#: lib/diary_web/components/services/gym/location_settings_component.ex:20
+#: lib/diary_web/components/services/gym/location_settings_component.ex:21
 #, elixir-autogen, elixir-format
 msgid "Location Settings"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:252
+#: lib/diary_web/live/shared/user_live/settings.ex:283
 #, elixir-autogen, elixir-format
 msgid "Location access failed: %{message}"
 msgstr ""
 
-#: lib/diary_web/components/services/gym/location_settings_component.ex:43
+#: lib/diary_web/components/services/gym/location_settings_component.ex:48
 #, elixir-autogen, elixir-format
 msgid "Active"
 msgstr ""
 
-#: lib/diary_web/components/services/gym/location_settings_component.ex:22
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Allow location access to enable periodic location updates (every 5 mins)."
-msgstr ""
-
-#: lib/diary_web/components/services/gym/location_settings_component.ex:51
+#: lib/diary_web/components/services/gym/location_settings_component.ex:59
 #, elixir-autogen, elixir-format
 msgid "Last updated:"
 msgstr ""
 
-#: lib/diary_web/components/services/gym/location_settings_component.ex:41
+#: lib/diary_web/components/services/gym/location_settings_component.ex:46
 #, elixir-autogen, elixir-format
 msgid "Location Tracking Active (Every 5 mins)"
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:204
+#: lib/diary_web/live/shared/user_live/settings.ex:205
 #, elixir-autogen, elixir-format
 msgid "Location tracking disabled."
 msgstr ""
 
-#: lib/diary_web/live/shared/user_live/settings.ex:215
+#: lib/diary_web/live/shared/user_live/settings.ex:216
 #, elixir-autogen, elixir-format
 msgid "Location tracking enabled (5-min interval)."
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:34
+#, elixir-autogen, elixir-format
+msgid "Access features and manage your settings"
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:117
+#, elixir-autogen, elixir-format
+msgid "Account and location settings"
+msgstr ""
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:27
+#, elixir-autogen, elixir-format
+msgid "Allow location access for periodic area updates. Your exact GPS coordinates are never sent or stored on our servers — only approximate area data (~460m grid) is preserved."
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:99
+#, elixir-autogen, elixir-format
+msgid "Analyze progress & volume"
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:31
+#, elixir-autogen, elixir-format
+msgid "Application Menu"
+msgstr ""
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:52
+#, elixir-autogen, elixir-format
+msgid "Approx Area (Res 8):"
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:42
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Close"
+msgstr ""
+
+#: lib/diary_web/live/shared/user_live/settings.ex:275
+#, elixir-autogen, elixir-format
+msgid "Could not save location data."
+msgstr ""
+
+#: lib/diary_web/live/shared/user_live/settings.ex:274
+#, elixir-autogen, elixir-format
+msgid "Failed to update location settings."
+msgstr ""
+
+#: lib/diary_web/components/layouts.ex:96
+#: lib/diary_web/components/layouts.ex:131
+#: lib/diary_web/live/shared/menu_live.ex:13
+#, elixir-autogen, elixir-format
+msgid "Menu"
+msgstr ""
+
+#: lib/diary_web/components/services/gym/location_settings_component.ex:23
+#, elixir-autogen, elixir-format
+msgid "Privacy-Protected"
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:81
+#, elixir-autogen, elixir-format
+msgid "Track workout intervals & rest"
+msgstr ""
+
+#: lib/diary_web/live/shared/menu_live.ex:63
+#, elixir-autogen, elixir-format
+msgid "View and log daily workouts"
 msgstr ""

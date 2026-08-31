@@ -84,6 +84,17 @@ defmodule DiaryWeb.Layouts do
             <.icon name="hero-chart-bar" class="size-5" />
             {gettext("Stats")}
           </.link>
+          <.link
+            navigate={~p"/menu"}
+            class={[
+              "flex items-center gap-3 px-4 py-3 rounded-2xl font-extrabold text-sm transition-all duration-200 cursor-pointer",
+              @active_tab == "menu" && "bg-zinc-800 text-white shadow-lg shadow-zinc-850/10",
+              @active_tab != "menu" && "text-slate-600 dark:text-zinc-400 hover:bg-slate-50 dark:hover:bg-zinc-800/50 hover:text-zinc-800 dark:hover:text-zinc-100"
+            ]}
+          >
+            <.icon name="hero-bars-3" class="size-5" />
+            {gettext("Menu")}
+          </.link>
         </nav>
 
         <!-- Footer / Theme Toggle -->
@@ -109,42 +120,18 @@ defmodule DiaryWeb.Layouts do
         </div>
       </main>
 
-      <!-- Mobile Bottom Navigation (hidden on desktop) -->
-      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-900 border-t border-slate-100 dark:border-zinc-850 flex items-center justify-around py-3 px-6 z-40 pb-safe shadow-lg">
-        <.link
-          navigate={~p"/"}
-          class={[
-            "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
-            @active_tab == "diary" && "text-zinc-800 dark:text-zinc-100 scale-105",
-            @active_tab != "diary" && "text-slate-400 dark:text-zinc-400 hover:text-slate-600"
-          ]}
-        >
-          <.icon name="hero-calendar" class="size-6" />
-          {gettext("Calendar")}
-        </.link>
-        <.link
-          navigate={~p"/timer"}
-          class={[
-            "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
-            @active_tab == "timer" && "text-zinc-800 dark:text-zinc-100 scale-105",
-            @active_tab != "timer" && "text-slate-400 dark:text-zinc-400 hover:text-slate-600"
-          ]}
-        >
-          <.icon name="hero-clock" class="size-6" />
-          {gettext("Timer")}
-        </.link>
-        <.link
-          navigate={~p"/stats"}
-          class={[
-            "flex flex-col items-center gap-1 text-[10px] font-black cursor-pointer transition-all duration-200",
-            @active_tab == "stats" && "text-zinc-800 dark:text-zinc-100 scale-105",
-            @active_tab != "stats" && "text-slate-400 dark:text-zinc-400 hover:text-slate-600"
-          ]}
-        >
-          <.icon name="hero-chart-bar" class="size-6" />
-          {gettext("Stats")}
-        </.link>
-      </nav>
+      <!-- Mobile Floating Action Button for Menu (hidden on desktop) -->
+      <.link
+        navigate={~p"/menu"}
+        class={[
+          "md:hidden fixed bottom-6 right-6 z-50 flex items-center justify-center p-3.5 rounded-full shadow-2xl transition-all duration-200 cursor-pointer active:scale-95",
+          @active_tab == "menu" && "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 ring-4 ring-zinc-300 dark:ring-zinc-700",
+          @active_tab != "menu" && "bg-zinc-800 text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white shadow-zinc-900/30"
+        ]}
+        aria-label={gettext("Menu")}
+      >
+        <.icon name="hero-bars-3" class="size-6" />
+      </.link>
 
     </div>
 
