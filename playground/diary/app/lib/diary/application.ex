@@ -7,7 +7,11 @@ defmodule Diary.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies, [])
+
     children = [
+      # Start libcluster supervisor for multi-node clustering
+      {Cluster.Supervisor, [topologies, [name: Diary.ClusterSupervisor]]},
       DiaryWeb.Telemetry,
       Diary.Repo,
       {DNSCluster, query: Application.get_env(:diary, :dns_cluster_query) || :ignore},

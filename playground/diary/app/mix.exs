@@ -79,7 +79,9 @@ defmodule Diary.MixProject do
       {:jose, "~> 1.11"},
       {:oban, "~> 2.19"},
       # Modern plugin for interacting with AWS S3 using the Req client
-      {:req_s3, "~> 0.2.3"}
+      {:req_s3, "~> 0.2.3"},
+      # Erlang cluster management for Phoenix multi-node deployment
+      {:libcluster, "~> 3.4"}
     ]
   end
 

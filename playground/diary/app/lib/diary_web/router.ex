@@ -67,10 +67,12 @@ defmodule DiaryWeb.Router do
     # Root live routes have been moved to the authenticated live_session below
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", DiaryWeb do
-  #   pipe_through :api
-  # end
+  # Health check endpoint for load balancer & zero-downtime deployment
+  scope "/", DiaryWeb do
+    pipe_through :api
+
+    get "/healthz", HealthController, :show
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:diary, :dev_routes) do

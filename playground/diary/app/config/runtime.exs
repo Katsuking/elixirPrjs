@@ -187,3 +187,21 @@ config :diary, :oauth_providers, [
     strategy: Assent.Strategy.Discord
   ]
 ]
+
+# Configure libcluster for multi-node production deployment
+if config_env() == :prod do
+  config :libcluster,
+    topologies: [
+      prod_cluster: [
+        strategy: Cluster.Strategy.Epmd,
+        config: [
+          # Connect web1 and web2 containers via EPMD
+          hosts: [
+            :"diary@web1",
+            :"diary@web2"
+          ]
+        ]
+      ]
+    ]
+end
+

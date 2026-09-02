@@ -45,7 +45,9 @@ config :diary, DiaryWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Diary.PubSub,
-  live_view: [signing_salt: "qkk8bS59"]
+  live_view: [signing_salt: "qkk8bS59"],
+  # Graceful shutdown timeout (30 seconds) for HTTP server
+  shutdown_timeout: 30_000
 
 # Configure LiveView
 config :phoenix_live_view,
@@ -97,6 +99,8 @@ config :diary, Oban,
   engine: Oban.Engines.Basic,
   repo: Diary.Repo,
   queues: [default: 10],
+  # Graceful shutdown grace period (30 seconds) for Oban workers
+  shutdown_grace_period: 30_000,
   plugins: [
     {Oban.Plugins.Cron,
      crontab: [

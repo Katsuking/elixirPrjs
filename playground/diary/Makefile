@@ -44,21 +44,21 @@ prod-down:
 
 .PHONY: prod-exec
 prod-exec:
-	$(PROD_COMPOSE) exec web $(RUN_ARGS)
+	$(PROD_COMPOSE) exec web1 $(RUN_ARGS)
 
 .PHONY: prod-migrate
 prod-migrate:
-	$(PROD_COMPOSE) run --rm web /app/bin/migrate
+	$(PROD_COMPOSE) run --rm web1 /app/bin/migrate
 
 .PHONY: prod-test-s3
 prod-test-s3:
-	$(PROD_COMPOSE) exec web /app/bin/diary eval "$$(cat app/test_s3_upload.exs)"
+	$(PROD_COMPOSE) exec web1 /app/bin/diary eval "$$(cat app/test_s3_upload.exs)"
 
 .PHONY: prod-logs
 prod-logs:
 	docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml logs -f
 
-# Deploy to production server using rsync with automatic .gitignore filtering
+# Deploy to production server using rsync and execute zero-downtime rolling update
 .PHONY: deploy
 deploy:
 	rsync -avz --delete \
@@ -76,3 +76,11 @@ deploy:
 		--exclude='prod/ssl/' \
 		--exclude='prod/.env.prod' \
 		./ conoha:/var/www/diary
+	ssh conoha "cd /var/www/diary && bash prod/deploy.sh"
+
+# Run automated high-availability failover test on production server
+.PHONY: prod-test-failover
+prod-test-failover:
+	ssh conoha "cd /var/www/diary && bash prod/test_failover.sh"
+
+
