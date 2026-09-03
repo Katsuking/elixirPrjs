@@ -99,7 +99,7 @@ defmodule DiaryWeb.Layouts do
 
         <!-- Footer / Theme Toggle -->
         <div class="pt-4 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between">
-          <span class="text-[10px] font-bold text-slate-400">v0.0.1</span>
+          <span class="text-[10px] font-bold text-slate-400">v0.0.2</span>
           <.theme_toggle />
         </div>
       </aside>

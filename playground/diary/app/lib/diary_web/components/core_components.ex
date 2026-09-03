@@ -61,28 +61,65 @@ defmodule DiaryWeb.CoreComponents do
     <div
       :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
       id={@id}
+      data-kind={@kind}
+      phx-hook=".FlashAutoDismiss"
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      class="toast toast-top toast-end z-50"
+      class="toast toast-top toast-end z-50 p-4 transition-all duration-300 transform"
       {@rest}
     >
       <div class={[
-        "alert w-80 sm:w-96 max-w-80 sm:max-w-96 text-wrap",
-        @kind == :info && "alert-info",
-        @kind == :error && "alert-error"
+        "relative group cursor-pointer overflow-hidden rounded-2xl p-4 shadow-2xl border backdrop-blur-xl transition-all duration-300 min-w-[300px] sm:min-w-[360px] max-w-md flex items-start gap-3.5",
+        "bg-zinc-900/95 text-zinc-100 border-zinc-800/80 shadow-zinc-950/40 hover:border-zinc-700/80",
+        @kind == :info && "ring-1 ring-emerald-500/20",
+        @kind == :error && "ring-1 ring-rose-500/20"
       ]}>
-        <.icon :if={@kind == :info} name="hero-information-circle" class="size-5 shrink-0" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle" class="size-5 shrink-0" />
-        <div>
-          <p :if={@title} class="font-semibold">{@title}</p>
-          <p>{msg}</p>
+        <!-- Icon Badge -->
+        <div class={[
+          "p-2 rounded-xl shrink-0 flex items-center justify-center transition-transform group-hover:scale-105",
+          @kind == :info && "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30",
+          @kind == :error && "bg-rose-500/15 text-rose-400 border border-rose-500/30"
+        ]}>
+          <.icon :if={@kind == :info} name="hero-check-circle" class="size-5 stroke-[2.5]" />
+          <.icon :if={@kind == :error} name="hero-exclamation-triangle" class="size-5 stroke-[2.5]" />
         </div>
-        <div class="flex-1" />
-        <button type="button" class="group self-start cursor-pointer" aria-label={gettext("close")}>
-          <.icon name="hero-x-mark" class="size-5 opacity-40 group-hover:opacity-70" />
+
+        <!-- Content -->
+        <div class="flex-1 min-w-0 pt-0.5">
+          <p :if={@title} class="text-xs font-black uppercase tracking-wider text-zinc-400 mb-0.5">{@title}</p>
+          <p class="text-sm font-semibold tracking-tight text-zinc-100 leading-snug">{msg}</p>
+        </div>
+
+        <!-- Close Button -->
+        <button type="button" class="p-1 -mr-1 -mt-1 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 transition-colors" aria-label={gettext("close")}>
+          <.icon name="hero-x-mark" class="size-4" />
         </button>
+
+        <!-- 3-Second Animated Countdown Progress Bar -->
+        <div class="absolute bottom-0 left-0 right-0 h-1 bg-zinc-800/60 overflow-hidden">
+          <div class={[
+            "h-full w-full origin-left animate-[flash-progress_3000ms_linear_forwards]",
+            @kind == :info && "bg-gradient-to-r from-emerald-500 to-teal-400",
+            @kind == :error && "bg-gradient-to-r from-rose-500 to-amber-500"
+          ]} />
+        </div>
       </div>
     </div>
+
+    <script :type={Phoenix.LiveView.ColocatedHook} name=".FlashAutoDismiss">
+      export default {
+        mounted() {
+          const kind = this.el.dataset.kind;
+          // Auto dismiss flash message after exactly 3 seconds (3000ms)
+          this.timer = setTimeout(() => {
+            this.pushEvent("lv:clear-flash", { key: kind });
+          }, 3000);
+        },
+        destroyed() {
+          if (this.timer) clearTimeout(this.timer);
+        }
+      }
+    </script>
     """
   end
 
