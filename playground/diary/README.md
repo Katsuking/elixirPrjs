@@ -87,16 +87,33 @@ end
 
 ## 🔑 サブドメイン専用 OAuth コールバック仕様 (Per-Subdomain Callback Strategy)
 
-当プロジェクトでは、各サブドメイン（`gym.wayup.cc`, `lang.wayup.cc` 等）で安全かつ確実に OAuth ログイン（Google, GitHub 等）を完結させるため、**サブドメイン専用 Callback 方式**を採用しています。
+当プロジェクトでは、マルチサブドメイン環境（`gym.wayup.cc`, `lang.wayup.cc` 等）において安全かつスムーズに OAuth 認証（Google, GitHub 等）を完結させるため、**サブドメイン専用 Callback 方式**を採用しています。
 
-### 1. 動作の仕組み
+### 1. アーキテクチャとメリット
 
-1. **サブドメイン単位での動的リダイレクト URI**:
-   - リクエストが発生したサブドメインのコンテキストをそのまま維持し、`https://<subdomain>.wayup.cc/auth/:provider/callback` を動的生成して OAuth 認可サーバーへ送信します。
-2. **完全な同一オリジン完結**:
-   - ログイン要求から認証完了までがすべて同一サブドメイン（`gym.wayup.cc` ➔ `gym.wayup.cc`）内で完結するため、クロスサブドメイン間での Session Cookie 遮断やリダイレクトの不一致が原理的に発生しません。
-3. **登録要件**:
-   - 新しいサブドメインで OAuth ログインを利用する場合は、各プロバイダーに設定。e.g. Google Cloud Console 等の「承認済みのリダイレクト URI」に `https://<subdomain>.wayup.cc/auth/google/callback` を追加登録します。
+- **完全な同一オリジン（Same-Origin）完結**:
+  - ユーザーが `gym.wayup.cc` でログインボタンを押すと、OAuth 認可サーバーへの `redirect_uri` として **`https://gym.wayup.cc/auth/google/callback`** を指定します。
+  - 認証完了後、プロバイダーから直接 `https://gym.wayup.cc/auth/...` へ戻ってくるため、異なるドメイン間での Cookie 遮断問題や二重リダイレクト、セッション損失が根絶されます。
+- **クエリフリーな正統派 URL 生成**:
+  - `OAuthController.build_redirect_uri/2` で動的にプロトコル（`https` / `http`）、アクセス元サブドメイン（`conn.host`）、パス（`/auth/:provider/callback`）を直接組み立てます。
+  - 余計な URL クエリパラメータ（例: `?host=...`）が付与されないため、Google Cloud Console に登録した承認済み URI と 1 文字狂わず完全一致します。
+
+---
+
+### 2. セキュリティ設計 (オープンリダイレクト防御)
+
+- **ホスト名のホワイトリスト検証 (`safe_return_host?/1`)**:
+  - リクエストを受け取った際、アクセス元の `conn.host` が `Application.get_env(:diary, :allowed_hosts)`（`gym.wayup.cc`, `lang.wayup.cc`, `wayup.cc`, `gym.localhost` 等）に含まれているかを厳格にチェックします。
+  - 万が一、未知・不正なホスト名やヘッダー偽装攻撃が発生した場合は、安全なデフォルト親ドメイン（`wayup.cc`）へ強制フォールバックされ、オープンリダイレクト攻撃や Header Injection を完全に防ぎます。
+
+---
+
+### 3. 各プロバイダーでの設定要件
+
+新しいサブドメイン（サービス）で OAuth ログインを利用する場合は、各 OAuth プロバイダーの管理画面（Google Cloud Console、GitHub Developer Settings 等）の「承認済みのリダイレクト URI」に、該当サブドメインのコールバック URI を登録します。
+
+- **本番環境例**: `https://gym.wayup.cc/auth/google/callback`
+- **開発環境例**: `http://gym.localhost:4000/auth/google/callback`
 
 ---
 

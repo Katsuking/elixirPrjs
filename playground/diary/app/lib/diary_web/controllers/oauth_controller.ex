@@ -32,7 +32,7 @@ defmodule DiaryWeb.OAuthController do
   """
   def request(conn, %{"provider" => provider}) do
     config = get_provider_config!(provider)
-    redirect_uri = unverified_url(conn, "/auth/#{provider}/callback", host: conn.host)
+    redirect_uri = build_redirect_uri(conn, provider)
 
     config = Keyword.put(config, :redirect_uri, redirect_uri)
 
@@ -57,7 +57,7 @@ defmodule DiaryWeb.OAuthController do
   """
   def callback(conn, %{"provider" => provider} = params) do
     config = get_provider_config!(provider)
-    redirect_uri = unverified_url(conn, "/auth/#{provider}/callback", host: conn.host)
+    redirect_uri = build_redirect_uri(conn, provider)
 
     session_params = get_session(conn, :oauth_session_params) || %{}
 
@@ -167,5 +167,28 @@ defmodule DiaryWeb.OAuthController do
           end
       end
     end
+  end
+
+  # Helper to construct fully-qualified redirect_uri with host whitelist validation
+  defp build_redirect_uri(conn, provider) do
+    target_host = if safe_return_host?(conn.host), do: conn.host, else: System.get_env("PHX_HOST") || "wayup.cc"
+    proto = if conn.scheme == :https || get_req_header(conn, "x-forwarded-proto") == ["https"], do: "https", else: "http"
+    port_str = if conn.port in [80, 443] or proto == "https", do: "", else: ":#{conn.port}"
+
+    "#{proto}://#{target_host}#{port_str}/auth/#{provider}/callback"
+  end
+
+  # Validate that host is in allowed whitelist to prevent Open Redirect vulnerabilities
+  defp safe_return_host?(host) do
+    allowed_hosts = Application.get_env(:diary, :allowed_hosts, [
+      "gym.wayup.cc",
+      "lang.wayup.cc",
+      "wayup.cc",
+      "gym.localhost",
+      "localhost",
+      "127.0.0.1"
+    ])
+
+    host in allowed_hosts || String.starts_with?(host, "gym.")
   end
 end
