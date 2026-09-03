@@ -85,6 +85,21 @@ end
 
 ---
 
+## 🔑 サブドメイン専用 OAuth コールバック仕様 (Per-Subdomain Callback Strategy)
+
+当プロジェクトでは、各サブドメイン（`gym.wayup.cc`, `lang.wayup.cc` 等）で安全かつ確実に OAuth ログイン（Google, GitHub 等）を完結させるため、**サブドメイン専用 Callback 方式**を採用しています。
+
+### 1. 動作の仕組み
+
+1. **サブドメイン単位での動的リダイレクト URI**:
+   - リクエストが発生したサブドメインのコンテキストをそのまま維持し、`https://<subdomain>.wayup.cc/auth/:provider/callback` を動的生成して OAuth 認可サーバーへ送信します。
+2. **完全な同一オリジン完結**:
+   - ログイン要求から認証完了までがすべて同一サブドメイン（`gym.wayup.cc` ➔ `gym.wayup.cc`）内で完結するため、クロスサブドメイン間での Session Cookie 遮断やリダイレクトの不一致が原理的に発生しません。
+3. **登録要件**:
+   - 新しいサブドメインで OAuth ログインを利用する場合は、各プロバイダーに設定。e.g. Google Cloud Console 等の「承認済みのリダイレクト URI」に `https://<subdomain>.wayup.cc/auth/google/callback` を追加登録します。
+
+---
+
 ## 🛠 開発コマンド & i18n (多言語化)
 
 開発環境は Docker Compose で動作しています。翻訳ファイル（Gettext）の更新やコンパイルは `Makefile` を通して実行します。

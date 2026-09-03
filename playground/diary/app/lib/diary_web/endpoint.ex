@@ -4,12 +4,14 @@ defmodule DiaryWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
+  # Build session options with optional cross-subdomain cookie domain (e.g., .wayup.cc)
   @session_options [
     store: :cookie,
     key: "_diary_key",
     signing_salt: "3qGSbTbj",
-    same_site: "Lax"
-  ]
+    same_site: "Lax",
+    domain: System.get_env("COOKIE_DOMAIN") || (if System.get_env("MIX_ENV") == "prod", do: ".wayup.cc", else: nil)
+  ] |> Enum.reject(fn {_k, v} -> is_nil(v) end)
 
   socket "/live", Phoenix.LiveView.Socket,
     websocket: [connect_info: [session: @session_options]],

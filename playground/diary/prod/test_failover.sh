@@ -4,7 +4,7 @@
 set -euo pipefail
 
 COMPOSE="docker compose --env-file prod/.env.prod -f prod/docker-compose.prod.yml"
-TARGET_URL="${PHX_HOST:-https://wayup.cc}/healthz"
+TARGET_URL="${PHX_HOST:-https://gym.wayup.cc}/healthz"
 
 # Cleanup trap to ensure both containers are restarted even if test fails/interrupts
 cleanup() {

@@ -72,19 +72,23 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST") || "wayup.cc"
 
   # Configure allowed hosts in production.
-  # Defaults to the PHX_HOST, but can be customized with ALLOWED_HOSTS env var (comma-separated).
+  # Defaults to standard multi-subdomain whitelist, or can be customized with ALLOWED_HOSTS env var.
   allowed_hosts =
     case System.get_env("ALLOWED_HOSTS") do
-      nil -> [host]
+      nil -> ["gym.wayup.cc", "lang.wayup.cc", "wayup.cc", "gym.localhost", "localhost", "127.0.0.1"]
       hosts -> String.split(hosts, ",", trim: true)
     end
 
   config :diary, :allowed_hosts, allowed_hosts
 
+  # Dynamically generate check_origin list for LiveView WebSocket / LongPolling connections
+  check_origins = Enum.map(allowed_hosts, &"//#{&1}")
+
   config :diary, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :diary, DiaryWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
+    check_origin: check_origins,
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
@@ -204,4 +208,3 @@ if config_env() == :prod do
       ]
     ]
 end
-

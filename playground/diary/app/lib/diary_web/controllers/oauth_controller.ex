@@ -11,7 +11,7 @@ defmodule DiaryWeb.OAuthController do
   # Fetch active OAuth config from application settings
   defp get_provider_config!(provider) do
     providers = Application.get_env(:diary, :oauth_providers)
-    
+
     provider_atom =
       case provider do
         "github" -> :github
@@ -28,10 +28,11 @@ defmodule DiaryWeb.OAuthController do
 
   @doc """
   Initiates the OAuth authorization flow by redirecting the user to the provider.
+  Uses per-subdomain dynamic redirect_uri (e.g. https://gym.wayup.cc/auth/google/callback).
   """
   def request(conn, %{"provider" => provider}) do
     config = get_provider_config!(provider)
-    redirect_uri = url(conn, ~p"/auth/#{provider}/callback")
+    redirect_uri = unverified_url(conn, "/auth/#{provider}/callback", host: conn.host)
 
     config = Keyword.put(config, :redirect_uri, redirect_uri)
 
@@ -39,7 +40,6 @@ defmodule DiaryWeb.OAuthController do
     strategy = config[:strategy]
     case strategy.authorize_url(config) do
       {:ok, %{url: url, session_params: session_params}} ->
-        # Store state/session parameters in session to verify during callback
         conn
         |> put_session(:oauth_session_params, session_params)
         |> redirect(external: url)
@@ -52,15 +52,16 @@ defmodule DiaryWeb.OAuthController do
   end
 
   @doc """
-  Handles the callback from the OAuth provider.
+  Handles the callback from the OAuth provider directly on the requesting subdomain endpoint,
+  authenticates the user, and logs the user into the subdomain context.
   """
   def callback(conn, %{"provider" => provider} = params) do
     config = get_provider_config!(provider)
-    redirect_uri = url(conn, ~p"/auth/#{provider}/callback")
+    redirect_uri = unverified_url(conn, "/auth/#{provider}/callback", host: conn.host)
 
     session_params = get_session(conn, :oauth_session_params) || %{}
 
-    config = 
+    config =
       config
       |> Keyword.put(:redirect_uri, redirect_uri)
       |> Keyword.put(:session_params, session_params)
@@ -110,8 +111,8 @@ defmodule DiaryWeb.OAuthController do
     if is_nil(email) or email == "" or is_nil(uid) or uid == "" do
       {:error, "Provider did not return a valid email address or user ID. Please check your provider account settings."}
     else
-      identity_query = 
-        from(ui in UserIdentity, 
+      identity_query =
+        from(ui in UserIdentity,
           where: ui.provider == ^provider and ui.uid == ^uid,
           preload: [:user]
         )
@@ -124,7 +125,7 @@ defmodule DiaryWeb.OAuthController do
           case Accounts.get_user_by_email(email) do
             %User{} = existing_user ->
               # Link existing user account with the OAuth identity safely
-              changeset = 
+              changeset =
                 UserIdentity.changeset(%UserIdentity{}, %{
                   provider: provider,
                   uid: uid,
@@ -138,14 +139,14 @@ defmodule DiaryWeb.OAuthController do
 
             nil ->
               # Safely create new user and identity without raising exceptions
-              result = 
+              result =
                 Repo.transaction(fn ->
                   user_params = %{
                     email: email,
                     confirmed_at: DateTime.utc_now() |> DateTime.truncate(:second)
                   }
 
-                  user_changeset = 
+                  user_changeset =
                     %User{}
                     |> Ecto.Changeset.change(user_params)
                     |> Ecto.Changeset.validate_required([:email])
