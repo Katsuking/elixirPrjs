@@ -91,7 +91,18 @@ defmodule DiaryWeb.Router do
     end
   end
 
-  ## Authentication routes
+  ## Language application routes (matches lang.wayup.cc and lang.localhost)
+
+  scope "/", DiaryWeb, host: ["lang.", "lang.localhost"] do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live_session :require_authenticated_lang_user,
+      on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
+      live "/", LangLive.Index, :index
+    end
+  end
+
+  ## Gym application routes (matches gym.wayup.cc, gym.localhost, and fallback)
 
   scope "/", DiaryWeb do
     pipe_through [:browser, :require_authenticated_user]
