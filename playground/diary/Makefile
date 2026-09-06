@@ -10,6 +10,10 @@ up:
 build-up:
 	docker compose --env-file ../../.env up -d --build
 
+.PHONY: compile
+compile:
+	docker compose exec web mix compile
+
 # Stop and remove containers, networks, and volumes
 .PHONY: down
 down:

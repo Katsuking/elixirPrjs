@@ -222,8 +222,9 @@ defmodule DiaryWeb.UserLive.Settings do
   # Receive periodic location data from JS Hook and persist coordinates to DB
   def handle_event("geolocation_success", params, socket) do
     user = socket.assigns.current_scope.user
-    lat = Map.get(params, "latitude")
-    lng = Map.get(params, "longitude")
+    # Raw coordinates are not persisted to preserve privacy; prefix with underscore
+    _lat = Map.get(params, "latitude")
+    _lng = Map.get(params, "longitude")
     acc = Map.get(params, "accuracy")
     h3_index_res8 = Map.get(params, "h3_index_res8") || Map.get(params, "h3_index")
     approx_lat_res8 = Map.get(params, "approx_latitude_res8") || Map.get(params, "approx_latitude")

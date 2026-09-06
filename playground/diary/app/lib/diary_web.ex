@@ -86,6 +86,8 @@ defmodule DiaryWeb do
       import Phoenix.HTML
       # Core UI components
       import DiaryWeb.CoreComponents
+      # Shared UI components across subdomains
+      import DiaryWeb.Shared.BannerComponents
 
       # Common modules used in templates
       alias Phoenix.LiveView.JS

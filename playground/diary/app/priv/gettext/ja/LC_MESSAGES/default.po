@@ -1213,3 +1213,9 @@ msgstr "インターバルと休憩時間の計測"
 #, elixir-autogen, elixir-format
 msgid "View and log daily workouts"
 msgstr "毎日のトレーニングを閲覧・記録"
+
+#: lib/diary_web/components/layouts.ex:121
+#, elixir-autogen, elixir-format
+msgid "Under development."
+msgstr "開発中"
+

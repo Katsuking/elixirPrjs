@@ -35,7 +35,7 @@ lib/
 └── diary_web/                      # 🌐 [Webプレゼンテーション層]
     ├── components/                 # 🧩 [コンポーネント群]
     │   ├── core_components.ex      # 汎用アトミックUIパーツ (Button, Input, Modal等)
-    │   ├── shared/                 # 複数サービス共通の複合UIパーツ (UserMenu, Avatar等)
+    │   ├── shared/                 # 複数サービス サブドメインをまたいで使う共通の複合UIパーツ (banner_components.ex, user_menu.ex等)
     │   └── services/               # サービス専用UIコンポーネント
     │       └── gym/
     │
@@ -189,7 +189,8 @@ assets/js/
 
 - コード生成やディレクトリ作成を行う際は、上記の `services/<service_name>` 境界を必ず遵守してください。
 - サービス固有のロジックやUIを `shared` や `core_components.ex` に直接混入させないでください。
-- コンポーネントを作成する際は、再利用性（`shared/`）とサービス固有性（`services/<service_name>/`）を常に判断して適切なディレクトリに配置してください。
+- 複数サービスや全サブドメインで共有するUIコンポーネント（例: `UnderDevelopmentBanner` など）は、`lib/diary_web/components/shared/` 配下（例: `banner_components.ex`）に配置し、`diary_web.ex` の `html_helpers` で集約インポートして各サービスから再利用可能にしてください。
+- コンポーネントを作成する際は、汎用パーツ（`core_components.ex`）、サービス共通（`components/shared/`）、サービス固有（`components/services/<service_name>/`）を明確に区別して適切なディレクトリに配置してください。
 - HEEx テンプレート (`.heex`, `.html.heex`) 内のコメントアウトには、非推奨の `<%# ... %>` ではなく、必ず **`<%!-- ... --%>`** 構文を使用してください。
 - LiveView の JS Hook を作成する際は `app.js` に直接定義せず、必ず `assets/js/hooks/shared/` または `assets/js/hooks/services/<service_name>/` 配下に分割作成し、`assets/js/hooks/index.js` からインポートしてください。
 - JS パッケージを追加・利用する際は `app/assets` 配下で **Bun (`bun`)** を使用してください。

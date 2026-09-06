@@ -115,6 +115,8 @@ defmodule DiaryWeb.Layouts do
 
       <!-- Main Content Area -->
       <main class="flex-1 min-w-0 overflow-y-auto pb-24 md:pb-12">
+        <.under_development_banner />
+
         <div class="max-w-5xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
           {render_slot(@inner_block)}
         </div>
@@ -139,8 +141,10 @@ defmodule DiaryWeb.Layouts do
     """
   end
 
+
   @doc """
   Shows the flash group with standard titles and content.
+
 
   ## Examples
 
