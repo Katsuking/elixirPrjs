@@ -93,7 +93,10 @@ services:
       - prod_network
 
   nginx:
-    image: nginx:alpine
+    # Build custom Nginx image containing Astro SSG compiled via Bun
+    build:
+      context: ..
+      dockerfile: prod/Dockerfile.nginx
     restart: always
     # Map host ports 80 and 443 for production HTTP/HTTPS traffic
     ports:

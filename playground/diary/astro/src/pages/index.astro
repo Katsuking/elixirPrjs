@@ -1,0 +1,54 @@
+---
+// Frontmatter script running at build time
+const title = "WayUp Blog";
+---
+
+<!usr/html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <style>
+      /* Base styles for static Astro landing page */
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #0f172a;
+        color: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .card {
+        background-color: #1e293b;
+        padding: 2.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 500px;
+      }
+      h1 {
+        color: #38bdf8;
+        margin-top: 0;
+      }
+      a {
+        color: #f43f5e;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>🚀 Welcome to {title}</h1>
+      <p>This blog is built with Astro</p>
+      <p><a href="https://wayup.cc">← Back to Main App (wayup.cc)</a></p>
+    </div>
+  </body>
+</html>

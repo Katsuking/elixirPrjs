@@ -67,12 +67,14 @@ prod-logs:
 deploy:
 	rsync -avz --delete \
 		--filter=':- app/.gitignore' \
-		--exclude='*.md' \
+		--exclude='/*.md' \
 		--exclude='.geminiignore' \
 		--exclude='app/_build/' \
 		--exclude='app/deps/' \
 		--exclude='app/.elixir_ls/' \
 		--exclude='app/assets/node_modules/' \
+		--exclude='astro/node_modules/' \
+		--exclude='astro/dist/' \
 		--exclude='app/timer_live_output.html' \
 		--exclude='.git/' \
 		--exclude='.envrc' \

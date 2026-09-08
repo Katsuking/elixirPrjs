@@ -1,0 +1,28 @@
+# ===================================================
+# Step 1: Build Astro static site using Bun
+# ===================================================
+FROM oven/bun:alpine AS astro-builder
+WORKDIR /app
+
+# Copy dependency definition files
+COPY astro/package.json ./
+# Copy lockfile if available, otherwise install dependencies
+COPY astro/bun.lock* ./
+
+# Install npm dependencies using Bun
+RUN bun install
+
+# Copy source code and build static SSG output
+COPY astro/ ./
+RUN bun run build
+
+# ===================================================
+# Step 2: Production Nginx Server
+# ===================================================
+FROM nginx:alpine
+
+# Copy Cloudflare IP ranges configuration
+COPY prod/cloudflare-ips.conf /etc/nginx/cloudflare-ips.conf
+
+# Copy compiled Astro static site output from astro-builder stage
+COPY --from=astro-builder /app/dist /usr/share/nginx/html/blog

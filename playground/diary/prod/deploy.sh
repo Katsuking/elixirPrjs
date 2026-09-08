@@ -84,20 +84,9 @@ echo "===> Step 4/5: Deploying and updating web2..."
 $COMPOSE up -d --no-deps web2
 wait_for_healthy web2
 
-echo "===> Step 5/5: Ensuring Nginx is running and reloading configuration..."
-local_nginx_cid=$($COMPOSE ps -q nginx 2>/dev/null || echo "")
-local_nginx_status=""
-if [ -n "${local_nginx_cid}" ]; then
-  local_nginx_status=$(docker inspect --format='{{.State.Status}}' "${local_nginx_cid}" 2>/dev/null || echo "")
-fi
-
-if [ "${local_nginx_status}" = "running" ]; then
-  echo "===> Reloading Nginx configuration..."
-  $COMPOSE exec nginx nginx -s reload
-else
-  echo "===> Nginx is not running. Starting Nginx..."
-  $COMPOSE up -d nginx
-fi
+echo "===> Step 5/5: Deploying and updating Nginx..."
+# Re-create Nginx container to apply newly built image containing Astro static files
+$COMPOSE up -d --no-deps nginx
 
 echo "============================================================"
 echo "🎉 Zero-Downtime Deployment Successfully Completed!"
