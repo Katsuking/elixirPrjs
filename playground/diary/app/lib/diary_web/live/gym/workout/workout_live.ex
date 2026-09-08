@@ -53,6 +53,7 @@ defmodule DiaryWeb.WorkoutLive do
      |> assign(selected_exercise: nil)
      |> assign(logs: logs)
      |> assign(locale: locale)
+     |> assign(:active_tab, "diary")
      |> assign(form: to_form(%{"weight" => "", "reps" => ""}, as: :log))}
   end
 
@@ -175,8 +176,7 @@ defmodule DiaryWeb.WorkoutLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} active_tab="diary">
-      <div class="max-w-4xl mx-auto space-y-6">
+    <div class="max-w-4xl mx-auto space-y-6">
 
         <!-- Header Card -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-zinc-900 p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-zinc-850">
@@ -346,7 +346,6 @@ defmodule DiaryWeb.WorkoutLive do
 
         </div>
       </div>
-    </Layouts.app>
     """
   end
 

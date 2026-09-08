@@ -166,75 +166,73 @@ defmodule DiaryWeb.DiaryLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} active_tab="diary">
-      <div class="max-w-2xl mx-auto bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 overflow-hidden transition-all duration-300">
+    <div class="max-w-2xl mx-auto bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 overflow-hidden transition-all duration-300">
 
-        <!-- Card Header with App Title and Navigation -->
-        <div class="p-8 border-b border-slate-100 dark:border-zinc-800 bg-gradient-to-r from-slate-50 to-white dark:from-zinc-900 dark:to-zinc-900/50 space-y-4">
-          <.date_navigator date={@date} on_change="change_date">
-            <:prev_button_content>
-              <!-- Show chevron icon on mobile, and add 'Prev' text on larger screens -->
-              <div class="flex items-center gap-1">
-                <.icon name="hero-chevron-left" class="size-4" />
-                <span class="hidden sm:inline text-xs">{gettext("Prev")}</span>
-              </div>
-            </:prev_button_content>
-
-            <:today_button_content>
-              <!-- Responsive text size for today button -->
-              <span class="text-xs sm:text-sm">{gettext("today")}</span>
-            </:today_button_content>
-
-            <:next_button_content>
-              <!-- Show chevron icon on mobile, and add 'Next' text on larger screens -->
-              <div class="flex items-center gap-1">
-                <span class="hidden sm:inline text-xs">{gettext("Next")}</span>
-                <.icon name="hero-chevron-right" class="size-4" />
-              </div>
-            </:next_button_content>
-          </.date_navigator>
-
-          <div class="flex justify-center">
-            <.link
-              navigate={~p"/workout/#{Date.to_iso8601(@date)}"}
-              class="w-full flex items-center justify-center gap-2 py-3 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm"
-            >
-              <img src={~p"/images/label.svg"} class="w-7 h-auto" alt="No data" />
-              {gettext("Log Workouts")}
-            </.link>
-          </div>
-
-          <div :if={@total_volume > 0.0} class="flex items-center justify-between px-5 py-3.5 bg-slate-50/60 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800/60 rounded-2xl">
-            <div class="flex items-center gap-2">
-              <!-- Show black barbell in light mode, and white barbell in dark mode -->
-              <img src={~p"/images/barbell_black.svg"} class="dark:hidden w-5 h-auto" alt="Barbell" />
-              <img src={~p"/images/barbell_white.svg"} class="hidden dark:block w-5 h-auto" alt="Barbell" />
-              <span class="text-[10px] font-black text-slate-400 dark:text-zinc-400 uppercase tracking-wider">{gettext("Today's Volume")}</span>
+      <!-- Card Header with App Title and Navigation -->
+      <div class="p-8 border-b border-slate-100 dark:border-zinc-800 bg-gradient-to-r from-slate-50 to-white dark:from-zinc-900 dark:to-zinc-900/50 space-y-4">
+        <.date_navigator date={@date} on_change="change_date">
+          <:prev_button_content>
+            <!-- Show chevron icon on mobile, and add 'Prev' text on larger screens -->
+            <div class="flex items-center gap-1">
+              <.icon name="hero-chevron-left" class="size-4" />
+              <span class="hidden sm:inline text-xs">{gettext("Prev")}</span>
             </div>
-            <span class="text-sm font-black text-zinc-800 dark:text-zinc-100">{format_volume(@total_volume)} kg</span>
-          </div>
+          </:prev_button_content>
+
+          <:today_button_content>
+            <!-- Responsive text size for today button -->
+            <span class="text-xs sm:text-sm">{gettext("today")}</span>
+          </:today_button_content>
+
+          <:next_button_content>
+            <!-- Show chevron icon on mobile, and add 'Next' text on larger screens -->
+            <div class="flex items-center gap-1">
+              <span class="hidden sm:inline text-xs">{gettext("Next")}</span>
+              <.icon name="hero-chevron-right" class="size-4" />
+            </div>
+          </:next_button_content>
+        </.date_navigator>
+
+        <div class="flex justify-center">
+          <.link
+            navigate={~p"/workout/#{Date.to_iso8601(@date)}"}
+            class="w-full flex items-center justify-center gap-2 py-3 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm"
+          >
+            <img src={~p"/images/label.svg"} class="w-7 h-auto" alt="No data" />
+            {gettext("Log Workouts")}
+          </.link>
         </div>
 
-        <!-- Calendar Section -->
-        <.calendar
-          current_calendar_month={@current_calendar_month}
-          calendar_days={@calendar_days}
-          calendar_entry_dates={@calendar_entry_dates}
-          calendar_workout_dates={@calendar_workout_dates}
-          date={@date}
-          locale={@locale}
-        />
-
-        <!-- Diary Section (reusable LiveComponent) -->
-        <.live_component
-          module={DiaryWeb.Diary.DiaryComponent}
-          id="diary-component"
-          user_id={@user_id}
-          date={@date}
-          locale={@locale}
-        />
+        <div :if={@total_volume > 0.0} class="flex items-center justify-between px-5 py-3.5 bg-slate-50/60 dark:bg-zinc-800/40 border border-slate-100 dark:border-zinc-800/60 rounded-2xl">
+          <div class="flex items-center gap-2">
+            <!-- Show black barbell in light mode, and white barbell in dark mode -->
+            <img src={~p"/images/barbell_black.svg"} class="dark:hidden w-5 h-auto" alt="Barbell" />
+            <img src={~p"/images/barbell_white.svg"} class="hidden dark:block w-5 h-auto" alt="Barbell" />
+            <span class="text-[10px] font-black text-slate-400 dark:text-zinc-400 uppercase tracking-wider">{gettext("Today's Volume")}</span>
+          </div>
+          <span class="text-sm font-black text-zinc-800 dark:text-zinc-100">{format_volume(@total_volume)} kg</span>
+        </div>
       </div>
-    </Layouts.app>
+
+      <!-- Calendar Section -->
+      <.calendar
+        current_calendar_month={@current_calendar_month}
+        calendar_days={@calendar_days}
+        calendar_entry_dates={@calendar_entry_dates}
+        calendar_workout_dates={@calendar_workout_dates}
+        date={@date}
+        locale={@locale}
+      />
+
+      <!-- Diary Section (reusable LiveComponent) -->
+      <.live_component
+        module={DiaryWeb.Diary.DiaryComponent}
+        id="diary-component"
+        user_id={@user_id}
+        date={@date}
+        locale={@locale}
+      />
+    </div>
     """
   end
 

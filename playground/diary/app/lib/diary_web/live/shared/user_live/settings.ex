@@ -10,7 +10,7 @@ defmodule DiaryWeb.UserLive.Settings do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
+    <div class="space-y-6">
       <div class="text-center">
         <.header>
           <%= gettext("Account Settings") %>
@@ -119,7 +119,7 @@ defmodule DiaryWeb.UserLive.Settings do
         </.button>
       </.form>
     -->
-    </Layouts.app>
+    </div>
     """
   end
 
@@ -170,6 +170,7 @@ defmodule DiaryWeb.UserLive.Settings do
     socket =
       socket
       |> assign(:current_email, user.email)
+      |> assign(:active_tab, "settings")
       |> assign(:avatar_version, System.system_time(:second))
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))

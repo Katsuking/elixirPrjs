@@ -7,8 +7,7 @@ defmodule DiaryWeb.UserLive.Registration do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="mx-auto max-w-sm">
+    <div class="mx-auto max-w-sm">
         <div class="text-center">
           <.header>
             <%= gettext("Register for an account") %>
@@ -77,7 +76,6 @@ defmodule DiaryWeb.UserLive.Registration do
           </.link>
         </div>
       </div>
-    </Layouts.app>
     """
   end
 

@@ -99,64 +99,62 @@ defmodule DiaryWeb.StatsLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} active_tab="stats">
-      <div class="max-w-2xl mx-auto space-y-6">
-        <!-- Title and Export Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-2">
-          <h1 class="text-xl font-black text-slate-800 dark:text-zinc-100">
-            <%= gettext("Statistics") %>
-          </h1>
-          <div class="flex items-center gap-2">
-            <!-- Add download attribute to prevent LiveView WebSocket disconnect on file download -->
-            <.link
-              href={~p"/workout/export/csv"}
-              download
-              class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
-            >
-              <.icon name="hero-arrow-down-tray" class="size-4" />
-              <%= gettext("Export Detailed Logs") %>
-            </.link>
-            <!-- Add download attribute to prevent LiveView WebSocket disconnect on file download -->
-            <.link
-              href={~p"/workout/export/daily-summary"}
-              download
-              class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
-            >
-              <.icon name="hero-document-text" class="size-4" />
-              <%= gettext("Export Daily Summary") %>
-            </.link>
-          </div>
+    <div class="max-w-2xl mx-auto space-y-6">
+      <!-- Title and Export Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-2">
+        <h1 class="text-xl font-black text-slate-800 dark:text-zinc-100">
+          <%= gettext("Statistics") %>
+        </h1>
+        <div class="flex items-center gap-2">
+          <!-- Add download attribute to prevent LiveView WebSocket disconnect on file download -->
+          <.link
+            href={~p"/workout/export/csv"}
+            download
+            class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
+          >
+            <.icon name="hero-arrow-down-tray" class="size-4" />
+            <%= gettext("Export Detailed Logs") %>
+          </.link>
+          <!-- Add download attribute to prevent LiveView WebSocket disconnect on file download -->
+          <.link
+            href={~p"/workout/export/daily-summary"}
+            download
+            class="btn btn-primary btn-soft btn-xs sm:btn-sm flex items-center gap-1.5 cursor-pointer"
+          >
+            <.icon name="hero-document-text" class="size-4" />
+            <%= gettext("Export Daily Summary") %>
+          </.link>
         </div>
-
-        <!-- Date Navigator Card -->
-        <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 p-6">
-          <.date_navigator date={@date} on_change="change_date">
-            <:prev_button_content>
-              <span class="text-xs">Prev</span>
-            </:prev_button_content>
-
-            <:today_button_content>
-              <span>today</span>
-            </:today_button_content>
-
-            <:next_button_content>
-              <span class="text-xs">Next</span>
-            </:next_button_content>
-          </.date_navigator>
-        </div>
-
-        <!-- Workout Volume Statistics - Pass date to enable dynamic active period strings -->
-        <.workout_stats
-          stats={@stats}
-          active_tab={@active_tab}
-          detail_view={@detail_view}
-          on_tab_change="set_stats_tab"
-          on_toggle_detail="toggle_stats_detail"
-          locale={@locale}
-          date={@date}
-        />
       </div>
-    </Layouts.app>
+
+      <!-- Date Navigator Card -->
+      <div class="bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 p-6">
+        <.date_navigator date={@date} on_change="change_date">
+          <:prev_button_content>
+            <span class="text-xs">Prev</span>
+          </:prev_button_content>
+
+          <:today_button_content>
+            <span>today</span>
+          </:today_button_content>
+
+          <:next_button_content>
+            <span class="text-xs">Next</span>
+          </:next_button_content>
+        </.date_navigator>
+      </div>
+
+      <!-- Workout Volume Statistics - Pass date to enable dynamic active period strings -->
+      <.workout_stats
+        stats={@stats}
+        active_tab={assigns[:stats_tab] || "weekly"}
+        detail_view={@detail_view}
+        on_tab_change="set_stats_tab"
+        on_toggle_detail="toggle_stats_detail"
+        locale={@locale}
+        date={@date}
+      />
+    </div>
     """
   end
 end

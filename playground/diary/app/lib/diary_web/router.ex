@@ -97,6 +97,7 @@ defmodule DiaryWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_lang_user,
+      layout: {DiaryWeb.Services.Lang.Layouts, :app},
       on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
       live "/", LangLive.Index, :index
     end
@@ -108,6 +109,7 @@ defmodule DiaryWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
+      layout: {DiaryWeb.Services.Gym.Layouts, :app},
       on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
       # Core application routes requiring login
       live "/", DiaryLive

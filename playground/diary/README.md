@@ -36,8 +36,9 @@ lib/
     ├── components/                 # 🧩 [コンポーネント群]
     │   ├── core_components.ex      # 汎用アトミックUIパーツ (Button, Input, Modal等)
     │   ├── shared/                 # 複数サービス サブドメインをまたいで使う共通の複合UIパーツ (banner_components.ex, user_menu.ex等)
-    │   └── services/               # サービス専用UIコンポーネント
-    │       └── gym/
+    │   └── services/               # サービス専用UIコンポーネント & レイアウト
+    │       ├── gym/                # Gymサービス専用UI & レイアウト (layouts.ex等)
+    │       └── lang/               # Langサービス専用UI & レイアウト (layouts.ex等)
     │
     ├── live/                       # ⚡ [LiveView 画面]
     │   ├── gym/                    # gym.example.com 用 LiveView
@@ -59,12 +60,13 @@ lib/
 
 ---
 
-## 🚦 サブドメインルーティング方針 (`router.ex`)
+## 🚦 サブドメインルーティング & Phoenix 標準レイアウト方針 (`router.ex`)
 
 新規サービスを追加する際は、`router.ex` で `host:` オプションを指定した `scope` を定義し、Webリクエストをサブドメインごとに分離します。
+また、Phoenix LiveView の標準レイアウト機能（`layout: {Module, :app}`）を使用し、サブドメインごとに最適なレイアウトを自動適用します。
 
 ```elixir
-# Router example for multi-subdomain routing
+# Router example for multi-subdomain routing with Phoenix native layouts
 defmodule DiaryWeb.Router do
   use DiaryWeb, :router
 
@@ -72,16 +74,35 @@ defmodule DiaryWeb.Router do
   scope "/", DiaryWeb.Gym, host: ["gym.", "gym.localhost"] do
     pipe_through [:browser, :require_authenticated_user]
 
-    live_session :gym_session, on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
+    live_session :gym_session,
+      layout: {DiaryWeb.Services.Gym.Layouts, :app},
+      on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
       live "/", DiaryLive, :index
       live "/workout", WorkoutLive, :index
     end
   end
 
-  # Subdomain scope for future Service B
-  # scope "/", DiaryWeb.ServiceB, host: ["service_b.", "service_b.localhost"] do ... end
+  # Subdomain scope for Language application
+  scope "/", DiaryWeb.Lang, host: ["lang.", "lang.localhost"] do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live_session :lang_session,
+      layout: {DiaryWeb.Services.Lang.Layouts, :app},
+      on_mount: [{DiaryWeb.UserAuth, :require_authenticated}] do
+      live "/", Index, :index
+    end
+  end
 end
 ```
+
+### Phoenix 標準レイアウトの基本原則 (Phoenix Native Layout Principles)
+
+1. **レイアウトモジュールでの `{@inner_content}` 利用**:
+   - `lib/diary_web/components/services/<service>/layouts.ex` モジュール内では、Phoenix 標準のアサイン **`{@inner_content}`** を受け取る設計とします（手動の `slot :inner_block` 囲みは使用しません）。
+2. **LiveView 側のボイラープレート削除**:
+   - 各 LiveView テンプレート内で、重層的な `<Layouts.app>` や `<.app>` ラッパータグを手動で囲まないでください。ルーターが自動適用するレイアウトに描画を任せ、LiveView は自身のビューロジックに集中します。
+3. **レイアウトメタ情報（`active_tab` や `page_title`）の伝搬**:
+   - サイドバーやヘッダーのアクティブタブ状態（`active_tab`）は、LiveView の `mount` または `handle_params` にて `socket |> assign(:active_tab, "diary")`（または `"stats"`, `"timer"` 等）をアサインすることで、ルーター適用レイアウトへシームレスに伝導させます。
 
 ---
 
@@ -147,6 +168,13 @@ Phoenix / LiveView (`.heex`, `.html.heex`) テンプレートでコメントを�
 - ❌ 非推奨: `<%# コメント %>` （コンパイル時警告が出ます）
 - ⭕️ 推奨: `<%!-- コメント --%>` （HTML出力に含まれないサーバーサイドコメント）
 
+### UI アイコン標準ルール (Heroicons vs. Unicode Emojis)
+
+UI上でアイコンを表示する際は、OSやデバイス等の閲覧環境によってデザインが異なったり文字化け・表示崩れを起こすテキスト絵文字（Unicode Emoji: 💬, 🏋️ 等）を直接使用せず、必ず **Phoenix 標準の Heroicons コンポーネント (`<.icon name="..." />`)** を使用してください。
+
+- ❌ 非推奨: `<div>💬</div>` （環境依存により表示が崩れる可能性があります）
+- ⭕️ 推奨: `<.icon name="hero-language" class="size-5" />` （全環境で均一なベクトルアイコン表示）
+
 ---
 
 ## ⚡️ JS Hook ディレクトリ分割ルール (`assets/js/hooks/`)
@@ -188,9 +216,11 @@ assets/js/
 ## 🤖 AI アシスタントへの指示 (Instructions for AI)
 
 - コード生成やディレクトリ作成を行う際は、上記の `services/<service_name>` 境界を必ず遵守してください。
+- サブドメインおよびサービスごとのレイアウトは Phoenix LiveView の標準機能（`router.ex` での `layout: {DiaryWeb.Services.<Service>.Layouts, :app}` 自動適用）を使用してください。LiveView テンプレート内で手動の `<Layouts.app>` 等のラッパータグで重層的に囲まないでください。
 - サービス固有のロジックやUIを `shared` や `core_components.ex` に直接混入させないでください。
 - 複数サービスや全サブドメインで共有するUIコンポーネント（例: `UnderDevelopmentBanner` など）は、`lib/diary_web/components/shared/` 配下（例: `banner_components.ex`）に配置し、`diary_web.ex` の `html_helpers` で集約インポートして各サービスから再利用可能にしてください。
 - コンポーネントを作成する際は、汎用パーツ（`core_components.ex`）、サービス共通（`components/shared/`）、サービス固有（`components/services/<service_name>/`）を明確に区別して適切なディレクトリに配置してください。
 - HEEx テンプレート (`.heex`, `.html.heex`) 内のコメントアウトには、非推奨の `<%# ... %>` ではなく、必ず **`<%!-- ... --%>`** 構文を使用してください。
+- UIのアイコン表示にはOS・環境依存のテキスト絵文字（💬, 🏋️ 等）を使用せず、必ず Phoenix 標準の **Heroicons コンポーネント (`<.icon name="hero-..." />`)** を使用してください。
 - LiveView の JS Hook を作成する際は `app.js` に直接定義せず、必ず `assets/js/hooks/shared/` または `assets/js/hooks/services/<service_name>/` 配下に分割作成し、`assets/js/hooks/index.js` からインポートしてください。
 - JS パッケージを追加・利用する際は `app/assets` 配下で **Bun (`bun`)** を使用してください。

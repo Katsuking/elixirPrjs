@@ -21,169 +21,166 @@ defmodule DiaryWeb.TimerLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} active_tab="timer">
-      <div class="max-w-md mx-auto bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 overflow-hidden transition-all duration-300">
+    <div class="max-w-md mx-auto bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-slate-100 dark:border-zinc-850 overflow-hidden transition-all duration-300">
+      
+      <!-- Container with TimerHook. phx-update="ignore" guarantees no DOM resets during operations.
+           Tabs are placed inside the container so they are protected from DOM patches. -->
+      <div id="timer-hook-container" phx-hook=".TimerHook" phx-update="ignore" class="w-full">
         
-        <!-- Container with TimerHook. phx-update="ignore" guarantees no DOM resets during operations.
-             Tabs are placed inside the container so they are protected from DOM patches. -->
-        <div id="timer-hook-container" phx-hook=".TimerHook" phx-update="ignore" class="w-full">
+        <!-- Tab selector for mode (Timer vs Stopwatch) -->
+        <div id="timer-tabs" class="flex border-b border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/50">
+          <button
+            id="tab-timer"
+            class="flex-1 py-4 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 border-b-2 border-zinc-850 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-900"
+          >
+            <.icon name="hero-clock" class="size-4" />
+            {gettext("Timer")}
+          </button>
+          <button
+            id="tab-stopwatch"
+            class="flex-1 py-4 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 border-b-2 border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300"
+          >
+            <.icon name="hero-stopwatch" class="size-4" />
+            {gettext("Stopwatch")}
+          </button>
+        </div>
+
+        <!-- Content Wrapper -->
+        <div class="p-8 space-y-8 flex flex-col items-center">
           
-          <!-- Tab selector for mode (Timer vs Stopwatch) -->
-          <div id="timer-tabs" class="flex border-b border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900/50">
-            <button
-              id="tab-timer"
-              class="flex-1 py-4 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 border-b-2 border-zinc-850 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-900"
-            >
-              <.icon name="hero-clock" class="size-4" />
-              {gettext("Timer")}
-            </button>
-            <button
-              id="tab-stopwatch"
-              class="flex-1 py-4 text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 border-b-2 border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-zinc-300"
-            >
-              <.icon name="hero-stopwatch" class="size-4" />
-              {gettext("Stopwatch")}
-            </button>
+          <!-- --- TIMER MODE VIEW --- -->
+          <div id="timer-view" class="w-full flex flex-col items-center space-y-8">
+            <!-- Circular Progress SVG for visual countdown countdown -->
+            <div class="relative w-64 h-64 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90">
+                <!-- Outer Track -->
+                <circle
+                  cx="128"
+                  cy="128"
+                  r="110"
+                  class="stroke-slate-100 dark:stroke-zinc-800 fill-none"
+                  stroke-width="8"
+                />
+                <!-- Inner Active Bar -->
+                <circle
+                  id="timer-progress-ring"
+                  cx="128"
+                  cy="128"
+                  r="110"
+                  class="stroke-zinc-800 dark:stroke-zinc-100 fill-none transition-all duration-100 ease-linear"
+                  stroke-width="8"
+                  stroke-dasharray="691.15"
+                  stroke-dashoffset="0"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <!-- Center Text displaying current time -->
+              <div class="absolute flex flex-col items-center">
+                <span id="timer-display" class="text-5xl font-black tabular-nums tracking-tighter text-zinc-800 dark:text-zinc-100">
+                  03:00
+                </span>
+                <span id="timer-status-text" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+                  Ready
+                </span>
+              </div>
+            </div>
+
+            <!-- Custom Quick Time Selectors for workout intervals -->
+            <div id="timer-presets" class="w-full grid grid-cols-5 gap-2">
+              <button data-seconds="30" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+30s</button>
+              <button data-seconds="60" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+1m</button>
+              <button data-seconds="120" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+2m</button>
+              <button data-seconds="180" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+3m</button>
+              <button data-seconds="300" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+5m</button>
+            </div>
+
+            <!-- Manual Adjustments (+/-) -->
+            <div id="timer-adjusters" class="flex items-center gap-6 text-slate-500">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black uppercase tracking-wider">{gettext("Min")}</span>
+                <button id="btn-dec-min" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
+                  <.icon name="hero-minus" class="size-3.5" />
+                </button>
+                <button id="btn-inc-min" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
+                  <.icon name="hero-plus" class="size-3.5" />
+                </button>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black uppercase tracking-wider">{gettext("Sec")}</span>
+                <button id="btn-dec-sec" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
+                  <.icon name="hero-minus" class="size-3.5" />
+                </button>
+                <button id="btn-inc-sec" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
+                  <.icon name="hero-plus" class="size-3.5" />
+                </button>
+              </div>
+            </div>
+
+            <!-- Start / Pause / Reset Controls -->
+            <div class="flex items-center justify-center gap-4 w-full">
+              <button
+                id="btn-timer-reset"
+                class="flex-1 py-3.5 border border-zinc-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-extrabold rounded-2xl hover:bg-slate-50 dark:hover:bg-zinc-850 hover:text-zinc-800 dark:hover:text-zinc-100 transition-colors duration-200 cursor-pointer text-sm"
+              >
+                Reset
+              </button>
+              <button
+                id="btn-timer-start-pause"
+                class="flex-[2] py-3.5 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm flex items-center justify-center gap-2"
+              >
+                <span id="icon-timer-play-pause">
+                  <.icon name="hero-play" class="size-4" />
+                </span>
+                <span id="lbl-timer-start-pause">Start</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Content Wrapper -->
-          <div class="p-8 space-y-8 flex flex-col items-center">
-            
-            <!-- --- TIMER MODE VIEW --- -->
-            <div id="timer-view" class="w-full flex flex-col items-center space-y-8">
-              <!-- Circular Progress SVG for visual countdown countdown -->
-              <div class="relative w-64 h-64 flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90">
-                  <!-- Outer Track -->
-                  <circle
-                    cx="128"
-                    cy="128"
-                    r="110"
-                    class="stroke-slate-100 dark:stroke-zinc-800 fill-none"
-                    stroke-width="8"
-                  />
-                  <!-- Inner Active Bar -->
-                  <circle
-                    id="timer-progress-ring"
-                    cx="128"
-                    cy="128"
-                    r="110"
-                    class="stroke-zinc-800 dark:stroke-zinc-100 fill-none transition-all duration-100 ease-linear"
-                    stroke-width="8"
-                    stroke-dasharray="691.15"
-                    stroke-dashoffset="0"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <!-- Center Text displaying current time -->
-                <div class="absolute flex flex-col items-center">
-                  <span id="timer-display" class="text-5xl font-black tabular-nums tracking-tighter text-zinc-800 dark:text-zinc-100">
-                    03:00
-                  </span>
-                  <span id="timer-status-text" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                    Ready
-                  </span>
-                </div>
-              </div>
-
-              <!-- Custom Quick Time Selectors for workout intervals -->
-              <div id="timer-presets" class="w-full grid grid-cols-5 gap-2">
-                <button data-seconds="30" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+30s</button>
-                <button data-seconds="60" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+1m</button>
-                <button data-seconds="120" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+2m</button>
-                <button data-seconds="180" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+3m</button>
-                <button data-seconds="300" class="py-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 rounded-xl text-xs font-black text-slate-500 dark:text-zinc-400 hover:text-zinc-850 dark:hover:text-zinc-200 transition-colors cursor-pointer">+5m</button>
-              </div>
-
-              <!-- Manual Adjustments (+/-) -->
-              <div id="timer-adjusters" class="flex items-center gap-6 text-slate-500">
-                <div class="flex items-center gap-2">
-                  <span class="text-[10px] font-black uppercase tracking-wider">{gettext("Min")}</span>
-                  <button id="btn-dec-min" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
-                    <.icon name="hero-minus" class="size-3.5" />
-                  </button>
-                  <button id="btn-inc-min" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
-                    <.icon name="hero-plus" class="size-3.5" />
-                  </button>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-[10px] font-black uppercase tracking-wider">{gettext("Sec")}</span>
-                  <button id="btn-dec-sec" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
-                    <.icon name="hero-minus" class="size-3.5" />
-                  </button>
-                  <button id="btn-inc-sec" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800 border border-slate-100 dark:border-zinc-800/60 cursor-pointer">
-                    <.icon name="hero-plus" class="size-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              <!-- Start / Pause / Reset Controls -->
-              <div class="flex items-center justify-center gap-4 w-full">
-                <button
-                  id="btn-timer-reset"
-                  class="flex-1 py-3.5 border border-zinc-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-extrabold rounded-2xl hover:bg-slate-50 dark:hover:bg-zinc-850 hover:text-zinc-800 dark:hover:text-zinc-100 transition-colors duration-200 cursor-pointer text-sm"
-                >
-                  Reset
-                </button>
-                <button
-                  id="btn-timer-start-pause"
-                  class="flex-[2] py-3.5 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm flex items-center justify-center gap-2"
-                >
-                  <span id="icon-timer-play-pause">
-                    <.icon name="hero-play" class="size-4" />
-                  </span>
-                  <span id="lbl-timer-start-pause">Start</span>
-                </button>
-              </div>
+          <!-- --- STOPWATCH MODE VIEW --- -->
+          <div id="stopwatch-view" class="w-full hidden flex flex-col items-center space-y-8">
+            <!-- Stopwatch numerical display -->
+            <div class="w-full py-12 flex flex-col items-center bg-slate-50/40 dark:bg-zinc-800/10 border border-slate-100/60 dark:border-zinc-850 rounded-3xl">
+              <span id="stopwatch-display" class="text-6xl font-black tabular-nums tracking-tighter text-zinc-800 dark:text-zinc-100">
+                00:00.00
+              </span>
+              <span id="stopwatch-status-text" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">
+                Stopwatch
+              </span>
             </div>
 
-            <!-- --- STOPWATCH MODE VIEW --- -->
-            <div id="stopwatch-view" class="w-full hidden flex flex-col items-center space-y-8">
-              <!-- Stopwatch numerical display -->
-              <div class="w-full py-12 flex flex-col items-center bg-slate-50/40 dark:bg-zinc-800/10 border border-slate-100/60 dark:border-zinc-850 rounded-3xl">
-                <span id="stopwatch-display" class="text-6xl font-black tabular-nums tracking-tighter text-zinc-800 dark:text-zinc-100">
-                  00:00.00
+            <!-- Controls (Reset / Lap and Start / Pause) -->
+            <div class="flex items-center justify-center gap-4 w-full">
+              <button
+                id="btn-stopwatch-reset-lap"
+                class="flex-1 py-3.5 border border-zinc-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-extrabold rounded-2xl hover:bg-slate-50 dark:hover:bg-zinc-850 hover:text-zinc-800 dark:hover:text-zinc-100 transition-colors duration-200 cursor-pointer text-sm"
+              >
+                Reset
+              </button>
+              <button
+                id="btn-stopwatch-start-pause"
+                class="flex-[2] py-3.5 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm flex items-center justify-center gap-2"
+              >
+                <span id="icon-stopwatch-play-pause">
+                  <.icon name="hero-play" class="size-4" />
                 </span>
-                <span id="stopwatch-status-text" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">
-                  Stopwatch
-                </span>
-              </div>
-
-              <!-- Controls (Reset / Lap and Start / Pause) -->
-              <div class="flex items-center justify-center gap-4 w-full">
-                <button
-                  id="btn-stopwatch-reset-lap"
-                  class="flex-1 py-3.5 border border-zinc-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-400 font-extrabold rounded-2xl hover:bg-slate-50 dark:hover:bg-zinc-850 hover:text-zinc-800 dark:hover:text-zinc-100 transition-colors duration-200 cursor-pointer text-sm"
-                >
-                  Reset
-                </button>
-                <button
-                  id="btn-stopwatch-start-pause"
-                  class="flex-[2] py-3.5 bg-zinc-800 hover:bg-zinc-900 text-white font-extrabold rounded-2xl shadow-md transition-all duration-200 cursor-pointer text-sm flex items-center justify-center gap-2"
-                >
-                  <span id="icon-stopwatch-play-pause">
-                    <.icon name="hero-play" class="size-4" />
-                  </span>
-                  <span id="lbl-stopwatch-start-pause">Start</span>
-                </button>
-              </div>
-
-              <!-- Lap Times Container -->
-              <div id="stopwatch-laps-container" class="w-full hidden space-y-3.5">
-                <h3 class="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest">
-                  {gettext("Lap Times")}
-                </h3>
-                <div id="stopwatch-laps-list" class="max-h-48 overflow-y-auto space-y-2 pr-1 divide-y divide-slate-100 dark:divide-zinc-850">
-                  <!-- Rendered dynamically by javascript -->
-                </div>
-              </div>
+                <span id="lbl-stopwatch-start-pause">Start</span>
+              </button>
             </div>
 
+            <!-- Lap Times Container -->
+            <div id="stopwatch-laps-container" class="w-full hidden space-y-3.5">
+              <h3 class="text-xs font-bold text-slate-400 dark:text-zinc-400 uppercase tracking-widest">
+                {gettext("Lap Times")}
+              </h3>
+              <div id="stopwatch-laps-list" class="max-h-48 overflow-y-auto space-y-2 pr-1 divide-y divide-slate-100 dark:divide-zinc-850">
+                <!-- Rendered dynamically by javascript -->
+              </div>
+            </div>
           </div>
 
         </div>
       </div>
-    </Layouts.app>
+    </div>
 
     <script :type={Phoenix.LiveView.ColocatedHook} name=".TimerHook">
       export default {
