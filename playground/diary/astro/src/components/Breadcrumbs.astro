@@ -1,0 +1,78 @@
+---
+// Breadcrumbs component supporting 3-tier category hierarchy
+interface Props {
+  category?: {
+    main: string;
+    sub?: string;
+    child?: string;
+  };
+  title: string;
+}
+
+const { category, title } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol>
+    <li><a href="/">Home</a></li>
+
+    {category?.main && (
+      <>
+        <li class="separator">/</li>
+        <li><span>{category.main}</span></li>
+      </>
+    )}
+
+    {category?.sub && (
+      <>
+        <li class="separator">/</li>
+        <li><span>{category.sub}</span></li>
+      </>
+    )}
+
+    {category?.child && (
+      <>
+        <li class="separator">/</li>
+        <li><span>{category.child}</span></li>
+      </>
+    )}
+
+    <li class="separator">/</li>
+    <li class="current" aria-current="page">{title}</li>
+  </ol>
+</nav>
+
+<style>
+  /* Breadcrumbs styling for dark theme */
+  .breadcrumbs {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+  }
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.4rem;
+  }
+  .breadcrumbs a {
+    color: #38bdf8;
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .separator {
+    color: #475569;
+  }
+  .current {
+    color: #cbd5e1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  prevPost?: CollectionEntry<'blog'>;
+  nextPost?: CollectionEntry<'blog'>;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+{(prevPost || nextPost) && (
+  <nav aria-label="Previous and Next Posts" class="prev-next-nav">
+    <div class="prev">
+      {prevPost && (
+        <a href={`/blog/${prevPost.slug}`}>
+          <span class="label">← 前の記事</span>
+          <span class="title">{prevPost.data.title}</span>
+        </a>
+      )}
+    </div>
+
+    <div class="next">
+      {nextPost && (
+        <a href={`/blog/${nextPost.slug}`}>
+          <span class="label">次の記事 →</span>
+          <span class="title">{nextPost.data.title}</span>
+        </a>
+      )}
+    </div>
+  </nav>
+)}
+
+<style>
+  /* Previous / Next post navigation styling */
+  .prev-next-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #334155;
+  }
+  .prev, .next {
+    display: flex;
+  }
+  .next {
+    justify-content: flex-end;
+    text-align: right;
+  }
+  a {
+    display: flex;
+    flex-direction: column;
+    padding: 0.8rem 1rem;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    width: 100%;
+    transition: border-color 0.2s ease, transform 0.1s ease;
+  }
+  a:hover {
+    border-color: #38bdf8;
+    transform: translateY(-2px);
+  }
+  .label {
+    font-size: 0.75rem;
+    color: #38bdf8;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .title {
+    font-size: 0.9rem;
+    color: #f8fafc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+</style>

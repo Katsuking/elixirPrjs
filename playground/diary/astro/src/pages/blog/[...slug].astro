@@ -1,0 +1,54 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { getReadingTime } from '../../utils/readingTime';
+import { getRelatedPosts } from '../../utils/relatedPosts';
+
+// Dynamic route generation for all MDX/Markdown files in src/content/blog/
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  
+  // Sort posts by date ascending for sequential prev/next logic
+  const sortedPosts = posts.sort(
+    (a, b) => new Date(a.data.pubDate).getTime() - new Date(b.data.pubDate).getTime()
+  );
+
+  return sortedPosts.map((entry: CollectionEntry<'blog'>, index: number) => {
+    const prevPost = index > 0 ? sortedPosts[index - 1] : undefined;
+    const nextPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : undefined;
+    const relatedPosts = getRelatedPosts(entry, sortedPosts, 3);
+
+    return {
+      params: { slug: entry.slug },
+      props: { entry, prevPost, nextPost, relatedPosts },
+    };
+  });
+}
+
+// Define Props type explicitly for Astro.props
+type Props = {
+  entry: CollectionEntry<'blog'>;
+  prevPost?: CollectionEntry<'blog'>;
+  nextPost?: CollectionEntry<'blog'>;
+  relatedPosts?: CollectionEntry<'blog'>[];
+};
+
+const { entry, prevPost, nextPost, relatedPosts } = Astro.props;
+const { Content } = await entry.render();
+const readingTime = getReadingTime(entry.body);
+---
+
+<BlogPostLayout
+  title={entry.data.title}
+  pubDate={entry.data.pubDate}
+  description={entry.data.description}
+  author={entry.data.author}
+  category={entry.data.category}
+  tags={entry.data.tags}
+  readingTime={readingTime}
+  prevPost={prevPost}
+  nextPost={nextPost}
+  relatedPosts={relatedPosts}
+>
+  <Content />
+</BlogPostLayout>

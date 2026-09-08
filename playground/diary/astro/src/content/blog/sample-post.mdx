@@ -1,0 +1,27 @@
+---
+title: "React Components in Markdown (MDX Demo)"
+pubDate: 2026-09-08
+description: "Demonstrating MDX support with interactive React component fetching JSONPlaceholder API."
+author: "Antigravity Agent"
+category:
+  main: "Tech"
+  sub: "Frontend"
+  child: "React"
+tags: ["react", "mdx", "astro"]
+---
+
+import UserFetcher from '../../components/UserFetcher';
+
+# React Integration in MDX
+
+This post is written in **MDX (Markdown + JSX)**!
+
+Below is a live React component fetching user data asynchronously from **JSONPlaceholder**:
+
+{/* <UserFetcher client:load /> */}
+
+## Features of this Setup
+
+1. **Markdown Simplicity**: Write rich text with standard Markdown formatting.
+2. **React Dynamic Interactivity**: Use `client:load` to hydrate React components only when needed.
+3. **Type-Safe Content**: Validated using Astro Content Collections with Zod.

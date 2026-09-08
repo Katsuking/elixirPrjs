@@ -1,0 +1,86 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts && posts.length > 0 && (
+  <section class="related-section">
+    <h3>関連記事</h3>
+    <div class="related-grid">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}`} class="card">
+          {post.data.category && (
+            <span class="category-badge">
+              {post.data.category.child || post.data.category.sub || post.data.category.main}
+            </span>
+          )}
+          <span class="card-title">{post.data.title}</span>
+          <span class="card-date">
+            {new Date(post.data.pubDate).toLocaleDateString()}
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  /* Related posts grid container */
+  .related-section {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #334155;
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: #38bdf8;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.1s ease;
+  }
+  .card:hover {
+    border-color: #f43f5e;
+    transform: translateY(-2px);
+  }
+  .category-badge {
+    align-self: flex-start;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    background-color: #1e293b;
+    color: #f43f5e;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .card-title {
+    font-size: 0.9rem;
+    color: #f8fafc;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  .card-date {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: auto;
+  }
+</style>
