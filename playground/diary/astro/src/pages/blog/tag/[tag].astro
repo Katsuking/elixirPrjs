@@ -2,79 +2,41 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Icon } from 'astro-icon/components';
 
-// Generate static paths for all 3-tier category combinations
+// Generate static paths for all unique blog tags
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
 
-  // Map to track unique category path strings and matching posts
-  const categoryMap = new Map<
-    string,
-    { pathParts: string[]; posts: CollectionEntry<'blog'>[] }
-  >();
+  // Map to collect all tags and associated posts
+  const tagMap = new Map<string, CollectionEntry<'blog'>[]>();
 
   for (const post of posts) {
-    const cat = post.data.category;
-    if (!cat || !cat.main) continue;
-
-    // 1. Level 1: Main category
-    const mainPath = cat.main;
-    if (!categoryMap.has(mainPath)) {
-      categoryMap.set(mainPath, { pathParts: [cat.main], posts: [] });
-    }
-    categoryMap.get(mainPath)!.posts.push(post);
-
-    // 2. Level 2: Sub category
-    if (cat.sub) {
-      const subPath = `${cat.main}/${cat.sub}`;
-      if (!categoryMap.has(subPath)) {
-        categoryMap.set(subPath, { pathParts: [cat.main, cat.sub], posts: [] });
+    const tags = post.data.tags || [];
+    for (const tag of tags) {
+      if (!tagMap.has(tag)) {
+        tagMap.set(tag, []);
       }
-      categoryMap.get(subPath)!.posts.push(post);
-
-      // 3. Level 3: Child category
-      if (cat.child) {
-        const childPath = `${cat.main}/${cat.sub}/${cat.child}`;
-        if (!categoryMap.has(childPath)) {
-          categoryMap.set(childPath, {
-            pathParts: [cat.main, cat.sub, cat.child],
-            posts: [],
-          });
-        }
-        categoryMap.get(childPath)!.posts.push(post);
-      }
+      tagMap.get(tag)!.push(post);
     }
   }
 
-  return Array.from(categoryMap.entries()).map(([categoryPathStr, { pathParts, posts }]) => {
-    // Sort posts by publish date descending
-    const sortedPosts = posts.sort(
+  return Array.from(tagMap.entries()).map(([tag, matchingPosts]) => {
+    // Sort posts by date descending
+    const sortedPosts = matchingPosts.sort(
       (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
     );
     return {
-      params: { category: categoryPathStr },
-      props: { pathParts, posts: sortedPosts },
+      params: { tag },
+      props: { tag, posts: sortedPosts },
     };
   });
 }
 
 type Props = {
-  pathParts: string[];
+  tag: string;
   posts: CollectionEntry<'blog'>[];
 };
 
-const { pathParts, posts } = Astro.props;
-const currentCategoryName = pathParts[pathParts.length - 1];
-const categoryBreadcrumb = pathParts.join(' / ');
-
-// Construct breadcrumb link items for each category level
-const categoryBreadcrumbItems = pathParts.map((part, index) => {
-  const pathStr = pathParts.slice(0, index + 1).map(encodeURIComponent).join('/');
-  return {
-    name: part,
-    url: `/blog/category/${pathStr}`,
-    isLast: index === pathParts.length - 1,
-  };
-});
+const { tag, posts } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -82,7 +44,7 @@ const categoryBreadcrumbItems = pathParts.map((part, index) => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>カテゴリ: {categoryBreadcrumb} | WayUp Blog</title>
+    <title>タグ: #{tag} | WayUp Blog</title>
     <style>
       *, *::before, *::after {
         box-sizing: border-box;
@@ -197,25 +159,15 @@ const categoryBreadcrumbItems = pathParts.map((part, index) => {
   </head>
   <body>
     <main>
-      <!-- Category breadcrumbs with active links for each level -->
+      <!-- Tag breadcrumbs -->
       <nav aria-label="Breadcrumb" class="breadcrumbs">
-        <a href="/">Home</a> / <a href="/blog/categories">カテゴリ一覧</a>
-        {categoryBreadcrumbItems.map((item) => (
-          <>
-            {' / '}
-            {item.isLast ? (
-              <span aria-current="page">{item.name}</span>
-            ) : (
-              <a href={item.url}>{item.name}</a>
-            )}
-          </>
-        ))}
+        <a href="/">Home</a> / <a href="/blog/categories">カテゴリ一覧</a> / <span>タグ: #{tag}</span>
       </nav>
 
-      <h1><Icon name="heroicons:folder-open" class="icon-inline" /> カテゴリ: {currentCategoryName}</h1>
+      <h1><Icon name="heroicons:tag" class="icon-inline" /> タグ: #{tag}</h1>
       <div class="count-badge">全 {posts.length} 件の記事</div>
 
-      <!-- Articles list grid -->
+      <!-- Articles list grid for this tag -->
       <div class="post-grid">
         {posts.map((post) => (
           <a href={`/blog/${post.slug}`} class="post-card">
