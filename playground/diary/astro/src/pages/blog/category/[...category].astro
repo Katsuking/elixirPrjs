@@ -65,6 +65,16 @@ type Props = {
 const { pathParts, posts } = Astro.props;
 const currentCategoryName = pathParts[pathParts.length - 1];
 const categoryBreadcrumb = pathParts.join(' / ');
+
+// Construct breadcrumb link items for each category level
+const categoryBreadcrumbItems = pathParts.map((part, index) => {
+  const pathStr = pathParts.slice(0, index + 1).map(encodeURIComponent).join('/');
+  return {
+    name: part,
+    url: `/blog/category/${pathStr}`,
+    isLast: index === pathParts.length - 1,
+  };
+});
 ---
 
 <!DOCTYPE html>
@@ -187,9 +197,19 @@ const categoryBreadcrumb = pathParts.join(' / ');
   </head>
   <body>
     <main>
-      <!-- Category breadcrumbs -->
+      <!-- Category breadcrumbs with active links for each level -->
       <nav aria-label="Breadcrumb" class="breadcrumbs">
-        <a href="/">Home</a> / <a href="/blog/categories">カテゴリ一覧</a> / <span>{categoryBreadcrumb}</span>
+        <a href="/">Home</a> / <a href="/blog/categories">カテゴリ一覧</a>
+        {categoryBreadcrumbItems.map((item) => (
+          <>
+            {' / '}
+            {item.isLast ? (
+              <span aria-current="page">{item.name}</span>
+            ) : (
+              <a href={item.url}>{item.name}</a>
+            )}
+          </>
+        ))}
       </nav>
 
       <h1><Icon name="heroicons:folder-open" class="icon-inline" /> カテゴリ: {currentCategoryName}</h1>

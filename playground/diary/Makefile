@@ -89,4 +89,10 @@ deploy:
 prod-test-failover:
 	ssh conoha "cd /var/www/diary && bash prod/test_failover.sh"
 
+# Sync Astro content collection types and verify static build
+.PHONY: astro-build
+astro-build:
+	cd astro && bun run astro sync && bun run build
+
+
 

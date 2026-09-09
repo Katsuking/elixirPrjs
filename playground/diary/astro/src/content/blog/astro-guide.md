@@ -1,23 +1,23 @@
 ---
-title: "Getting Started with Astro & Content Layer"
+title: 'Astro とコンテンツレイヤーの始め方'
 pubDate: 2026-09-09
-description: "A comprehensive guide to building fast websites with Astro content collections."
-author: "Antigravity Agent"
+description: 'Astroのコンテンツコレクションを使用して高速なWebサイトを構築するためのガイド。'
+author: 'who am i'
 category:
-  main: "Tech"
-  sub: "Frontend"
-  child: "Astro"
-tags: ["astro", "webdev", "react"]
+  main: 'Tech'
+  sub: 'Frontend'
+  child: 'Astro'
+tags: ['astro', 'webdev', 'react']
 ---
 
-# Getting Started with Astro
+# Astro を始めよう
 
-Astro is an all-in-one web framework designed for speed.
+Astro は、スピードを最優先に設計されたオールインワンの Web フレームワークです。
 
-## Why Astro?
+## なぜ Astro なのか？
 
-- **Zero JS by default**: Sends pure HTML to the browser.
-- **Islands Architecture**: Hydrate components on demand.
-- **Content Collections**: Type-safe frontmatter with Zod validation.
+- **デフォルトで JavaScript ゼロ**: ブラウザには純粋な HTML のみを送信します。
+- **アイランドアーキテクチャ**: 必要なコンポーネントだけをオンデマンドでハイドレーションします。
+- **コンテンツコレクション**: Zod バリデーションによる型安全なフロントマター管理が可能です。
 
 Enjoy building with Astro!
