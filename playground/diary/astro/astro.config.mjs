@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
+import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,6 +9,6 @@ export default defineConfig({
   output: 'static',
   // Configure site URL for production canonical URLs
   site: 'https://blog.wayup.cc',
-  // Integrate MDX and React support
-  integrations: [mdx(), react()],
+  // Integrate MDX, React, and Icon support
+  integrations: [mdx(), react(), icon()],
 });

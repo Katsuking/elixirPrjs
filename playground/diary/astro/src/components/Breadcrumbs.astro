@@ -10,6 +10,11 @@ interface Props {
 }
 
 const { category, title } = Astro.props;
+
+// Construct URLs for 3-tier category hierarchy
+const mainUrl = category?.main ? `/blog/category/${encodeURIComponent(category.main)}` : '';
+const subUrl = category?.main && category?.sub ? `/blog/category/${encodeURIComponent(category.main)}/${encodeURIComponent(category.sub)}` : '';
+const childUrl = category?.main && category?.sub && category?.child ? `/blog/category/${encodeURIComponent(category.main)}/${encodeURIComponent(category.sub)}/${encodeURIComponent(category.child)}` : '';
 ---
 
 <nav aria-label="Breadcrumb" class="breadcrumbs">
@@ -19,21 +24,21 @@ const { category, title } = Astro.props;
     {category?.main && (
       <>
         <li class="separator">/</li>
-        <li><span>{category.main}</span></li>
+        <li><a href={mainUrl}>{category.main}</a></li>
       </>
     )}
 
     {category?.sub && (
       <>
         <li class="separator">/</li>
-        <li><span>{category.sub}</span></li>
+        <li><a href={subUrl}>{category.sub}</a></li>
       </>
     )}
 
     {category?.child && (
       <>
         <li class="separator">/</li>
-        <li><span>{category.child}</span></li>
+        <li><a href={childUrl}>{category.child}</a></li>
       </>
     )}
 

@@ -1,12 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 
 // Fetch all posts from content collections
 const posts = await getCollection('blog');
 const title = "WayUp Blog";
 ---
 
-<!usr/html>
+<!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -38,6 +39,12 @@ const title = "WayUp Blog";
         color: #38bdf8;
         margin-top: 0;
       }
+      .icon-inline {
+        width: 1.1em;
+        height: 1.1em;
+        display: inline-block;
+        vertical-align: -0.15em;
+      }
       .post-list {
         list-style: none;
         padding: 0;
@@ -58,12 +65,20 @@ const title = "WayUp Blog";
       a:hover {
         text-decoration: underline;
       }
+      .categories-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        color: #38bdf8;
+      }
     </style>
   </head>
   <body>
     <div class="card">
-      <h1>🚀 Welcome to {title}</h1>
+      <h1><Icon name="heroicons:rocket-launch" class="icon-inline" /> Welcome to {title}</h1>
       <p>This blog is built with Astro & Bun, supporting MDX and React.</p>
+
+      <p><a href="/blog/categories" class="categories-link"><Icon name="heroicons:rectangle-stack" class="icon-inline" /> 全テーマ・カテゴリ一覧を見る →</a></p>
 
       <h2>Latest Articles</h2>
       <ul class="post-list">

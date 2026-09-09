@@ -1,0 +1,232 @@
+---
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+
+const posts = await getCollection('blog');
+
+// Structure for 3-tier category tree
+interface CategoryNode {
+  name: string;
+  count: number;
+  subCategories: Map<string, { name: string; count: number; childCategories: Map<string, number> }>;
+}
+
+const categoryTree = new Map<string, CategoryNode>();
+
+for (const post of posts) {
+  const cat = post.data.category;
+  if (!cat || !cat.main) continue;
+
+  // Main Category
+  if (!categoryTree.has(cat.main)) {
+    categoryTree.set(cat.main, {
+      name: cat.main,
+      count: 0,
+      subCategories: new Map(),
+    });
+  }
+  const mainNode = categoryTree.get(cat.main)!;
+  mainNode.count += 1;
+
+  // Sub Category
+  if (cat.sub) {
+    if (!mainNode.subCategories.has(cat.sub)) {
+      mainNode.subCategories.set(cat.sub, {
+        name: cat.sub,
+        count: 0,
+        childCategories: new Map(),
+      });
+    }
+    const subNode = mainNode.subCategories.get(cat.sub)!;
+    subNode.count += 1;
+
+    // Child Category
+    if (cat.child) {
+      const currentChildCount = subNode.childCategories.get(cat.child) || 0;
+      subNode.childCategories.set(cat.child, currentChildCount + 1);
+    }
+  }
+}
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>全テーマ・カテゴリ一覧 | WayUp Blog</title>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #0f172a;
+        color: #f8fafc;
+        line-height: 1.7;
+        margin: 0;
+        padding: 1.5rem 0.75rem;
+        display: flex;
+        justify-content: center;
+      }
+      main {
+        max-width: 800px;
+        width: 100%;
+        background-color: #1e293b;
+        padding: 2.25rem 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        font-size: clamp(1.4rem, 4.5vw + 0.5rem, 2.25rem);
+        color: #38bdf8;
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .icon-inline {
+        width: 1.1em;
+        height: 1.1em;
+        display: inline-block;
+        vertical-align: -0.15em;
+      }
+      .tree-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .main-cat-card {
+        background-color: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+      }
+      .main-cat-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #38bdf8;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .main-cat-title a {
+        color: #38bdf8;
+        text-decoration: none;
+      }
+      .main-cat-title a:hover {
+        text-decoration: underline;
+      }
+      .badge {
+        font-size: 0.75rem;
+        padding: 0.15rem 0.5rem;
+        background-color: #1e293b;
+        color: #f43f5e;
+        border-radius: 0.25rem;
+        font-weight: 600;
+      }
+      .sub-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding-left: 1rem;
+        border-left: 2px solid #334155;
+        margin-top: 0.5rem;
+      }
+      .sub-cat-item {
+        font-size: 0.95rem;
+      }
+      .sub-cat-item a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .sub-cat-item a:hover {
+        color: #38bdf8;
+        text-decoration: underline;
+      }
+      .child-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.4rem;
+        padding-left: 0.75rem;
+      }
+      .child-cat-item a {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        background-color: #1e293b;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        border: 1px solid #334155;
+      }
+      .child-cat-item a:hover {
+        color: #38bdf8;
+        border-color: #38bdf8;
+      }
+      .back-link {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #334155;
+      }
+      .back-link a {
+        color: #38bdf8;
+        text-decoration: none;
+      }
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+      @media (max-width: 640px) {
+        body { padding: 0.5rem 0.25rem; }
+        main { padding: 1.25rem 1rem; border-radius: 0.75rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1><Icon name="heroicons:rectangle-stack" class="icon-inline" /> 全テーマ・カテゴリ一覧</h1>
+
+      <div class="tree-container">
+        {Array.from(categoryTree.values()).map((mainNode) => (
+          <div class="main-cat-card">
+            <div class="main-cat-title">
+              <a href={`/blog/category/${encodeURIComponent(mainNode.name)}`}>
+                <Icon name="heroicons:folder" class="icon-inline" /> {mainNode.name}
+              </a>
+              <span class="badge">{mainNode.count} 記事</span>
+            </div>
+
+            {mainNode.subCategories.size > 0 && (
+              <div class="sub-list">
+                {Array.from(mainNode.subCategories.values()).map((subNode) => (
+                  <div class="sub-cat-item">
+                    <a href={`/blog/category/${encodeURIComponent(mainNode.name)}/${encodeURIComponent(subNode.name)}`}>
+                      <Icon name="heroicons:folder-open" class="icon-inline" /> {subNode.name}
+                    </a>
+                    <span class="badge">{subNode.count}</span>
+
+                    {subNode.childCategories.size > 0 && (
+                      <div class="child-list">
+                        {Array.from(subNode.childCategories.entries()).map(([childName, childCount]) => (
+                          <div class="child-cat-item">
+                            <a href={`/blog/category/${encodeURIComponent(mainNode.name)}/${encodeURIComponent(subNode.name)}/${encodeURIComponent(childName)}`}>
+                              <Icon name="heroicons:tag" class="icon-inline" /> {childName} ({childCount})
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div class="back-link">
+        <a href="/">← ブログトップへ戻る</a>
+      </div>
+    </main>
+  </body>
+</html>

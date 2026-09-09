@@ -78,4 +78,14 @@ const { prevPost, nextPost } = Astro.props;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+  @media (max-width: 640px) {
+    .prev-next-nav {
+      margin-top: 1.25rem;
+      padding-top: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+    .next {
+      text-align: left;
+    }
+  }
 </style>

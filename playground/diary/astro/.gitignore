@@ -1,14 +1,5 @@
-# Ignore actual environment files containing credentials
-.env*
-.*
-!.env.prod.example
-!.geminiignore
-!.envrc.example
-
-
 # Astro build output directory
-/dist/
-*/**/dist
+dist/
 
 # Node dependencies
 node_modules/
